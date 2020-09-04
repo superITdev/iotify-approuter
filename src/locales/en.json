@@ -1,0 +1,12 @@
+{
+  "general": {
+    "copyright": "2020.09 by xxxx."
+  },
+  "menu": {
+    "deployment": "Deployment",
+    "protocols": "Protocols",
+    "memory": "Memory",
+    "control": "Control",
+    "illustrations": "Illustrations"
+  }
+}
