@@ -5,12 +5,14 @@
             <ul class="list-unstyled">
                 <li v-for="(item,index) in menuItems" :class="{ 'active' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :key="`parent_${item.id}`" :data-flag="item.id">
                     <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
-                        <i :class="item.icon" />
+                        <img :src="item.thumb" alt="icon"/>
                         {{ $t(item.label) }}
                     </a>
-                    <a v-else-if="item.subs && item.subs.length>0" @click.prevent="openSubMenu($event,item)" :href="`#${item.to}`"><i :class="item.icon" />
+                    <a v-else-if="item.subs && item.subs.length>0" @click.prevent="openSubMenu($event,item)" :href="`#${item.to}`">
+                        <img :src="item.thumb" alt="icon"/>
                         {{ $t(item.label) }}</a>
-                    <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to"><i :class="item.icon" />
+                    <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to">
+                        <img :src="item.thumb" alt="icon"/>
                         {{ $t(item.label) }}</router-link>
                 </li>
             </ul>
@@ -19,37 +21,39 @@
 
     <div class="sub-menu">
         <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
-            <ul v-for="(item,itemIndex) in menuItems" :class="{'list-unstyled':true, 'd-block' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :data-parent="item.id" :key="`sub_${item.id}`">
-                <li v-for="(sub,subIndex) in item.subs" :class="{'has-sub-item' : sub.subs && sub.subs.length > 0 , 'active' : $route.path.indexOf(sub.to)>-1}">
-                    <a v-if="sub.newWindow" :href="sub.to" rel="noopener noreferrer" target="_blank">
-                        <i :class="sub.icon" />
-                        <span>{{ $t(sub.label) }}</span>
-                    </a>
-                    <template v-else-if="sub.subs &&  sub.subs.length > 0">
-                        <b-link v-b-toggle="`menu_${itemIndex}_${subIndex}`" variant="link" class="rotate-arrow-icon opacity-50"><i class="simple-icon-arrow-down"></i> <span class="d-inline-block">{{$t(sub.label)}}</span></b-link>
-                        <b-collapse visible :id="`menu_${itemIndex}_${subIndex}`">
-                            <ul class="list-unstyled third-level-menu">
-                                <li v-for="(thirdLevelSub, thirdIndex) in sub.subs" :key="`third_${itemIndex}_${subIndex}_${thirdIndex}`" :class="{'third-level-menu':true , 'active' : $route.path ===thirdLevelSub.to}">
-                                    <a v-if="thirdLevelSub.newWindow" :href="thirdLevelSub.to" rel="noopener noreferrer" target="_blank">
-                                        <i :class="thirdLevelSub.icon" />
-                                        <span>{{ $t(thirdLevelSub.label) }}</span>
-                                    </a>
-
-                                    <router-link v-else :to="thirdLevelSub.to">
-                                        <i :class="thirdLevelSub.icon" />
-                                        <span>{{ $t(thirdLevelSub.label) }}</span>
-                                    </router-link>
-                                </li>
-                            </ul>
-
-                        </b-collapse>
-                    </template>
-                    <router-link v-else :to="sub.to">
-                        <i :class="sub.icon" />
-                        <span>{{ $t(sub.label) }}</span>
-                    </router-link>
-                </li>
-            </ul>
+            <div class="title"> <span>App Router</span>
+                <div class="icon">
+                    <i class="simple-icon-options-vertical" @click="toggle"/>
+                </div>
+            </div>
+            <div :class="{'search':true}" ref="searchContainer" >
+                <b-input :placeholder="$t('menu.search')" />
+                <span class="search-icon">
+                    <i class="simple-icon-magnifier"></i>
+                </span>
+            </div>
+            <div class="mb-4 mt-4">
+                <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection --------------------- +</a>
+                <b-collapse id="deployment">
+                    <b-row>
+                        <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+                            <img src="/assets/img/sample.png" alt="icon"/>
+                            <div class="mt-2">Deployment</div>
+                        </b-colxx>
+                    </b-row>
+                </b-collapse>
+            </div>
+            <div class="mb-4 mt-4">
+                <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ------------------ +</a>
+                <b-collapse id="lorem">
+                    <b-row>
+                        <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+                            <img src="/assets/img/sample1.png" alt="icon"/>
+                            <div class="mt-2">Lorem Ipsum</div>
+                        </b-colxx>
+                    </b-row>
+                </b-collapse>
+            </div>
         </vue-perfect-scrollbar>
     </div>
 </div>
@@ -70,20 +74,44 @@ export default {
     data() {
         return {
             selectedParentMenu: '',
-            isMenuOver: true,
+            isMenuOver: false,
             menuItems,
-            viewingParentMenu: ''
+            viewingParentMenu: '',
+            subItem: [
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                },
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                },
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                },
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                },
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                },
+                {
+                    color: 'red',
+                    name: 'deploayment'
+                }
+            ]
         }
     },
     mounted() {
         this.selectMenu()
         window.addEventListener('resize', this.handleWindowResize)
-        document.addEventListener('click', this.handleDocumentClick)
         this.handleWindowResize()
 
     },
     beforeDestroy() {
-        document.removeEventListener('click', this.handleDocumentClick)
         window.removeEventListener('resize', this.handleWindowResize)
     },
 
@@ -176,24 +204,6 @@ export default {
                     });
                 }
                 this.viewingParentMenu = selectedParent;
-            }
-        },
-        handleDocumentClick(e) {
-            if (!this.isMenuOver) {
-                let cont = true
-                var path = e.path || (e.composedPath && e.composedPath())
-
-                path.map(p => {
-                    if (p.nodeName !== 'svg' && p.nodeName !== 'rect' && p.className !== undefined && p.className.indexOf('menu-button') > -1) {
-                        cont = false
-                    }
-                })
-
-                this.viewingParentMenu = '';
-                this.selectMenu()
-                if (cont || !this.selectedMenuHasSubItems) {
-                    this.toggle()
-                }
             }
         },
         toggle() {

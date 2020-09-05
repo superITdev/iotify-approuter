@@ -13,6 +13,11 @@ const routes = [
         path: "app/blank-page",
         component: () =>
           import(/* webpackChunkName: "blank-page" */ "./views/app/blank-page")
+      },
+      {
+        path: "app/logger-page",
+        component: () =>
+          import(/* webpackChunkName: "blank-page" */ "./views/app/logger-page")
       }
     ]
   }
