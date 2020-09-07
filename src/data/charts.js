@@ -93,20 +93,20 @@ export const scatterChartData = {
 }
 
 export const barChartData = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+  labels: ['16:42:30', '16:42:30', '16:42:30', '16:42:30', '16:42:30', '16:42:30', '16:42:30', '16:42:30', '16:42:30'],
   datasets: [
     {
-      label: 'Cakes',
+      label: '',
       borderColor: colors.themeColor1,
       backgroundColor: colors.themeColor1_10,
-      data: [456, 479, 324, 569, 702, 600],
+      data: [156, 279, 324, 169, 402, 100, 305, 200, 345],
       borderWidth: 2
     },
     {
-      label: 'Desserts',
+      label: '',
       borderColor: colors.themeColor2,
       backgroundColor: colors.themeColor2_10,
-      data: [364, 504, 605, 400, 345, 320],
+      data: [164, 204, 305, 200, 345, 320, 324, 169, 402],
       borderWidth: 2
     }
   ]

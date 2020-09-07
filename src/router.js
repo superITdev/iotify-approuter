@@ -18,6 +18,11 @@ const routes = [
         path: "app/logger-page",
         component: () =>
           import(/* webpackChunkName: "blank-page" */ "./views/app/logger-page")
+      },
+      {
+        path: "app/code-page",
+        component: () =>
+          import(/* webpackChunkName: "blank-page" */ "./views/app/code-page")
       }
     ]
   }

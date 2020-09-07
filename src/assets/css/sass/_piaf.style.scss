@@ -6006,11 +6006,13 @@ input:-webkit-autofill {
   .modal-header,
   .modal-body,
   .modal-footer {
-    padding: 1.75rem;
+    padding: 15px;
   }
 
   .modal-header {
     border-bottom: 1px solid $separator-color;
+    background: #3C198C;
+    color: white;
   }
 
   .modal-footer {
@@ -6025,7 +6027,7 @@ input:-webkit-autofill {
 
 .modal-content {
   border: initial;
-  border-radius: 0.1rem;
+  border-radius: 5px;
   background: $foreground-color;
 }
 
@@ -6376,7 +6378,23 @@ input:-webkit-autofill {
 }
 
 .chart-container {
-  height: 300px;
+  // height: 300px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logger-container {
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  min-height: 450px;
+  margin-top: 30px;
+
+  .logger-content {
+    background: #F7F7F7;
+    min-height: 450px;
+  }
 }
 
 .theme-colors {
@@ -8742,9 +8760,9 @@ i.large-icon {
     .modal-header,
     .modal-body,
     .modal-footer {
-      padding: 1.75rem;
+      padding: 1rem 1rem;
       @include respond-below(xs) {
-        padding: 1.5rem;
+        padding: 1rem;
       }
     }
   }
@@ -9644,6 +9662,90 @@ footer.page-footer {
 
       img {
         vertical-align: sub;
+      }
+    }
+    
+    .logger-delete-btn {
+      cursor: pointer;
+      width: 25px;
+    }
+
+    .code-area {
+      .title {
+        font-size: 22px;
+        margin-left: 10px;
+      }
+
+      img {
+        vertical-align: sub;
+      }
+
+      .global-config {
+        .card-title {
+          margin-bottom: 0;
+          height: 43px;
+          background: #3D63F4;
+          border-top-right-radius: 7px;
+          border-top-left-radius: 7px;
+          padding: 10px;
+          color: white;
+        }
+  
+        .card {
+          border-radius: 7px;
+        }
+      }
+
+      .helper {
+        .card-title {
+          margin-bottom: 0;
+          height: 43px;
+          border-top-right-radius: 7px;
+          border-top-left-radius: 7px;
+          padding: 10px;
+
+          img {
+            vertical-align: middle;
+          }
+        }
+  
+        .card {
+          border-radius: 7px;
+        }
+
+        .card-body {
+          padding: 15px;
+        }
+
+        .logs {
+          background: #F7F7F7;
+          min-height: 100px;
+        }
+      }
+
+      .editer {
+        .blue {
+          color: blue;
+        }
+        
+        .card-title {
+          margin-bottom: 0;
+          height: 43px;
+          border-top-right-radius: 7px;
+          border-top-left-radius: 7px;
+          padding: 10px;
+        }
+  
+        .card {
+          border-radius: 7px;
+        }
+
+        .card-body {
+          min-height: 35vh;
+          background: #414141;
+          border-bottom-right-radius: 7px;
+          border-bottom-left-radius: 7px;
+        }
       }
     }
   }
