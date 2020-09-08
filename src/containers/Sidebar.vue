@@ -5,11 +5,11 @@
             <ul class="list-unstyled">
                 <li v-for="(item,index) in menuItems" :class="{ 'active' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :key="`parent_${item.id}`" :data-flag="item.id">
                     <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
-                        <img :src="item.thumb" alt="icon"/>
+                        <img :src="item.activeThumb" alt="icon"/>
                         {{ $t(item.label) }}
                     </a>
                     <a v-else-if="item.subs && item.subs.length>0" @click.prevent="openSubMenu($event,item)" :href="`#${item.to}`">
-                        <img :src="item.thumb" alt="icon"/>
+                        <img alt="icon" :src="`${(selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id ? item.activeThumb : item.thumb}`"/>
                         {{ $t(item.label) }}</a>
                     <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to">
                         <img :src="item.thumb" alt="icon"/>

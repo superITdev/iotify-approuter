@@ -27,7 +27,7 @@
               <b-row>
                 <b-colxx xxs="6">
                   <b-form-group label="Server Type">
-                    <b-form-checkbox-group>
+                    <b-form-checkbox-group class="inline">
                       <b-form-radio value="first">Simple</b-form-radio>
                       <b-form-radio value="second">Advanced</b-form-radio>
                     </b-form-checkbox-group>
@@ -53,7 +53,47 @@
               <b-row>
                 <b-colxx xxs="12">
                   <b-form-group label="Route Handler">
-                    <b-form-input type="text" />
+                    <b-colxx xxs="12" class="mb-3 p-0">
+                      <b-card class="mb-2" no-body>
+                        <b-tabs card no-fade>
+                          <b-tab title="default" active title-item-class="w-20 text-center">
+                            <b-row>
+                              <b-colxx xxs="3">
+                                <v-select v-model="httpMethodForm.select" :options="selectData" :dir="direction" />
+                              </b-colxx>
+                              <b-colxx xxs="6">
+                                <b-form-input></b-form-input>
+                              </b-colxx>
+                            </b-row>
+                            <b-row class="mt-4">
+                              <b-colxx xxs="12">Derive Channel ID from</b-colxx>
+                            </b-row>
+                            <b-row class="mt-4">
+                              <b-colxx xxs="12">Response Logic</b-colxx>
+                              <b-colxx xxs="12" class="mt-2">
+                                <b-form-radio value="Always HTTP 200">Always HTTP 200</b-form-radio>
+                              </b-colxx>
+                              <b-colxx xxs="12" class="mt-2">
+                                <b-row>
+                                  <b-colxx xxs="3">
+                                    <b-form-radio value="Respond from  Channel">Respond from  Channel</b-form-radio>
+                                  </b-colxx>
+                                  <b-colxx xxs="5">
+                                    <b-form-input></b-form-input>
+                                  </b-colxx>
+                                  <b-colxx xxs="4">
+                                    <b-input-group prepend="Timeout">
+                                      <b-form-input></b-form-input>
+                                    </b-input-group>
+                                  </b-colxx>
+                                </b-row>
+                              </b-colxx>
+                            </b-row>
+                          </b-tab>
+                          <b-tab title="+ Add New" title-item-class="w-20 text-center"></b-tab>
+                        </b-tabs>
+                      </b-card>
+                    </b-colxx>
                   </b-form-group>
                 </b-colxx>
               </b-row>
@@ -68,6 +108,8 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
 import {
     getDirection
 } from '../../utils'
@@ -75,6 +117,7 @@ import {
 export default {
   components: {
     'vue-slider': VueSlider,
+    'v-select': vSelect,
   },
   data() {
     return {
@@ -82,6 +125,16 @@ export default {
       direction: getDirection().direction,
       sliderDoubleValue: [100, 400],
       sliderData: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+      httpMethodForm: {
+        select: 'GET',
+      },
+      direction: getDirection().direction,
+      selectData: [
+        'GET',
+        'POST',
+        'PUT',
+        'DELETE'
+      ],
     }
   },
   methods: {
