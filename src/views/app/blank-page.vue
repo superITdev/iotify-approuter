@@ -19,17 +19,23 @@
       </b-colxx>
       <b-colxx xxs="6" class="right-icon">
         <b-row>
-          <b-card class="text-center">
+          <b-card class="text-center mt-5">
             <img src="/assets/img/work/logger.png" alt="logger" @click="goToPage('/app/logger-page')" />
             <img src="/assets/img/work/code-pen.png" alt="code-pen" @click="goToPage('/app/code-page')" />
             <img src="/assets/img/work/setting.png" alt="setting" v-b-modal.httpsetting />
             <b-modal id="httpsetting" size="lg" title="HTTP Settings" hide-footer>
-              <b-row>
+              <b-row class="mb-3 mt-2">
                 <b-colxx xxs="6">
                   <b-form-group label="Server Type">
-                    <b-form-checkbox-group class="inline">
-                      <b-form-radio value="first">Simple</b-form-radio>
-                      <b-form-radio value="second">Advanced</b-form-radio>
+                    <b-form-checkbox-group>
+                      <b-row>
+                        <b-colxx xxs="4">
+                          <b-form-radio value="first">Simple</b-form-radio>
+                        </b-colxx>
+                        <b-colxx xxs="4">
+                          <b-form-radio value="second">Advanced</b-form-radio>
+                        </b-colxx>
+                      </b-row>
                     </b-form-checkbox-group>
                   </b-form-group>
                 </b-colxx>
@@ -39,11 +45,13 @@
                     <b-colxx xxs="6"><b-form-radio value="third">Automatic</b-form-radio></b-colxx>
                   </b-row>
                   <b-row>
-                    <vue-slider ref="slider" v-model="sliderDoubleValue" tooltip-dir="['bottom']" :piecewise="true" :data="sliderData" :direction=direction></vue-slider>
+                    <b-colxx xxs="12">
+                      <vue-slider ref="slider" v-model="sliderDoubleValue" tooltip-dir="['bottom']" :piecewise="true" :data="sliderData" :direction=direction></vue-slider>
+                    </b-colxx>
                   </b-row>
                 </b-colxx>
               </b-row>
-              <b-row>
+              <b-row class="mb-3">
                 <b-colxx xxs="6">
                   <b-form-group label="Endpoint URL">
                     <b-form-input type="text" />
@@ -58,10 +66,10 @@
                         <b-tabs card no-fade>
                           <b-tab title="default" active title-item-class="w-20 text-center">
                             <b-row>
-                              <b-colxx xxs="3">
+                              <b-colxx xxs="4">
                                 <v-select v-model="httpMethodForm.select" :options="selectData" :dir="direction" />
                               </b-colxx>
-                              <b-colxx xxs="6">
+                              <b-colxx xxs="7">
                                 <b-form-input></b-form-input>
                               </b-colxx>
                             </b-row>
@@ -123,8 +131,8 @@ export default {
     return {
       fullScreen: false,
       direction: getDirection().direction,
-      sliderDoubleValue: [100, 400],
-      sliderData: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000],
+      sliderDoubleValue: [2, 4],
+      sliderData: [1, 2, 3, 4, 5, 6],
       httpMethodForm: {
         select: 'GET',
       },

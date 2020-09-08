@@ -2338,6 +2338,7 @@ button {
 
     .sub-item-title {
       font-size: 18px;
+      cursor: default;
     }
 
     ul {
@@ -6394,6 +6395,11 @@ input:-webkit-autofill {
   .logger-content {
     background: #F7F7F7;
     min-height: 450px;
+    padding: 10px;
+  }
+
+  .next-line {
+    margin-top: 390px;
   }
 }
 
@@ -9657,7 +9663,7 @@ footer.page-footer {
     .logger-area {
       .title {
         margin-left: 10px;
-        font-size: 30px;
+        font-size: 22px;
       }
 
       img {
@@ -9745,6 +9751,28 @@ footer.page-footer {
           background: #414141;
           border-bottom-right-radius: 7px;
           border-bottom-left-radius: 7px;
+        }
+
+        .code-save-toolbar {
+          padding-right: 5px;
+          .code-save-btn {
+            background: #3D63F4;
+            padding: 8px 20px 10px 20px;
+            border-top-right-radius: 7px;
+            color: white;
+            cursor: pointer;
+          }
+        }
+
+        .code-test-toolbar {
+          padding-right: 5px;
+          .code-test-btn {
+            background: #FFA700;
+            padding: 8px 10px 10px 10px;
+            border-top-right-radius: 7px;
+            color: white;
+            cursor: pointer;
+          }
         }
       }
     }
