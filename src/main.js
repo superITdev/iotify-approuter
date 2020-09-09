@@ -25,6 +25,9 @@ import contentmenu from 'v-contextmenu'
 import VueLineClamp from 'vue-line-clamp'
 import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css'
+import codemirror from 'vue-codemirror'
+import 'codemirror/mode/javascript/javascript.js'
+import 'codemirror/lib/codemirror.css'
 import VueScrollTo from 'vue-scrollto'
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -51,6 +54,7 @@ Vue.component('b-colxx', Colxx);
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar);
 Vue.use(require('vue-shortkey'));
 Vue.use(contentmenu);
+Vue.use(codemirror);
 Vue.use(VueLineClamp, {
   importCss: true
 })

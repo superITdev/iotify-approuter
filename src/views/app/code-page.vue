@@ -10,11 +10,11 @@
       </b-colxx>
     </b-row>
     <b-row class="mt-4">
-      <b-colxx xxs="2" class="global-config">
+      <b-colxx xxs="3" class="global-config">
         <b-card no-body>
           <b-card-title>Global Config</b-card-title>
-          <b-card-body>
-            <div></div>
+          <b-card-body style="padding: 10px;">
+            <vue-tree />
           </b-card-body>
         </b-card>
       </b-colxx>
@@ -33,7 +33,7 @@
                 </b-row>
               </b-card-title>
               <b-card-body>
-                <div></div>
+                <codemirror ref="cmEditor" :value="code" :options="cmOptions"></codemirror>
               </b-card-body>
             </b-card>
           </b-colxx>
@@ -50,9 +50,7 @@
                 </b-row>
               </b-card-title>
               <b-card-body>
-                <div>
-                  <!-- <vue-codemirror></vue-codemirror> -->
-                </div>
+                <codemirror ref="cmEditor" :value="code" :options="cmOptions"></codemirror>
               </b-card-body>
             </b-card>
           </b-colxx>
@@ -66,13 +64,13 @@
                 </b-row>
               </b-card-title>
               <b-card-body>
-                <div></div>
+                <codemirror ref="cmEditor" :value="code" :options="cmOptions"></codemirror>
               </b-card-body>
             </b-card>
           </b-colxx>
         </b-row>
       </b-colxx>
-      <b-colxx xxs="3" class="helper">
+      <b-colxx xxs="2" class="helper">
         <b-card no-body>
           <b-card-title>
             <img src="/assets/img/code/helper.png" alt="helper-function" /> Helper functions
@@ -82,7 +80,7 @@
               <b-form-input placeholder="Search Here"></b-form-input>
             </div>
             <div v-for="(item,cIndex) in 10" :key="`congig_${cIndex}`" style="padding: 5px 3px;">
-              Config.set --------------------------
+              Config.set ------------
             </div>
           </b-card-body>
           <b-card-title>
@@ -98,18 +96,34 @@
 </template>
 
 <script>
+import Tree from '../../components/Common/Tree'
 
 export default {
-    components: {},
+    components: {
+      'vue-tree': Tree
+    },
     data() {
         return {
+          code: '',
+          cmOptions: {
+            tabSize: 2,
+            mode: 'text/javascript',
+            theme: 'base16-dark',
+            lineNumbers: true,
+            line: true,
+          }
         }
     },
-    mounted() {},
     methods: {
       goToWokerPage() {
         this.$router.push('/app/blank-page');
       }
-    }
+    },
+    computed: {
+      codemirror() {
+        return this.$refs.cmEditor.codemirror
+      }
+    },
+    mounted() {}
 }
 </script>

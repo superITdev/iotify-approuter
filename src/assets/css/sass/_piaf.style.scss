@@ -9747,10 +9747,15 @@ footer.page-footer {
         }
 
         .card-body {
-          min-height: 35vh;
-          background: #414141;
           border-bottom-right-radius: 7px;
           border-bottom-left-radius: 7px;
+          padding: 0px;
+        }
+
+        .CodeMirror-scroll {
+          background: #414141;
+          color: white;
+          font-size: 16px;
         }
 
         .code-save-toolbar {

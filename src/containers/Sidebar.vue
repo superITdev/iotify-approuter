@@ -19,43 +19,43 @@
     </vue-perfect-scrollbar>
   </div>
 
-    <div class="sub-menu">
-      <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
-        <div class="title"> <span>App Router</span>
-          <div class="icon">
-            <i class="simple-icon-options-vertical" @click="hiddenSubMenu"/>
-          </div>
+  <div class="sub-menu">
+    <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
+      <div class="title"> <span>App Router</span>
+        <div class="icon">
+          <i class="simple-icon-options-vertical" @click="hiddenSubMenu"/>
         </div>
-        <div :class="{'search':true}" ref="searchContainer" >
-          <b-input :placeholder="$t('menu.search')" />
-          <span class="search-icon">
-            <i class="simple-icon-magnifier"></i>
-          </span>
-        </div>
-        <div class="mb-4 mt-4">
-          <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection --------------------- +</a>
-          <b-collapse id="deployment">
-            <b-row>
-              <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-                <img src="/assets/img/sample.png" alt="icon" style="cursor: pointer;"/>
-                <div class="mt-2">Deployment</div>
-              </b-colxx>
-            </b-row>
-          </b-collapse>
-        </div>
-        <div class="mb-4 mt-4">
-          <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ------------------ +</a>
-          <b-collapse id="lorem">
-            <b-row>
-              <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-                <img src="/assets/img/sample1.png" alt="icon" style="cursor: pointer;"/>
-                <div class="mt-2">Lorem Ipsum</div>
-              </b-colxx>
-            </b-row>
-          </b-collapse>
-        </div>
-      </vue-perfect-scrollbar>
-    </div>
+      </div>
+      <div :class="{'search':true}" ref="searchContainer" >
+        <b-input :placeholder="$t('menu.search')" />
+        <span class="search-icon">
+          <i class="simple-icon-magnifier"></i>
+        </span>
+      </div>
+      <div class="mb-4 mt-4">
+        <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection --------------------- +</a>
+        <b-collapse id="deployment">
+          <b-row>
+            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+              <img src="/assets/img/sample.png" alt="icon" style="cursor: pointer;"/>
+              <div class="mt-2">Deployment</div>
+            </b-colxx>
+          </b-row>
+        </b-collapse>
+      </div>
+      <div class="mb-4 mt-4">
+        <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ------------------ +</a>
+        <b-collapse id="lorem">
+          <b-row>
+            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+              <img src="/assets/img/sample1.png" alt="icon" style="cursor: pointer;"/>
+              <div class="mt-2">Lorem Ipsum</div>
+            </b-colxx>
+          </b-row>
+        </b-collapse>
+      </div>
+    </vue-perfect-scrollbar>
+  </div>
 </div>
 </template>
 

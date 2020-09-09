@@ -3,7 +3,7 @@ const data = [{
   icon: "simple-icon-settings",
   label: "",
   thumb: '/assets/img/menu/dashbord.png',
-  activeThumb: '/assets/img/menu/dashbord.png',
+  activeThumb: '/assets/img/menu/dashbord-active.png',
   to: "/app/dashboards",
   subs: [
     {
