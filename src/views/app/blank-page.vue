@@ -6,7 +6,25 @@
         <b-button variant="secondary" class="deploy-btn">Deploy</b-button>
       </b-colxx>
     </b-row>
-    <b-row class="work-content"></b-row>
+    <b-row class="work-content">
+      <b-colxx xxs="12">
+        <b-row class="mt-4 text-right">
+          <b-colxx xxs="10"></b-colxx>
+          <b-colxx xxs="2">
+            <b-row class="external-app">
+              <b-colxx xxs="6" class="left">
+                <img src="/assets/img/work/ext-app.png" alt="ext-app" />
+              </b-colxx>
+              <b-colxx xxs="6" class="right">
+                <div>External</div>
+                <div>Web App</div>
+              </b-colxx>
+            </b-row>
+          </b-colxx>
+        </b-row>
+      </b-colxx>
+      <draggable-view />
+    </b-row>
     <b-row class="mt-2 work-footer">
       <b-colxx xxs="6" class="text-left">
         <b-card class="text-center">
@@ -121,11 +139,13 @@ import 'vue-select/dist/vue-select.css'
 import {
     getDirection
 } from '../../utils'
+import DraggableView from '../../components/Common/DraggableView'
 
 export default {
   components: {
     'vue-slider': VueSlider,
     'v-select': vSelect,
+    'draggable-view': DraggableView,
   },
   data() {
     return {
@@ -151,8 +171,8 @@ export default {
     },
 
     toggleFullScreen() {
-      console.log('fullscreen')
-      const isInFullScreen = this.isInFullScreen()
+      console.log('fullscreen');
+      const isInFullScreen = this.isInFullScreen();
 
       var docElm = document.documentElement
       if (!isInFullScreen) {
@@ -192,3 +212,27 @@ export default {
 }
 
 </script>
+
+<style lang="less" rel="stylesheet/less" scoped>
+  .external-app {
+    height: 65px;
+    margin: 0;
+    cursor: pointer;
+    .left {
+      background: #3D63F4;
+      border: 1px solid #2D51DB;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      padding-top: 10px;
+      text-align: center;
+    }
+    .right {
+      background: white;
+      border: 1px solid #2D51DB;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+      text-align: center;
+      padding-top: 10px;
+    }
+  }
+</style> 

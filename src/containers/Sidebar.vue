@@ -33,22 +33,23 @@
         </span>
       </div>
       <div class="mb-4 mt-4">
-        <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection --------------------- +</a>
+        <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection ----- +</a>
         <b-collapse id="deployment">
           <b-row>
             <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img src="/assets/img/sample.png" alt="icon" style="cursor: pointer;"/>
+              <img :src="subItemPath" alt="icon" style="cursor: pointer;"/>
+              <!-- <div class="figure"></div> -->
               <div class="mt-2">Deployment</div>
             </b-colxx>
           </b-row>
         </b-collapse>
       </div>
       <div class="mb-4 mt-4">
-        <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ------------------ +</a>
+        <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ----- +</a>
         <b-collapse id="lorem">
           <b-row>
             <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img src="/assets/img/sample1.png" alt="icon" style="cursor: pointer;"/>
+              <img :src="subItemPath" alt="icon" style="cursor: pointer;"/>
               <div class="mt-2">Lorem Ipsum</div>
             </b-colxx>
           </b-row>
@@ -77,6 +78,7 @@ export default {
       isMenuOver: false,
       menuItems,
       viewingParentMenu: '',
+      subItemPath: '/assets/img/blue.png',
       subItem: [
         {
             color: 'red',
@@ -154,57 +156,78 @@ export default {
     },
 
     openSubMenu(e, menuItem) {
-        const selectedParent = menuItem.id;
-        const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
-        this.changeSelectedMenuHasSubItems(hasSubMenu);
-        if (!hasSubMenu) {
-            this.viewingParentMenu = selectedParent;
-            this.selectedParentMenu = selectedParent;
-            this.toggle();
-        } else {
-            const currentClasses = this.menuType ?
-                this.menuType.split(' ').filter(x => x !== '') :
-                '';
+      console.log('menuItem', menuItem);
+      const selectedParent = menuItem.id;
+      const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
+      this.changeSelectedMenuHasSubItems(hasSubMenu);
+      if (!hasSubMenu) {
+          this.viewingParentMenu = selectedParent;
+          this.selectedParentMenu = selectedParent;
+          this.toggle();
+      } else {
+          const currentClasses = this.menuType ?
+              this.menuType.split(' ').filter(x => x !== '') :
+              '';
 
-            if (!currentClasses.includes('menu-mobile')) {
-                if (
-                    currentClasses.includes('menu-sub-hidden') &&
-                    (this.menuClickCount === 2 || this.menuClickCount === 0)
-                ) {
-                    this.changeSideMenuStatus({
-                        step: 3,
-                        classNames: this.menuType,
-                        selectedMenuHasSubItems: hasSubMenu
-                    });
-                } else if (
-                    currentClasses.includes('menu-hidden') &&
-                    (this.menuClickCount === 1 || this.menuClickCount === 3)
-                ) {
-                    this.changeSideMenuStatus({
-                        step: 2,
-                        classNames: this.menuType,
-                        selectedMenuHasSubItems: hasSubMenu
-                    });
-                } else if (
-                    currentClasses.includes('menu-default') &&
-                    !currentClasses.includes('menu-sub-hidden') &&
-                    (this.menuClickCount === 1 || this.menuClickCount === 3)
-                ) {
-                    this.changeSideMenuStatus({
-                        step: 0,
-                        classNames: this.menuType,
-                        selectedMenuHasSubItems: hasSubMenu
-                    });
-                }
-            } else {
+          if (!currentClasses.includes('menu-mobile')) {
+              if (
+                  currentClasses.includes('menu-sub-hidden') &&
+                  (this.menuClickCount === 2 || this.menuClickCount === 0)
+              ) {
+                  this.changeSideMenuStatus({
+                      step: 3,
+                      classNames: this.menuType,
+                      selectedMenuHasSubItems: hasSubMenu
+                  });
+              } else if (
+                  currentClasses.includes('menu-hidden') &&
+                  (this.menuClickCount === 1 || this.menuClickCount === 3)
+              ) {
+                  this.changeSideMenuStatus({
+                      step: 2,
+                      classNames: this.menuType,
+                      selectedMenuHasSubItems: hasSubMenu
+                  });
+              } else if (
+                  currentClasses.includes('menu-default') &&
+                  !currentClasses.includes('menu-sub-hidden') &&
+                  (this.menuClickCount === 1 || this.menuClickCount === 3)
+              ) {
+                  this.changeSideMenuStatus({
+                      step: 0,
+                      classNames: this.menuType,
+                      selectedMenuHasSubItems: hasSubMenu
+                  });
+              }
+          } else {
 
-                this.addMenuClassname({
-                    classname: 'sub-show-temporary',
-                    currentClasses: this.menuType
-                });
-            }
-            this.viewingParentMenu = selectedParent;
-        }
+              this.addMenuClassname({
+                  classname: 'sub-show-temporary',
+                  currentClasses: this.menuType
+              });
+          }
+          this.viewingParentMenu = selectedParent;
+      }
+      switch (menuItem.id) {
+        case 'dashboards':
+          this.subItemPath = '/assets/img/blue.png';
+          break;
+        case 'deployment':
+          this.subItemPath = '/assets/img/green.png';
+          break;
+        case 'protocols':
+          this.subItemPath = '/assets/img/yellow.png';
+          break;
+        case 'memory':
+          this.subItemPath = '/assets/img/red.png';
+          break;
+        case 'control':
+          this.subItemPath = '/assets/img/purple.png';
+          break;
+        case 'illustrations':
+          this.subItemPath = '/assets/img/light-blue.png';
+          break;
+      }
     },
 
     hiddenSubMenu() {
@@ -298,3 +321,15 @@ export default {
   }
 }
 </script>
+
+<style lang="less" rel="stylesheet/less" scoped>
+  .sub-menu {
+    .figure {
+      width: 59px;
+      height: 59px;
+      background: #E6FFE7;
+      border: 1px solid #01CB09;
+      border-radius: 5px;
+    }
+  }
+</style> 
