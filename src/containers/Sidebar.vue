@@ -37,7 +37,7 @@
         <b-collapse id="deployment">
           <b-row>
             <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="icon" style="cursor: pointer;"/>
+              <img :src="subItemPath" alt="icon" style="cursor: pointer;" draggable="true" @dragstart="drag"/>
               <!-- <div class="figure"></div> -->
               <div class="mt-2">Deployment</div>
             </b-colxx>
@@ -288,6 +288,10 @@ export default {
           }
       }
       return nextClasses
+    },
+    
+    drag: e => {
+      console.log('drag');
     },
   },
   computed: {

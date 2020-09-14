@@ -8,7 +8,7 @@
     </b-row>
     <b-row class="work-content">
       <b-colxx xxs="12">
-        <b-row class="mt-4 text-right">
+        <b-row class="mt-4 mb-4 text-right">
           <b-colxx xxs="10"></b-colxx>
           <b-colxx xxs="2">
             <b-row class="external-app">
@@ -22,8 +22,37 @@
             </b-row>
           </b-colxx>
         </b-row>
+        <b-row>
+          <b-colxx xxs="4">
+            <div class="drag-area hidden" id="drag-area-a"  @dragover.prevent @drop.prevent="drop">
+              <div class="header">
+                <img src="/assets/img/working.png" />
+                <span>Edge Deployment (192.168.10.2)</span>
+              </div>
+              <div class="body"></div>
+            </div>
+          </b-colxx>
+          <b-colxx xxs="4">
+            <div class="drag-area hidden" id="drag-area-b"  @dragover.prevent @drop.prevent="drop">
+              <div class="header">
+                <img src="/assets/img/working.png" />
+                <span>Edge Deployment (192.168.10.2)</span>
+              </div>
+              <div class="body"></div>
+            </div>
+          </b-colxx>
+          <b-colxx xxs="4">
+            <div class="drag-area hidden" id="drag-area-c"  @dragover.prevent @drop.prevent="drop">
+              <div class="header">
+                <img src="/assets/img/working.png" />
+                <span>Edge Deployment (192.168.10.2)</span>
+              </div>
+              <div class="body"></div>
+            </div>
+          </b-colxx>
+        </b-row>
       </b-colxx>
-      <draggable-view />
+      <draggable-view :data="position" />
     </b-row>
     <b-row class="mt-2 work-footer">
       <b-colxx xxs="6" class="text-left">
@@ -156,13 +185,13 @@ export default {
       httpMethodForm: {
         select: 'GET',
       },
-      direction: getDirection().direction,
       selectData: [
         'GET',
         'POST',
         'PUT',
         'DELETE'
       ],
+      position: 'test',
     }
   },
   methods: {
@@ -171,7 +200,6 @@ export default {
     },
 
     toggleFullScreen() {
-      console.log('fullscreen');
       const isInFullScreen = this.isInFullScreen();
 
       var docElm = document.documentElement
@@ -207,6 +235,13 @@ export default {
             document.mozFullScreenElement !== null) ||
         (document.msFullscreenElement && document.msFullscreenElement !== null)
       )
+    },
+
+    drop: e => {
+      try {
+        console.log('event', e.clientX);
+        document.getElementById(e.target.id).classList.remove("hidden");
+      } catch(err) {}
     }
   }
 }
@@ -234,5 +269,29 @@ export default {
       text-align: center;
       padding-top: 10px;
     }
+  }
+
+  .drag-area {
+    height: 580px;
+    margin: 10px;
+    border: 1px solid #3C198C;
+    border-radius: 5px;
+    .header {
+      height: 48px;
+      background: linear-gradient(90deg, #3D63F4 0%,#6331D5 100%);
+      color: white;
+      padding: 15px;
+    }
+    .body {
+      background: white;
+      height: 528px;
+    }
+  }
+
+  .hidden {
+    .header, .body {
+      display: none;
+    }
+    border: 1px dashed !important;
   }
 </style> 
