@@ -31,6 +31,15 @@ import 'codemirror/lib/codemirror.css'
 import VueScrollTo from 'vue-scrollto'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css';
+
+// jsplumb
+import 'jsplumb/dist/js/jsplumb.min.js';
+import 'jsplumb/css/jsplumbtoolkit-defaults.css';
+
+//jquery ui
+import 'jquery-ui-dist/jquery-ui'
 
 // import Vuelidate from 'vuelidate'
 // Vue.use(Vuelidate);
@@ -38,6 +47,7 @@ import 'firebase/auth'
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
+Vue.use(ElementUI);
 
 const messages = { en: en, es: es };
 const locale = (localStorage.getItem('currentLanguage') && localeOptions.filter(x => x.id === localStorage.getItem('currentLanguage')).length > 0) ? localStorage.getItem('currentLanguage') : defaultLocale;

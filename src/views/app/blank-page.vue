@@ -2,26 +2,12 @@
   <div class="work-area">
     <b-row class="mt-2 work-header">
       <b-colxx xxs="12" class="text-right">
-        <img src="/assets/img/user.png" alt="user" style="width: 45px"/>
-        <b-button variant="secondary" class="deploy-btn">Deploy</b-button>
+        <img src="/assets/img/user.png" alt="user" style="width: 40px; margin-right: 10px;"/>
+        <el-button type="primary" plain>Deploy</el-button>
       </b-colxx>
     </b-row>
-    <b-row class="work-content">
-      <b-colxx xxs="12">
-        <b-row class="mt-4 mb-4 text-right">
-          <b-colxx xxs="10"></b-colxx>
-          <b-colxx xxs="2">
-            <b-row class="external-app">
-              <b-colxx xxs="6" class="left">
-                <img src="/assets/img/work/ext-app.png" alt="ext-app" />
-              </b-colxx>
-              <b-colxx xxs="6" class="right">
-                <div>External</div>
-                <div>Web App</div>
-              </b-colxx>
-            </b-row>
-          </b-colxx>
-        </b-row>
+    <b-row class="work-content" id="workplace" @dragover.prevent>
+      <!-- <b-colxx xxs="12">
         <b-row>
           <b-colxx xxs="4">
             <div class="drag-area hidden" id="drag-area-a"  @dragover.prevent @drop.prevent="drop">
@@ -51,8 +37,13 @@
             </div>
           </b-colxx>
         </b-row>
-      </b-colxx>
-      <draggable-view :data="position" />
+      </b-colxx> -->
+      <chart-node
+        v-for="(item, idx) in chartData.nodes"
+        v-bind="item"
+        :key="idx"
+        @edit="editNode(item,idx)"
+      ></chart-node>
     </b-row>
     <b-row class="mt-2 work-footer">
       <b-colxx xxs="6" class="text-left">
@@ -93,7 +84,13 @@
                   </b-row>
                   <b-row>
                     <b-colxx xxs="12">
-                      <vue-slider ref="slider" v-model="sliderDoubleValue" tooltip-dir="['bottom']" :piecewise="true" :data="sliderData" :direction=direction></vue-slider>
+                      <el-slider
+                        v-model="value"
+                        range
+                        :marks="marks"
+                        :min="1"
+                        :max="6">
+                      </el-slider>
                     </b-colxx>
                   </b-row>
                 </b-colxx>
@@ -161,27 +158,31 @@
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component'
-import 'vue-slider-component/theme/antd.css'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 import {
     getDirection
 } from '../../utils'
-import DraggableView from '../../components/Common/DraggableView'
+import ChartNode from "@/components/Common/ChartNode";
 
 export default {
   components: {
-    'vue-slider': VueSlider,
     'v-select': vSelect,
-    'draggable-view': DraggableView,
+    'chart-node': ChartNode,
   },
   data() {
     return {
       fullScreen: false,
       direction: getDirection().direction,
-      sliderDoubleValue: [2, 4],
-      sliderData: [1, 2, 3, 4, 5, 6],
+      value: [2, 5],
+      marks: {
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6'
+      },
       httpMethodForm: {
         select: 'GET',
       },
@@ -191,7 +192,12 @@ export default {
         'PUT',
         'DELETE'
       ],
-      position: 'test',
+      chartData: {
+        nodes: [],
+        connections: [],
+        props: {}
+      },
+      jsp: null,
     }
   },
   methods: {
@@ -237,13 +243,160 @@ export default {
       )
     },
 
-    drop: e => {
-      try {
-        console.log('event', e.clientX);
-        document.getElementById(e.target.id).classList.remove("hidden");
-      } catch(err) {}
-    }
-  }
+    initNode(el) {
+      let _self = this;
+      this.jsp.draggable(el, {
+        containment: true,
+        start(params) {
+          // console.log(params);
+        },
+        drag(params) {
+          // console.log(params);
+        },
+        stop(params) {
+          // console.log(params);
+          let id = params.el.id;
+          _self.chartData.nodes.forEach(item => {
+            if (item.id === id) {
+              item.nodeStyle.left = params.pos[0] + "px";
+              item.nodeStyle.top = params.pos[1] + "px";
+            }
+          });
+        }
+      });
+
+      this.jsp.makeSource(el, {
+        filter: ".ep",
+        anchor: "Continuous",
+        // anchor: ["Perimeter", { shape: "Rectangle" }],
+        connectorStyle: {
+          stroke: "#5c96bc",
+          strokeWidth: 2,
+          outlineStroke: "transparent",
+          outlineWidth: 4
+        },
+        extract: {
+          action: "the-action"
+        },
+        maxConnections: -1,
+        onMaxConnections: function(info, e) {
+          alert("Maximum connections (" + info.maxConnections + ") reached");
+        }
+      });
+
+      this.jsp.makeTarget(el, {
+        dropOptions: { hoverClass: "dragHover" },
+        anchor: ["Perimeter", { shape: "Rectangle" }],
+        allowLoopback: false
+      });
+    },
+
+    editNode(item, idx) {
+      console.log('edit');
+    },
+
+  },
+
+  mounted() {
+    const _self = this;
+    jsPlumb.ready(() => {
+      var instance = jsPlumb.getInstance({
+        Endpoint: [
+          "Blank",
+          { cssClass: "chart-dot", hoverClass: "chart-dot-hover", radius: 5 }
+        ],
+        Connector: "Straight",
+        HoverPaintStyle: { stroke: "#1e8151", strokeWidth: 2 },
+        ConnectionOverlays: [
+          [
+            "Arrow",
+            {
+              location: 1,
+              visible: true,
+              width: 11,
+              height: 11,
+              id: "Arrow"
+            }
+          ]
+          // ["Label", { label: "-", id: "label", cssClass: "aLabel" }]
+        ],
+        Container: "workplace"
+      });
+      this.jsp = instance;
+      var canvas = document.getElementById("workplace");
+
+      // instance.bind("click", function(c) {
+      //   instance.deleteConnection(c);
+      // });
+
+      instance.bind("connection", function(info) {
+        // info.connection.getOverlay("label").setLabel(info.connection.id);
+      });
+
+      instance.bind("beforeDrop", function(info) {
+        // info.connection.getOverlay("label").setLabel(info.connection.id);
+        // console.log(info);
+        let isSame = true;
+        _self.chartData.connections.forEach(item => {
+          if ((item.targetId === info.targetId && item.sourceId === info.sourceId) ||
+            (item.targetId === info.sourceId && item.sourceId === info.targetId)
+          ) {
+            isSame = false;
+          }
+        });
+        if (isSame) {
+          _self.chartData.connections.push({
+            targetId: info.targetId,
+            sourceId: info.sourceId
+          });
+        } else {
+          _self.$message.error("Repeated connections are not allowed!");
+        }
+        return isSame;
+      });
+
+      // bind a double click listener to "canvas"; add new node when this occurs.
+      // jsPlumb.on(canvas, "dblclick", function(e) {
+      //   newNode(e.offsetX, e.offsetY);
+      // });
+
+      $(".draggable-item").draggable({
+        scope: "plant",
+        helper: "clone",
+        containment: $("#work-container")
+      });
+      $("#workplace").droppable({
+        scope: "plant",
+        drop: function(ev, ui) {
+          let helper = ui.helper;
+          let id = jsPlumbUtil.uuid();
+          console.log('ev', helper.attr("data-icon"));
+          let item = {
+            id,
+            icon: helper.attr("data-icon"),
+            busiType: helper.attr("data-busitype"),
+            text: helper.attr("data-text"),
+            nodeStyle: {
+              top: ui.offset.top + "px",
+              left: ui.offset.left + "px"
+            },
+            props: {}
+          };
+
+          _self.chartData.nodes.push(item);
+          _self.$nextTick(() => {
+            _self.initNode(id);
+          });
+        }
+      });
+
+      instance.batch(() => {
+        jsPlumb.getSelector(".workplace-chart").forEach(item => {
+          _self.initNode(item);
+        });
+      });
+    });
+  },
 }
 
 </script>
@@ -285,6 +438,12 @@ export default {
     .body {
       background: white;
       height: 528px;
+    }
+
+    .workplace {
+      width: 100%;
+      height: 100%;
+      position: relative;
     }
   }
 

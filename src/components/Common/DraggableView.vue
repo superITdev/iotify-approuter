@@ -26,7 +26,6 @@ export default {
   methods: {
     drop: e => {
       try {
-        console.log('event drag', e.clientX);
       } catch(err) {}
     }
   },

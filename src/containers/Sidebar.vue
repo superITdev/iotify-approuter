@@ -11,7 +11,7 @@
           <a v-else-if="item.subs && item.subs.length>0" @click.prevent="openSubMenu($event,item)" :href="`#${item.to}`">
             <img alt="icon" :src="`${(selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id ? item.activeThumb : item.thumb}`"/>
             {{ $t(item.label) }}</a>
-          <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id)" :to="item.to">
+          <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id, item.dragImg)" :to="item.to">
             <img :src="item.thumb" alt="icon"/>
             {{ $t(item.label) }}</router-link>
         </li>
@@ -32,29 +32,41 @@
           <i class="simple-icon-magnifier"></i>
         </span>
       </div>
-      <div class="mb-4 mt-4">
-        <a v-b-toggle.deployment variant="primary" class="sub-item-title">Collection ----- +</a>
-        <b-collapse id="deployment">
+      <el-collapse v-model="activeNames" class="mt-4">
+        <el-collapse-item title="Deployment" name="1">
           <b-row>
             <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="icon" style="cursor: pointer;" draggable="true" @dragstart="drag"/>
+              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
               <!-- <div class="figure"></div> -->
               <div class="mt-2">Deployment</div>
             </b-colxx>
           </b-row>
-        </b-collapse>
-      </div>
-      <div class="mb-4 mt-4">
-        <a v-b-toggle.lorem variant="primary" class="sub-item-title">Lorem Ipsum ----- +</a>
-        <b-collapse id="lorem">
+        </el-collapse-item>
+        <el-collapse-item title="Lorem Ipsum" name="2">
           <b-row>
             <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="icon" style="cursor: pointer;"/>
+              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
               <div class="mt-2">Lorem Ipsum</div>
             </b-colxx>
           </b-row>
-        </b-collapse>
-      </div>
+        </el-collapse-item>
+        <el-collapse-item title="Collection" name="3">
+          <b-row>
+            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
+              <div class="mt-2">collection</div>
+            </b-colxx>
+          </b-row>
+        </el-collapse-item>
+        <el-collapse-item title="Random Sets" name="4">
+          <b-row>
+            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
+              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
+              <div class="mt-2">random sets</div>
+            </b-colxx>
+          </b-row>
+        </el-collapse-item>
+      </el-collapse>
     </vue-perfect-scrollbar>
   </div>
 </div>
@@ -75,6 +87,7 @@ export default {
   data() {
     return {
       selectedParentMenu: '',
+      selectedDragImg: '',
       isMenuOver: false,
       menuItems,
       viewingParentMenu: '',
@@ -104,7 +117,8 @@ export default {
             color: 'red',
             name: 'deploayment'
         }
-      ]
+      ],
+      activeNames: ['1'],
     }
   },
   mounted() {
@@ -144,9 +158,10 @@ export default {
       return isCurrentMenuHasSubItem;
     },
 
-    changeSelectedParentHasNoSubmenu(parentMenu) {
+    changeSelectedParentHasNoSubmenu(parentMenu, dragImg) {
       this.selectedParentMenu = parentMenu
       this.viewingParentMenu = parentMenu
+      this.selectedDragImg = dragImg
       this.changeSelectedMenuHasSubItems(false)
       this.changeSideMenuStatus({
           step: 0,
@@ -156,7 +171,7 @@ export default {
     },
 
     openSubMenu(e, menuItem) {
-      console.log('menuItem', menuItem);
+      this.selectedDragImg = menuItem.dragImg;
       const selectedParent = menuItem.id;
       const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
       this.changeSelectedMenuHasSubItems(hasSubMenu);
@@ -210,19 +225,19 @@ export default {
       }
       switch (menuItem.id) {
         case 'dashboards':
-          this.subItemPath = '/assets/img/blue.png';
+          this.subItemPath = '/assets/img/purple.png';
           break;
         case 'deployment':
-          this.subItemPath = '/assets/img/green.png';
-          break;
-        case 'protocols':
-          this.subItemPath = '/assets/img/yellow.png';
-          break;
-        case 'memory':
           this.subItemPath = '/assets/img/red.png';
           break;
+        case 'protocols':
+          this.subItemPath = '/assets/img/blue.png';
+          break;
+        case 'memory':
+          this.subItemPath = '/assets/img/green.png';
+          break;
         case 'control':
-          this.subItemPath = '/assets/img/purple.png';
+          this.subItemPath = '/assets/img/yellow.png';
           break;
         case 'illustrations':
           this.subItemPath = '/assets/img/light-blue.png';
@@ -288,10 +303,6 @@ export default {
           }
       }
       return nextClasses
-    },
-    
-    drag: e => {
-      console.log('drag');
     },
   },
   computed: {

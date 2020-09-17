@@ -6,7 +6,7 @@
         <span class="title">Function Editor</span>
       </b-colxx>
       <b-colxx xxs="4" class="text-right">
-        <img class="logger-delete-btn" src="/assets/img/logger/delete-btn.png" alt="delete-btn" @click="goToWokerPage" />
+        <i class="el-icon-circle-close" @click="goToWokerPage"></i>
       </b-colxx>
     </b-row>
     <b-row class="mt-4">
@@ -127,3 +127,12 @@ export default {
     mounted() {}
 }
 </script>
+
+<style lang="scss">
+.el-icon-circle-close {
+  font-size: 22px;
+  color: red;
+  cursor: pointer;
+}
+</style>
+

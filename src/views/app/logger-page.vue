@@ -2,11 +2,11 @@
   <div class="logger-area">
     <b-row class="logger-header">
       <b-colxx xxs="6">
-        <img src="/assets/img/logger/title.png" alt="title" width="26"/>
+        <i class="el-icon-tickets" style="font-size: 22px;"></i>
         <span class="title">Logger</span>
       </b-colxx>
       <b-colxx xxs="6" class="text-right">
-        <img class="logger-delete-btn" src="/assets/img/logger/delete-btn.png" alt="delete-btn" @click="goToWokerPage" />
+        <i class="el-icon-circle-close" @click="goToWokerPage"></i>
       </b-colxx>
     </b-row>
     <b-row class="mt-3 mb-3">
@@ -115,3 +115,11 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.el-icon-circle-close {
+  font-size: 22px;
+  color: red;
+  cursor: pointer;
+}
+</style>

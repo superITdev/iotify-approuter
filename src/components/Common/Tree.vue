@@ -1,138 +1,87 @@
 <template>
-  <div>
-    <vue-tree-list
-      @click="onClick"
-      @change-name="onChangeName"
-      @delete-node="onDel"
-      @add-node="onAddNode"
-      :model="data"
-      default-tree-node-name="new item"
-      default-leaf-node-name="new sub item"
-      v-bind:default-expanded="false"
-    >
-      <template v-slot:leafNameDisplay="slotProps">
-        <span>
-          {{ slotProps.model.name }} <span class="muted">{{ slotProps.model.id }}</span>
-        </span>
-      </template>
-    </vue-tree-list>
+  <div class="custom-tree-container">
+    <div class="block">
+      <el-tree
+        :data="data"
+        :show-checkbox="false"
+        node-key="id"
+        default-expand-all
+        :expand-on-click-node="false"
+        :render-content="renderContent">
+      </el-tree>
+    </div>
   </div>
 </template>
  
 <script>
-  import { VueTreeList, Tree, TreeNode } from 'vue-tree-list'
+  let id = 1000;
+
   export default {
-    components: {
-      VueTreeList
-    },
     data() {
+      const data = [{
+        id: 1,
+        label: 'Level one 1',
+        children: [{
+          id: 4,
+          label: 'Level two 1-1',
+          children: [{
+            id: 9,
+            label: 'Level three 1-1-1'
+          }, {
+            id: 10,
+            label: 'Level three 1-1-2'
+          }]
+        }]
+      }];
       return {
-        newTree: {},
-        data: new Tree([
-          {
-            name: 'item 1',
-            id: 'object1',
-            pid: 0,
-            dragDisabled: true,
-            addTreeNodeDisabled: true,
-            addLeafNodeDisabled: true,
-            editNodeDisabled: true,
-            delNodeDisabled: true,
-            children: [
-              {
-                name: 'item1-2',
-                id: 'object',
-                isLeaf: true,
-                pid: 1
-              }
-            ]
-          },
-          {
-            name: 'item 2',
-            id: 'object2',
-            pid: 0,
-          },
-          {
-            name: 'item 3',
-            id: 'object3',
-            pid: 0
-          }
-        ])
+        data: JSON.parse(JSON.stringify(data)),
+        data: JSON.parse(JSON.stringify(data))
       }
     },
+
     methods: {
-      onDel(node) {
-        console.log(node)
-        node.remove()
-      },
- 
-      onChangeName(params) {
-        console.log(params)
-      },
- 
-      onAddNode(params) {
-        console.log(params)
-      },
- 
-      onClick(params) {
-        console.log(params)
-      },
- 
-      addNode() {
-        var node = new TreeNode({ name: 'new node', isLeaf: false })
-        if (!this.data.children) this.data.children = []
-        this.data.addChildren(node)
-      },
- 
-      getNewTree() {
-        var vm = this
-        function _dfs(oldNode) {
-          var newNode = {}
- 
-          for (var k in oldNode) {
-            if (k !== 'children' && k !== 'parent') {
-              newNode[k] = oldNode[k]
-            }
-          }
- 
-          if (oldNode.children && oldNode.children.length > 0) {
-            newNode.children = []
-            for (var i = 0, len = oldNode.children.length; i < len; i++) {
-              newNode.children.push(_dfs(oldNode.children[i]))
-            }
-          }
-          return newNode
+      append(data) {
+        const newChild = { id: id++, label: 'testtest', children: [] };
+        if (!data.children) {
+          this.$set(data, 'children', []);
         }
- 
-        vm.newTree = _dfs(vm.data)
+        data.children.push(newChild);
+      },
+
+      remove(node, data) {
+        const parent = node.parent;
+        const children = parent.data.children || parent.data;
+        const index = children.findIndex(d => d.id === data.id);
+        children.splice(index, 1);
+      },
+
+      renderContent(h, { node, data, store }) {
+        return (
+          <span class="custom-tree-node">
+            <span>{node.label}</span>
+            <span>
+              <el-button size="mini" type="text" on-click={ () => this.append(data) }>
+                <i class="el-icon-plus"></i>
+              </el-button>
+              {node.id === 1 ? null : (
+                <el-button size="mini" type="text" on-click={ () => this.remove(node, data) }>
+                  <i class="el-icon-delete"></i>
+                </el-button>
+              )}              
+            </span>
+          </span>);
       }
     }
+  };
+</script>
+
+<style>
+  .custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
   }
-</script> 
- 
-<style lang="less" rel="stylesheet/less">
-  .vtl {
-    .vtl-drag-disabled {
-      background-color: #d0cfcf;
-      &:hover {
-        background-color: #d0cfcf;
-      }
-    }
-    .vtl-disabled {
-      background-color: #d0cfcf;
-    }
-  }
-</style> 
- 
-<style lang="less" rel="stylesheet/less" scoped>
-  .icon {
-    &:hover {
-      cursor: pointer;
-    }
-  }
- 
-  .muted {
-    color: gray;
-    font-size: 80%;
-  }
-</style> 
+</style>
