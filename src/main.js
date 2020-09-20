@@ -15,8 +15,6 @@ import { defaultLocale, localeOptions, firebaseConfig } from './constants/config
 import Notifications from './components/Common/Notification'
 // Breadcrumb Component Add
 import Breadcrumb from './components/Common/Breadcrumb'
-// RefreshButton Component Add
-import RefreshButton from './components/Common/RefreshButton'
 // Colxx Component Add
 import Colxx from './components/Common/Colxx'
 // Perfect Scrollbar Add
@@ -33,6 +31,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import VueZoomer from 'vue-zoomer';
 
 // jsplumb
 import 'jsplumb/dist/js/jsplumb.min.js';
@@ -59,12 +58,12 @@ const i18n = new VueI18n({
 
 Vue.use(Notifications);
 Vue.component('piaf-breadcrumb', Breadcrumb);
-Vue.component('b-refresh-button', RefreshButton);
 Vue.component('b-colxx', Colxx);
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar);
 Vue.use(require('vue-shortkey'));
 Vue.use(contentmenu);
 Vue.use(codemirror);
+Vue.use(VueZoomer);
 Vue.use(VueLineClamp, {
   importCss: true
 })

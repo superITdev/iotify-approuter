@@ -2938,7 +2938,7 @@ main {
   margin-top: 10px;
   // margin-right: $main-margin;
   margin-right: 0;
-  margin-bottom: $main-margin - 20;
+  // margin-bottom: $main-margin - 20;
   transition: margin-left $menu-collapse-time;
   min-width: 1200px;
 
@@ -2947,7 +2947,7 @@ main {
   }
 
   &.main-hidden {
-    margin-left: $main-margin;
+    margin-left: $main-menu-width;
   }
 
   .container-fluid {
@@ -2956,26 +2956,26 @@ main {
   }
 
   @include respond-below(xl) {
-    margin-left: $sub-menu-width-lg + $main-menu-width-lg + $main-margin-lg;
-    margin-right: $main-margin-lg;
+    margin-left: $sub-menu-width-lg + $main-menu-width-lg;
+    // margin-right: $main-margin-lg;
     // margin-top: $main-margin-lg + $navbar-height-lg -10;
     margin-top: 0px;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
     min-width: 1200px;
   }
 
   @include respond-below(lg) {
-    margin-left: $sub-menu-width-md + $main-menu-width-md + $main-margin-md;
-    margin-right: $main-margin-md;
+    margin-left: $sub-menu-width-md + $main-menu-width-md;
+    // margin-right: $main-margin-md;
     // margin-top: $main-margin-md + $navbar-height-md -10;
     margin-top: 0px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     min-width: 1200px;
   }
 
   @include respond-below(sm) {
-    margin-left: $main-margin-xs !important;
-    margin-right: $main-margin-xs !important;
+    margin-left: $sub-menu-width-md + $main-menu-width-md;
+    // margin-right: $main-margin-xs !important;
     // margin-top: $main-margin-xs + $navbar-height-xs !important;
     margin-top: 0px;
     margin-bottom: 0;
@@ -2990,7 +2990,7 @@ main {
 .sub-hidden main,
 .menu-sub-hidden main,
 .menu-hidden main {
-  margin-left: $main-menu-width + $main-margin;
+  margin-left: $main-menu-width;
 }
 
 .main-hidden main,
@@ -3002,12 +3002,12 @@ main {
   .sub-hidden main,
   .menu-sub-hidden main,
   .menu-hidden main {
-    margin-left: $main-menu-width-lg + $main-margin-lg;
+    margin-left: $main-menu-width-lg;
   }
 
   .main-hidden main,
   .menu-hidden main {
-    margin-left: $main-margin-lg;
+    margin-left: $main-menu-width-lg;
   }
 }
 
@@ -3020,7 +3020,7 @@ main {
 
   .main-hidden main,
   .menu-hidden main {
-    margin-left: $main-margin-md;
+    margin-left: $main-menu-width-md;
   }
 }
 
@@ -9475,10 +9475,11 @@ i.large-icon {
 body {
   min-height: 100%;
   position: relative;
-  background: url(/assets/img/body-bg.jpg);
+  // background: url(/assets/img/body-bg.jpg);
   // padding-bottom: 90px;
   background-repeat: no-repeat;
   background-size: cover;
+  min-width: 1200px;
   // top: -55px;
 
 
@@ -9636,7 +9637,7 @@ footer.page-footer {
     }
   }
   main {
-    background: url(/assets/img/plane.jpg);
+    background: url(/assets/img/body-bg.jpg);
     padding: 20px;
 
     .work-content {

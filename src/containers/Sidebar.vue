@@ -246,7 +246,7 @@ export default {
     },
 
     hiddenSubMenu() {
-      console.log('hiddenSubMenu');
+      this.selectMenu();
     },
 
     toggle() {
@@ -268,7 +268,7 @@ export default {
       }
     },
     // Resize
-    handleWindowResize(event) {
+    handleWindowResize() {
       if (event && !event.isTrusted) {
           return
       }
@@ -312,28 +312,7 @@ export default {
       selectedMenuHasSubItems: 'getSelectedMenuHasSubItems'
     })
   },
-  watch: {
-    '$route'(to, from) {
-      if (to.path !== from.path) {
-
-        const toParentUrl = to.path.split('/').filter(x => x !== '')[1];
-        if (toParentUrl !== undefined || toParentUrl !== null) {
-          this.selectedParentMenu = toParentUrl.toLowerCase()
-        } else {
-          this.selectedParentMenu = 'dashboards'
-        }
-        this.selectMenu()
-        this.toggle();
-        this.changeSideMenuStatus({
-          step: 0,
-          classNames: this.menuType,
-          selectedMenuHasSubItems: this.selectedMenuHasSubItems
-        })
-
-        window.scrollTo(0, top)
-      }
-    }
-  }
+  watch: {}
 }
 </script>
 

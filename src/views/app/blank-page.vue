@@ -7,43 +7,18 @@
       </b-colxx>
     </b-row>
     <b-row class="work-content" id="workplace" @dragover.prevent>
-      <!-- <b-colxx xxs="12">
-        <b-row>
-          <b-colxx xxs="4">
-            <div class="drag-area hidden" id="drag-area-a"  @dragover.prevent @drop.prevent="drop">
-              <div class="header">
-                <img src="/assets/img/working.png" />
-                <span>Edge Deployment (192.168.10.2)</span>
-              </div>
-              <div class="body"></div>
-            </div>
-          </b-colxx>
-          <b-colxx xxs="4">
-            <div class="drag-area hidden" id="drag-area-b"  @dragover.prevent @drop.prevent="drop">
-              <div class="header">
-                <img src="/assets/img/working.png" />
-                <span>Edge Deployment (192.168.10.2)</span>
-              </div>
-              <div class="body"></div>
-            </div>
-          </b-colxx>
-          <b-colxx xxs="4">
-            <div class="drag-area hidden" id="drag-area-c"  @dragover.prevent @drop.prevent="drop">
-              <div class="header">
-                <img src="/assets/img/working.png" />
-                <span>Edge Deployment (192.168.10.2)</span>
-              </div>
-              <div class="body"></div>
-            </div>
-          </b-colxx>
-        </b-row>
-      </b-colxx> -->
-      <chart-node
-        v-for="(item, idx) in chartData.nodes"
-        v-bind="item"
-        :key="idx"
-        @edit="editNode(item,idx)"
-      ></chart-node>
+      <v-zoomer
+        ref="zoomer"
+        :max-scale="10"
+        style="width: 100%; min-height: 78vh;"
+      >
+        <chart-node
+          v-for="(item, idx) in chartData.nodes"
+          v-bind="item"
+          :key="idx"
+          @edit="editNode(item,idx)"
+        ></chart-node>
+      </v-zoomer>
     </b-row>
     <b-row class="mt-2 work-footer">
       <b-colxx xxs="6" class="text-left">
@@ -51,8 +26,8 @@
           <img :src="fullScreen ? '/assets/img/work/full-screen.png' : '/assets/img/work/full-screen.png'" alt="full-screen" @click="toggleFullScreen"/>
         </b-card>
         <b-card class="text-center mt-2">
-          <img src="/assets/img/work/puls.png" alt="plus" />
-          <img src="/assets/img/work/minus.png" alt="minus" />
+          <img src="/assets/img/work/puls.png" alt="plus" @click="$refs.zoomer.zoomIn()"/>
+          <img src="/assets/img/work/minus.png" alt="minus" @click="$refs.zoomer.zoomOut()"/>
         </b-card>
       </b-colxx>
       <b-colxx xxs="6" class="right-icon">
@@ -370,7 +345,7 @@ export default {
         drop: function(ev, ui) {
           let helper = ui.helper;
           let id = jsPlumbUtil.uuid();
-          console.log('ev', helper.attr("data-icon"));
+          console.log('event', ui);
           let item = {
             id,
             icon: helper.attr("data-icon"),
