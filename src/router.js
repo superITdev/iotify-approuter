@@ -5,27 +5,42 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/app",
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
     redirect: "app/blank-page",
     children: [
       {
         path: "app/blank-page",
+        name: "worker",
         component: () =>
           import(/* webpackChunkName: "blank-page" */ "./views/app/blank-page")
       },
       {
         path: "app/logger-page",
         component: () =>
-          import(/* webpackChunkName: "blank-page" */ "./views/app/logger-page")
+          import(/* webpackChunkName: "logger-page" */ "./views/app/logger-page")
       },
       {
         path: "app/code-page",
         component: () =>
-          import(/* webpackChunkName: "blank-page" */ "./views/app/code-page")
+          import(/* webpackChunkName: "code-page" */ "./views/app/code-page")
       }
     ]
-  }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import(/* webpackChunkName: "Login" */ "./views/auth/Login"),
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: () => import(/* webpackChunkName: "Register" */ "./views/auth/Register"),
+  },
+  {
+    path: "/",
+    redirect: "/login"
+  },
 ];
 
 const router = new VueRouter({

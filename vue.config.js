@@ -37,7 +37,8 @@ module.exports = {
     plugins: [
       new CopyWebpackPlugin([
         { from: 'src/assets/img', to: 'assets/img' },
-        { from: 'src/assets/fonts', to: 'assets/fonts' }
+        { from: 'src/assets/fonts', to: 'assets/fonts' },
+        { from: 'src/assets/pimg', to: 'assets/pimg' }
       ])
     ]
   }
