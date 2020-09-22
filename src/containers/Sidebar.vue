@@ -146,13 +146,13 @@ export default {
       const menuItem = this.menuItems.find(x => x.id === this.selectedParentMenu);
       const isCurrentMenuHasSubItem = menuItem && menuItem.subs && menuItem.subs.length > 0 ? true : false;
       if (isCurrentMenuHasSubItem != this.selectedMenuHasSubItems) {
-          if (!isCurrentMenuHasSubItem) {
-              this.changeSideMenuStatus({
-                  step: 0,
-                  classNames: this.menuType,
-                  selectedMenuHasSubItems: false
-              })
-          }
+        if (!isCurrentMenuHasSubItem) {
+          this.changeSideMenuStatus({
+            step: 0,
+            classNames: this.menuType,
+            selectedMenuHasSubItems: false
+          })
+        }
       }
 
       return isCurrentMenuHasSubItem;

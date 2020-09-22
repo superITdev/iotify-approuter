@@ -55,9 +55,9 @@ $main-menu-width-md: 100px;
 $main-menu-width-xs: 90px;
 
 $sub-menu-width: 300px;
-$sub-menu-width-lg: 230px;
-$sub-menu-width-md: 230px;
-$sub-menu-width-xs: 230px;
+$sub-menu-width-lg: 300px;
+$sub-menu-width-md: 300px;
+$sub-menu-width-xs: 300px;
 
 $navbar-height: 100px;
 $navbar-height-xs: 70px;
@@ -3015,7 +3015,7 @@ main {
   .sub-hidden main,
   .menu-sub-hidden main,
   .menu-hidden main {
-    margin-left: $main-menu-width-md + $main-margin-md;
+    margin-left: $main-menu-width-md;
   }
 
   .main-hidden main,

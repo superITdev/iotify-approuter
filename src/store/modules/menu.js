@@ -32,7 +32,7 @@ const mutations = {
       if (currentClasses.includes("menu-hidden") && (clickIndex % 4 === 2 || clickIndex % 4 === 3))
         clickIndex = 0;
     }
-
+    
     if (clickIndex % 4 === 0) {
       if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
         nextClasses = 'menu-default menu-sub-hidden';
@@ -46,7 +46,7 @@ const mutations = {
       clickIndex = 0;
     } else if (clickIndex % 4 === 1) {
       if (currentClasses.includes('menu-default') && currentClasses.includes('menu-sub-hidden')) {
-        nextClasses = 'menu-default menu-sub-hidden main-hidden sub-hidden';
+        nextClasses = 'menu-default main-hidden sub-hidden';
       } else if (currentClasses.includes('menu-default')) {
         nextClasses = 'menu-default sub-hidden';
       } else if (currentClasses.includes('menu-sub-hidden')) {
@@ -75,7 +75,9 @@ const mutations = {
         nextClasses = 'menu-hidden main-show-temporary';
       }
     }
+
     if (currentClasses.includes('menu-mobile')) {
+      console.log('console-mobile');
       nextClasses += ' menu-mobile';
     }
     state.menuType = nextClasses
