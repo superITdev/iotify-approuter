@@ -90,6 +90,9 @@ export default {
     background: #409eff;
     border-radius: 5px;
   }
+  ul {
+    display: none;
+  }
   &:hover {
     .ep {
       opacity: 1;

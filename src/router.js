@@ -10,18 +10,18 @@ const routes = [
     redirect: "app/blank-page",
     children: [
       {
-        path: "app/blank-page",
+        path: "blank-page",
         name: "worker",
         component: () =>
           import(/* webpackChunkName: "blank-page" */ "./views/app/blank-page")
       },
       {
-        path: "app/logger-page",
+        path: "logger-page",
         component: () =>
           import(/* webpackChunkName: "logger-page" */ "./views/app/logger-page")
       },
       {
-        path: "app/code-page",
+        path: "code-page",
         component: () =>
           import(/* webpackChunkName: "code-page" */ "./views/app/code-page")
       }

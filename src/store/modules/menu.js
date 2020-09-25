@@ -75,11 +75,6 @@ const mutations = {
         nextClasses = 'menu-hidden main-show-temporary';
       }
     }
-
-    if (currentClasses.includes('menu-mobile')) {
-      console.log('console-mobile');
-      nextClasses += ' menu-mobile';
-    }
     state.menuType = nextClasses
     state.clickCount = clickIndex
     state.selectedMenuHasSubItems=selectedMenuHasSubItems
