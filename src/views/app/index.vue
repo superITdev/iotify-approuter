@@ -169,7 +169,7 @@ export default {
             text: helper.attr("data-text"),
             nodeStyle: {
               top: ui.offset.top + "px",
-              left: ui.offset.left + "px"
+              left: ui.offset.left - ev.toElement.offsetLeft + "px"
             },
             props: {}
           };
