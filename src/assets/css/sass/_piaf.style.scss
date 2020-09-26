@@ -2983,6 +2983,10 @@ main {
   margin-left: $main-margin;
 }
 
+.menu-sub-hidden.sub-show-temporary main {
+  margin-left: $sub-menu-width + $main-menu-width - 20px;
+}
+
 @include respond-below(xl) {
   .sub-hidden main,
   .menu-sub-hidden main,
