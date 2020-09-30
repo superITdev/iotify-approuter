@@ -1,12 +1,19 @@
 <template>
     <div style="width: 100%;height: 100%;position: relative;">
-    <jsplumb-toolkit ref="toolkitComponent" url="/nodes.json" v-bind:render-params="renderParams" v-bind:view="view" id="toolkit" v-bind:surface-id="surfaceId" v-bind:toolkit-params="toolkitParams"></jsplumb-toolkit>
+        <jsplumb-toolkit
+            ref="toolkitComponent"
+            url="/nodes.json"
+            v-bind:render-params="renderParams"
+            v-bind:view="view"
+            v-bind:surface-id="surfaceId"
+            v-bind:toolkit-params="toolkitParams">
+        </jsplumb-toolkit>
     </div>
 </template>
 
 <script>
-import { jsPlumb, Dialogs, DrawingTools, jsPlumbUtil } from 'jsplumbtoolkit'
-import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
+import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
+import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
 import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
@@ -20,38 +27,39 @@ let toolkit;
 let surface;
 
 function editEdge(params) {
-    Dialogs.show({
-        id: "dlgText",
-        data: {
-            text: params.edge.data.label || ""
-        },
-        onOK: function (data) {
-            toolkit.updateEdge(params.edge, {label:data.text});
-        }
-    });
+    // Dialogs.show({
+    //     id: "dlgText",
+    //     data: {
+    //         text: params.edge.data.label || ""
+    //     },
+    //     onOK: function (data) {
+    //         toolkit.updateEdge(params.edge, {label:data.text});
+    //     }
+    // });
 }
 
 function nodeFactory(type, data, callback)  {
-    Dialogs.show({
-        id: "dlgText",
-        title: "Enter " + type + " name:",
-        onOK: function (d) {
-            data.text = d.text;
-            // if the user entered a name...
-            if (data.text) {
-                // and it was at least 2 chars
-                if (data.text.length >= 2) {
-                    // set an id and continue.
-                    data.id = jsPlumbUtil.uuid();
-                    callback(data);
-                }
-                else
-                // else advise the user.
-                    alert(type + " names must be at least 2 characters!");
-            }
-            // else...do not proceed.
-        }
-    });
+    callback(data);
+    // Dialogs.show({
+    //     id: "dlgText",
+    //     data: data,
+    //     title: "Edit " + data.type + " name",
+    //     onOK: function (d) {
+    //         data.text = d.text;
+    //         // if the user entered a name...
+    //         if (data.text) {
+    //             // and it was at least 2 chars
+    //             if (data.text.length >= 2) {
+    //                 // set an id and continue.
+    //                 callback(data);
+    //             }
+    //             else
+    //             // else advise the user.
+    //                 alert(type + " names must be at least 2 characters!");
+    //         }
+    //         // else...do not proceed.
+    //     }
+    // });
 }
 
 export default {
@@ -193,7 +201,7 @@ export default {
                     },
                     "source": {
                         maxConnections: -1,
-                        edgeType: "connection"
+                        edgeType: "default" // "connection"
                     },
                     "target": {
                         maxConnections: -1,

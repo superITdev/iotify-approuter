@@ -5,48 +5,48 @@ const nodeCategories = [
     {
         id: "cache",
         title: "",
-        type: NodeCategoryTypes.deployment,
+        categoryType: NodeCategoryTypes.deployment,
         icon: "/assets/img/menu/dashbord.png",
         selectedIcon: '/assets/img/menu/dashbord-active.png',
     },
     {
         id: NodeCategoryTypes.deployment,
         title: "Deployment",
-        type: NodeCategoryTypes.deployment,
+        categoryType: NodeCategoryTypes.deployment,
         icon: "/assets/img/menu/deploy.png",
         selectedIcon: '/assets/img/menu/deploy-active.png',
     },
     {
         id: NodeCategoryTypes.protocol,
         title: "Protocol",
-        type: NodeCategoryTypes.protocol,
+        categoryType: NodeCategoryTypes.protocol,
         icon: "/assets/img/menu/protocols.png",
         selectedIcon: '/assets/img/menu/protocols-active.png',
     },
     {
         id: NodeCategoryTypes.memory,
         title: "Memory",
-        type: NodeCategoryTypes.memory,
+        categoryType: NodeCategoryTypes.memory,
         icon: "/assets/img/menu/memory.png",
         selectedIcon: '/assets/img/menu/memory-active.png',
     },
     {
         id: NodeCategoryTypes.control,
         title: "Control",
-        type: NodeCategoryTypes.control,
+        categoryType: NodeCategoryTypes.control,
         icon: "/assets/img/menu/control.png",
         selectedIcon: '/assets/img/menu/control-active.png',
     },
     {
         id: NodeCategoryTypes.illustration,
         title: "Illustration",
-        type: NodeCategoryTypes.illustration,
+        categoryType: NodeCategoryTypes.illustration,
         icon: "/assets/img/menu/illustrations.png",
         selectedIcon: '/assets/img/menu/illustrations-active.png',
     },
 ];
 
-function getNodeThumbIcon(type) { // type : node.type
+function getNodeThumbIcon(node) {
     const thumbs = {
         [NodeCategoryTypes.deployment]: "/assets/img/red.png",
         [NodeCategoryTypes.protocol]: "/assets/img/blue.png",
@@ -54,7 +54,7 @@ function getNodeThumbIcon(type) { // type : node.type
         [NodeCategoryTypes.control]: "/assets/img/yellow.png",
         [NodeCategoryTypes.illustration]: "/assets/img/light-blue.png",
     }
-    return thumbs[type];
+    return thumbs[node.categoryType];
 }
 
 export {nodeCategories, getNodeThumbIcon};
