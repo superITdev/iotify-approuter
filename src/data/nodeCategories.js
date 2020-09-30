@@ -1,46 +1,46 @@
-import "./NodeTypes";
-import NodeTypes from "./NodeTypes";
+import "./NodeCategoryTypes";
+import NodeCategoryTypes from "./NodeCategoryTypes";
 
 const nodeCategories = [
     {
         id: "cache",
         title: "",
-        type: NodeTypes.deployment,
+        type: NodeCategoryTypes.deployment,
         icon: "/assets/img/menu/dashbord.png",
         selectedIcon: '/assets/img/menu/dashbord-active.png',
     },
     {
-        id: NodeTypes.deployment,
+        id: NodeCategoryTypes.deployment,
         title: "Deployment",
-        type: NodeTypes.deployment,
+        type: NodeCategoryTypes.deployment,
         icon: "/assets/img/menu/deploy.png",
         selectedIcon: '/assets/img/menu/deploy-active.png',
     },
     {
-        id: NodeTypes.protocol,
+        id: NodeCategoryTypes.protocol,
         title: "Protocol",
-        type: NodeTypes.protocol,
+        type: NodeCategoryTypes.protocol,
         icon: "/assets/img/menu/protocols.png",
         selectedIcon: '/assets/img/menu/protocols-active.png',
     },
     {
-        id: NodeTypes.memory,
+        id: NodeCategoryTypes.memory,
         title: "Memory",
-        type: NodeTypes.memory,
+        type: NodeCategoryTypes.memory,
         icon: "/assets/img/menu/memory.png",
         selectedIcon: '/assets/img/menu/memory-active.png',
     },
     {
-        id: NodeTypes.control,
+        id: NodeCategoryTypes.control,
         title: "Control",
-        type: NodeTypes.control,
+        type: NodeCategoryTypes.control,
         icon: "/assets/img/menu/control.png",
         selectedIcon: '/assets/img/menu/control-active.png',
     },
     {
-        id: NodeTypes.illustration,
+        id: NodeCategoryTypes.illustration,
         title: "Illustration",
-        type: NodeTypes.illustration,
+        type: NodeCategoryTypes.illustration,
         icon: "/assets/img/menu/illustrations.png",
         selectedIcon: '/assets/img/menu/illustrations-active.png',
     },
@@ -48,11 +48,11 @@ const nodeCategories = [
 
 function getNodeThumbIcon(type) { // type : node.type
     const thumbs = {
-        [NodeTypes.deployment]: "/assets/img/red.png",
-        [NodeTypes.protocol]: "/assets/img/blue.png",
-        [NodeTypes.memory]: "/assets/img/green.png",
-        [NodeTypes.control]: "/assets/img/yellow.png",
-        [NodeTypes.illustration]: "/assets/img/light-blue.png",
+        [NodeCategoryTypes.deployment]: "/assets/img/red.png",
+        [NodeCategoryTypes.protocol]: "/assets/img/blue.png",
+        [NodeCategoryTypes.memory]: "/assets/img/green.png",
+        [NodeCategoryTypes.control]: "/assets/img/yellow.png",
+        [NodeCategoryTypes.illustration]: "/assets/img/light-blue.png",
     }
     return thumbs[type];
 }

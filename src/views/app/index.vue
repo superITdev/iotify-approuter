@@ -35,6 +35,8 @@ export default {
   },
   methods:{
       dataGenerator:function(el) {
+        const nodeItem = el.getAttribute("node-item");
+        console.log(nodeItem.title);
           return {
               type:el.getAttribute("data-node-type"),
               w:120,

@@ -1,4 +1,4 @@
-const NodeTypes = {
+const NodeCategoryTypes = {
     deployment: "deployment",
     protocol: "protocol",
     memory: "memory",
@@ -6,4 +6,4 @@ const NodeTypes = {
     illustration: "illustration",
 }
 
-export default NodeTypes;
+export default NodeCategoryTypes;

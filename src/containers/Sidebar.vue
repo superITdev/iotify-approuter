@@ -4,7 +4,7 @@
     <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
       <ul class="list-unstyled">
         <li v-for="item in nodeCategories" :class="{'active' : (selectedCategoryId === item.id && openedCategoryId === '') || openedCategoryId === item.id}" :key="item.id">
-          <a v-if="nodeData.filter(node => node.type === item.type).length > 0" @click.prevent="openSubMenu($event, item)" href="#">
+          <a v-if="nodeTemplates.filter(node => node.type === item.type).length > 0" @click.prevent="openSubMenu($event, item)" href="#">
             <img alt="icon" :src="`${(selectedCategoryId === item.id && openedCategoryId === '') || openedCategoryId === item.id ? item.selectedIcon : item.icon}`"/>
             {{ item.title }}
           </a>
@@ -68,8 +68,8 @@ import {
   subHiddenBreakpoint
 } from '@/constants/config'
 
-import {nodeCategories} from '@/data/nodeCategoryUI'
-import nodeData from '@/data/nodeData'
+import {nodeCategories} from '@/data/nodeCategories'
+import nodeTemplates from '@/data/nodeTemplates'
 import NodeItem from '@/components/node/NodeItem'
 
 import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
@@ -82,7 +82,7 @@ export default {
   data() {
     return {
       nodeCategories,
-      nodeData,
+      nodeTemplates,
 
       selectedCategoryId: '',
       openedCategoryId: '',
@@ -102,7 +102,7 @@ export default {
     ...mapMutations(['changeSideMenuStatus', 'addMenuClassname', 'changeSelectedMenuHasSubItems']),
 
     openSubMenu(e, category) {
-      const nodes = this.nodeData.filter(node => node.type === category.type);
+      const nodes = this.nodeTemplates.filter(node => node.type === category.type);
       const hasSubMenu = nodes.length > 0;
 
       this.changeSelectedMenuHasSubItems(hasSubMenu);
@@ -157,7 +157,7 @@ export default {
     },
     hideSubMenu() {
       const category = this.nodeCategories.find(x => x.id === this.selectedCategoryId);
-      const nodes = category ? this.nodeData.filter(node => node.type === category.type) : [];
+      const nodes = category ? this.nodeTemplates.filter(node => node.type === category.type) : [];
       const hasSubMenu = nodes.length > 0;
 
       if (hasSubMenu != this.selectedMenuHasSubItems) {
@@ -234,7 +234,7 @@ export default {
     }),
     openedCategoryNodes() {
       const category = this.nodeCategories.find(x => x.id === this.openedCategoryId);
-      const nodes = category ? this.nodeData.filter(node => node.type === category.type) : [];
+      const nodes = category ? this.nodeTemplates.filter(node => node.type === category.type) : [];
       return nodes;
     }
   },

@@ -13,7 +13,7 @@ import ActionNode from './ActionNode.vue'
 import QuestionNode from './QuestionNode.vue'
 import OutputNode from './OutputNode.vue'
 
-import NodeTypes from '@/data/NodeTypes'
+import NodeCategoryTypes from '@/data/NodeCategoryTypes'
 
 let toolkitComponent;
 let toolkit;
@@ -122,23 +122,23 @@ export default {
                         component:OutputNode
                     },
 
-                    [NodeTypes.deployment]: {
+                    [NodeCategoryTypes.deployment]: {
                         parent: "selectable",
                         component:QuestionNode
                     },
-                    [NodeTypes.protocol]: {
+                    [NodeCategoryTypes.protocol]: {
                         parent: "selectable",
                         component:ActionNode
                     },
-                    [NodeTypes.memory]: {
+                    [NodeCategoryTypes.memory]: {
                         parent: "selectable",
                         component:OutputNode
                     },
-                    [NodeTypes.control]: {
+                    [NodeCategoryTypes.control]: {
                         parent: "selectable",
                         component:QuestionNode
                     },
-                    [NodeTypes.illustration]: {
+                    [NodeCategoryTypes.illustration]: {
                         parent: "selectable",
                         component:ActionNode
                     },
