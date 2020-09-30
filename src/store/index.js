@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 
 import app from '../main'
 import menu from './modules/menu'
-import chat from './modules/chat'
 
 Vue.use(Vuex)
 
@@ -23,6 +22,5 @@ export default new Vuex.Store({
   },
   modules: {
     menu,
-    chat,
   }
 })

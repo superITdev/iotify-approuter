@@ -34,8 +34,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VueZoomer from 'vue-zoomer';
 
 // jsplumb
-import 'jsplumb/dist/js/jsplumb.min.js';
-import 'jsplumb/css/jsplumbtoolkit-defaults.css';
+// import 'jsplumb/dist/js/jsplumb.min.js';
+// import 'jsplumb/css/jsplumbtoolkit-defaults.css';
 
 //jquery ui
 import 'jquery-ui-dist/jquery-ui'
@@ -86,6 +86,16 @@ firebase.initializeApp(firebaseConfig);
 
 Vue.config.productionTip = false
 
+// jsplumb-toolkit
+import { JsPlumbToolkitVue2Plugin } from 'jsplumbtoolkit-vue2';
+
+require('@/assets/jspcss/jsplumbtoolkit.css');
+require('@/assets/jspcss/jsplumbtoolkit-demo-support.css');
+require('@/assets/jspcss/jsplumbtoolkit-editable-connectors.css');
+require('@/assets/jspcss/app.css');
+
+Vue.use(JsPlumbToolkitVue2Plugin);
+//
 export default new Vue({
   i18n,
   router,

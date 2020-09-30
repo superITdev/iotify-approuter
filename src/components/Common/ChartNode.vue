@@ -12,7 +12,7 @@
     <div class="ep"></div>
     <div>
       <ul>
-        <li v-for="(v, k) in props">{{k}}: {{v}}</li>
+        <li v-for="(v, k) in props" :key="k">{{k}}: {{v}}</li>
       </ul>
     </div>
   </div>

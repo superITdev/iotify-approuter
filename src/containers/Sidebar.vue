@@ -1,19 +1,17 @@
 <template>
-<div class="sidebar" @mouseenter="isMenuOver=true" @mouseleave="isMenuOver=false" @touchstart="isMenuOver=true">
+<div class="sidebar">
   <div class="main-menu">
     <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
       <ul class="list-unstyled">
-        <li v-for="(item,index) in menuItems" :class="{ 'active' : (selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id }" :key="`parent_${item.id}`" :data-flag="item.id">
-          <a v-if="item.newWindow" :href="item.to" rel="noopener noreferrer" target="_blank">
-            <img :src="item.activeThumb" alt="icon"/>
-            {{ $t(item.label) }}
+        <li v-for="item in nodeCategories" :class="{'active' : (selectedCategoryId === item.id && openedCategoryId === '') || openedCategoryId === item.id}" :key="item.id">
+          <a v-if="nodeData.filter(node => node.type === item.type).length > 0" @click.prevent="openSubMenu($event, item)" href="#">
+            <img alt="icon" :src="`${(selectedCategoryId === item.id && openedCategoryId === '') || openedCategoryId === item.id ? item.selectedIcon : item.icon}`"/>
+            {{ item.title }}
           </a>
-          <a v-else-if="item.subs && item.subs.length>0" @click.prevent="openSubMenu($event,item)" :href="`#${item.to}`">
-            <img alt="icon" :src="`${(selectedParentMenu === item.id && viewingParentMenu === '') || viewingParentMenu === item.id ? item.activeThumb : item.thumb}`"/>
-            {{ $t(item.label) }}</a>
-          <router-link v-else @click.native="changeSelectedParentHasNoSubmenu(item.id, item.dragImg)" :to="item.to">
-            <img :src="item.thumb" alt="icon"/>
-            {{ $t(item.label) }}</router-link>
+          <a v-else href="#">
+            <img :src="item.icon" alt="icon"/>
+            {{ item.title }}
+          </a>
         </li>
       </ul>
     </vue-perfect-scrollbar>
@@ -23,7 +21,7 @@
     <vue-perfect-scrollbar class="scroll" :settings="{ suppressScrollX: true, wheelPropagation: false }">
       <div class="title"> <span>App Router</span>
         <div class="icon">
-          <i class="simple-icon-options-vertical" @click="hiddenSubMenu"/>
+          <i class="simple-icon-options-vertical" @click="hideSubMenu"/>
         </div>
       </div>
       <div :class="{'search':true}" ref="searchContainer" >
@@ -33,36 +31,27 @@
         </span>
       </div>
       <el-collapse v-model="activeNames" class="mt-4">
-        <el-collapse-item title="Deployment" name="1">
+        <el-collapse-item title="Collection" name="Collection">
           <b-row>
-            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <!-- <div class="figure"></div> -->
-              <div class="mt-2">Deployment</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
+              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
+              <div class="mt-2">{{item.title}}</div>
             </b-colxx>
           </b-row>
         </el-collapse-item>
-        <el-collapse-item title="Lorem Ipsum" name="2">
+        <el-collapse-item title="Lorem Ipsum" name="Lorem Ipsum">
           <b-row>
-            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">Lorem Ipsum</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
+              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
+              <div class="mt-2">{{item.title}}</div>
             </b-colxx>
           </b-row>
         </el-collapse-item>
-        <el-collapse-item title="Collection" name="3">
+        <el-collapse-item title="Random Sets" name="Random Sets">
           <b-row>
-            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">collection</div>
-            </b-colxx>
-          </b-row>
-        </el-collapse-item>
-        <el-collapse-item title="Random Sets" name="4">
-          <b-row>
-            <b-colxx xxs="4" v-for="(item,index) in subItem" :key="`sub_${item.name}_${index}`" class="pt-4 text-center">                          
-              <img :src="subItemPath" alt="alt" :data-icon="selectedDragImg" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">random sets</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
+              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
+              <div class="mt-2">{{item.title}}</div>
             </b-colxx>
           </b-row>
         </el-collapse-item>
@@ -81,51 +70,25 @@ import {
   menuHiddenBreakpoint,
   subHiddenBreakpoint
 } from '../constants/config'
-import menuItems from '../constants/menu'
+
+import {nodeCategories, getNodeThumbIcon, getNodeFrame} from '../data/nodeCategoryUI'
+import nodeData from '../data/nodeData'
 
 export default {
   data() {
     return {
-      selectedParentMenu: '',
-      selectedDragImg: '',
-      isMenuOver: false,
-      menuItems,
-      viewingParentMenu: '',
-      subItemPath: '/assets/img/blue.png',
-      subItem: [
-        {
-            color: 'red',
-            name: 'deploayment'
-        },
-        {
-            color: 'red',
-            name: 'deploayment'
-        },
-        {
-            color: 'red',
-            name: 'deploayment'
-        },
-        {
-            color: 'red',
-            name: 'deploayment'
-        },
-        {
-            color: 'red',
-            name: 'deploayment'
-        },
-        {
-            color: 'red',
-            name: 'deploayment'
-        }
-      ],
-      activeNames: ['1'],
+      nodeCategories,
+      nodeData,
+
+      selectedCategoryId: '',
+      openedCategoryId: '',
+      activeNames: ['Collection'],
     }
   },
   mounted() {
-    this.selectMenu()
+    this.hideSubMenu();
     window.addEventListener('resize', this.handleWindowResize)
     this.handleWindowResize()
-
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleWindowResize)
@@ -133,58 +96,26 @@ export default {
 
   methods: {
     ...mapMutations(['changeSideMenuStatus', 'addMenuClassname', 'changeSelectedMenuHasSubItems']),
-    selectMenu() {
-      const currentParentUrl = this.$route.path.split('/').filter(x => x !== '')[1]
-      if (currentParentUrl !== undefined || currentParentUrl !== null) {
-          this.selectedParentMenu = currentParentUrl.toLowerCase()
-      } else {
-          this.selectedParentMenu = 'dashboards'
-      }
-      this.isCurrentMenuHasSubItem();
-    },
-    isCurrentMenuHasSubItem() {
-      const menuItem = this.menuItems.find(x => x.id === this.selectedParentMenu);
-      const isCurrentMenuHasSubItem = menuItem && menuItem.subs && menuItem.subs.length > 0 ? true : false;
-      if (isCurrentMenuHasSubItem != this.selectedMenuHasSubItems) {
-        if (!isCurrentMenuHasSubItem) {
-          this.changeSideMenuStatus({
-            step: 0,
-            classNames: this.menuType,
-            selectedMenuHasSubItems: false
-          })
-        }
-      }
+    
+    getNodeThumbIcon,
+    getNodeFrame,
 
-      return isCurrentMenuHasSubItem;
-    },
+    openSubMenu(e, category) {
+      const nodes = this.nodeData.filter(node => node.type === category.type);
+      const hasSubMenu = nodes.length > 0;
 
-    changeSelectedParentHasNoSubmenu(parentMenu, dragImg) {
-      this.selectedParentMenu = parentMenu
-      this.viewingParentMenu = parentMenu
-      this.selectedDragImg = dragImg
-      this.changeSelectedMenuHasSubItems(false)
-      this.changeSideMenuStatus({
-          step: 0,
-          classNames: this.menuType,
-          selectedMenuHasSubItems: false
-      })
-    },
-
-    openSubMenu(e, menuItem) {
-      this.selectedDragImg = menuItem.dragImg;
-      const selectedParent = menuItem.id;
-      const hasSubMenu = menuItem.subs && menuItem.subs.length > 0;
       this.changeSelectedMenuHasSubItems(hasSubMenu);
-      if (!hasSubMenu) {
-          this.viewingParentMenu = selectedParent;
-          this.selectedParentMenu = selectedParent;
-          this.toggle();
-      } else {
-          const currentClasses = this.menuType ?
-              this.menuType.split(' ').filter(x => x !== '') :
-              '';
 
-          if (!currentClasses.includes('menu-mobile')) {
+      if (hasSubMenu)
+      {
+          const currentClasses = this.menuType ? this.menuType.split(' ').filter(x => x !== '') : '';
+
+          if (currentClasses.includes('menu-mobile')) {
+              this.addMenuClassname({
+                  classname: 'sub-show-temporary',
+                  currentClasses: this.menuType
+              });
+          } else {
               if (
                   currentClasses.includes('menu-sub-hidden') &&
                   (this.menuClickCount === 2 || this.menuClickCount === 0)
@@ -214,41 +145,30 @@ export default {
                       selectedMenuHasSubItems: hasSubMenu
                   });
               }
-          } else {
-
-              this.addMenuClassname({
-                  classname: 'sub-show-temporary',
-                  currentClasses: this.menuType
-              });
           }
-          this.viewingParentMenu = selectedParent;
-      }
-      switch (menuItem.id) {
-        case 'dashboards':
-          this.subItemPath = '/assets/img/purple.png';
-          break;
-        case 'deployment':
-          this.subItemPath = '/assets/img/red.png';
-          break;
-        case 'protocols':
-          this.subItemPath = '/assets/img/blue.png';
-          break;
-        case 'memory':
-          this.subItemPath = '/assets/img/green.png';
-          break;
-        case 'control':
-          this.subItemPath = '/assets/img/yellow.png';
-          break;
-        case 'illustrations':
-          this.subItemPath = '/assets/img/light-blue.png';
-          break;
+
+          this.openedCategoryId = category.id;
+      } else {
+          this.openedCategoryId = category.id;
+          this.selectedCategoryId = category.id;
+          this.toggle();
       }
     },
+    hideSubMenu() {
+      const category = this.nodeCategories.find(x => x.id === this.selectedCategoryId);
+      const nodes = category ? this.nodeData.filter(node => node.type === category.type) : [];
+      const hasSubMenu = nodes.length > 0;
 
-    hiddenSubMenu() {
-      this.selectMenu();
+      if (hasSubMenu != this.selectedMenuHasSubItems) {
+        if (!hasSubMenu) {
+          this.changeSideMenuStatus({
+            step: 0,
+            classNames: this.menuType,
+            selectedMenuHasSubItems: false
+          })
+        }
+      }
     },
-
     toggle() {
       const currentClasses = this.menuType.split(' ').filter(x => x !== '')
       if (currentClasses.includes('menu-sub-hidden') && this.menuClickCount === 3) {
@@ -310,7 +230,12 @@ export default {
       menuType: 'getMenuType',
       menuClickCount: 'getMenuClickCount',
       selectedMenuHasSubItems: 'getSelectedMenuHasSubItems'
-    })
+    }),
+    openedCategoryNodes() {
+      const category = this.nodeCategories.find(x => x.id === this.openedCategoryId);
+      const nodes = category ? this.nodeData.filter(node => node.type === category.type) : [];
+      return nodes;
+    }
   },
   watch: {}
 }
