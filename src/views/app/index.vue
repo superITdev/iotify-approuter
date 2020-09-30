@@ -1,6 +1,6 @@
 <template>
 <div id="app-container" :class="getMenuType">
-  <Sidebar />
+  <Sidebar v-bind:surface-id="surfaceId" selector="[data-node-type]" v-bind:data-generator="dataGenerator"></Sidebar>
   <main>
     <div class="work-canvas">
       <Controls v-bind:surface-id="surfaceId"></Controls>
@@ -14,14 +14,14 @@
 </template>
 
 <script>
-import Sidebar from '../../containers/Sidebar'
+import Sidebar from '@/containers/Sidebar'
 import {mapGetters} from 'vuex'
 
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Flowchart from '../../components/node/Flowchart.vue'
-import Controls from '../../components/node/Controls.vue'
+import Flowchart from '@/components/node/Flowchart.vue'
+import Controls from '@/components/node/Controls.vue'
 
 export default {
   components: { Sidebar, Flowchart, Controls },
@@ -52,13 +52,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.work-canvas {
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-}
-</style>

@@ -57,15 +57,4 @@ function getNodeThumbIcon(type) { // type : node.type
     return thumbs[type];
 }
 
-function getNodeFrame(type) { // type : node.type
-    const frames = {
-        [NodeTypes.deployment]: "",
-        [NodeTypes.protocol]: "/assets/img/work/group1.png",
-        [NodeTypes.memory]: "/assets/img/work/group2.png",
-        [NodeTypes.control]: "/assets/img/work/group3.png",
-        [NodeTypes.illustration]: "/assets/img/work/group4.png",
-    }
-    return frames[type];
-}
-
-export {nodeCategories, getNodeThumbIcon, getNodeFrame};
+export {nodeCategories, getNodeThumbIcon};

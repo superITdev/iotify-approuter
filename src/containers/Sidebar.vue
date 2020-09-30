@@ -33,25 +33,22 @@
       <el-collapse v-model="activeNames" class="mt-4">
         <el-collapse-item title="Collection" name="Collection">
           <b-row>
-            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
-              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">{{item.title}}</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">
+              <NodeItem v-bind:node-item="item"></NodeItem>
             </b-colxx>
           </b-row>
         </el-collapse-item>
         <el-collapse-item title="Lorem Ipsum" name="Lorem Ipsum">
           <b-row>
-            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
-              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">{{item.title}}</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">
+              <NodeItem v-bind:node-item="item"></NodeItem>
             </b-colxx>
           </b-row>
         </el-collapse-item>
         <el-collapse-item title="Random Sets" name="Random Sets">
           <b-row>
-            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">                          
-              <img :src="getNodeThumbIcon(item.type)" alt="alt" :data-icon="getNodeFrame(item.type)" style="cursor: pointer;" draggable="true" class="draggable-item"/>
-              <div class="mt-2">{{item.title}}</div>
+            <b-colxx xxs="4" v-for="(item, index) in openedCategoryNodes" :key="index" class="pt-4 text-center">
+              <NodeItem v-bind:node-item="item"></NodeItem>
             </b-colxx>
           </b-row>
         </el-collapse-item>
@@ -69,12 +66,19 @@ import {
 import {
   menuHiddenBreakpoint,
   subHiddenBreakpoint
-} from '../constants/config'
+} from '@/constants/config'
 
-import {nodeCategories, getNodeThumbIcon, getNodeFrame} from '../data/nodeCategoryUI'
-import nodeData from '../data/nodeData'
+import {nodeCategories} from '@/data/nodeCategoryUI'
+import nodeData from '@/data/nodeData'
+import NodeItem from '@/components/node/NodeItem'
+
+import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
 
 export default {
+  mixins:[ SurfaceDrop ],
+
+  components: { NodeItem },
+  
   data() {
     return {
       nodeCategories,
@@ -96,9 +100,6 @@ export default {
 
   methods: {
     ...mapMutations(['changeSideMenuStatus', 'addMenuClassname', 'changeSelectedMenuHasSubItems']),
-    
-    getNodeThumbIcon,
-    getNodeFrame,
 
     openSubMenu(e, category) {
       const nodes = this.nodeData.filter(node => node.type === category.type);

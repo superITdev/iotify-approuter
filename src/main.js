@@ -92,7 +92,7 @@ import { JsPlumbToolkitVue2Plugin } from 'jsplumbtoolkit-vue2';
 require('@/assets/jspcss/jsplumbtoolkit.css');
 require('@/assets/jspcss/jsplumbtoolkit-demo-support.css');
 require('@/assets/jspcss/jsplumbtoolkit-editable-connectors.css');
-require('@/assets/jspcss/app.css');
+require('@/assets/jspcss/jspapp.css');
 
 Vue.use(JsPlumbToolkitVue2Plugin);
 //

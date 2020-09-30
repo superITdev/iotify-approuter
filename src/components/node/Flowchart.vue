@@ -5,7 +5,6 @@
 </template>
 
 <script>
-
 import { jsPlumb, Dialogs, DrawingTools, jsPlumbUtil } from 'jsplumbtoolkit'
 import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
 
@@ -13,6 +12,8 @@ import StartNode from './StartNode.vue'
 import ActionNode from './ActionNode.vue'
 import QuestionNode from './QuestionNode.vue'
 import OutputNode from './OutputNode.vue'
+
+import NodeTypes from '@/data/NodeTypes'
 
 let toolkitComponent;
 let toolkit;
@@ -107,6 +108,7 @@ export default {
                             tap: (params) => params.toolkit.toggleSelection(params.node)
                         }
                     },
+                    
                     "question": {
                         parent: "selectable",
                         component:QuestionNode
@@ -118,7 +120,28 @@ export default {
                     "output":{
                         parent:"selectable",
                         component:OutputNode
-                    }
+                    },
+
+                    [NodeTypes.deployment]: {
+                        parent: "selectable",
+                        component:QuestionNode
+                    },
+                    [NodeTypes.protocol]: {
+                        parent: "selectable",
+                        component:ActionNode
+                    },
+                    [NodeTypes.memory]: {
+                        parent: "selectable",
+                        component:OutputNode
+                    },
+                    [NodeTypes.control]: {
+                        parent: "selectable",
+                        component:QuestionNode
+                    },
+                    [NodeTypes.illustration]: {
+                        parent: "selectable",
+                        component:ActionNode
+                    },
                 },
                 // There are two edge types defined - 'yes' and 'no', sharing a common
                 // parent.

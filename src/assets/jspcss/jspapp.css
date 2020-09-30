@@ -132,13 +132,12 @@
 }
 
 /* styles for drag + drop */
-
 .jtk-surface.jtk-drag-drop-active {
-    outline:6px dotted #4ea758 !important;
+    outline:3px dotted #f7a45d !important;
 }
 
 .jtk-surface.jtk-drag-drop-hover {
-    outline: 6px solid #f7a45d !important;
+    outline: 3px solid #f7a45d !important;
 }
 
 svg.jtk-drag-drop-hover, svg.jtk-drag-drop-active {
@@ -163,6 +162,15 @@ svg.jtk-drag-drop-hover path {
 }
 
 /* app-router */
+.work-canvas {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    position: absolute;
+}
+  
 .controls {
     left: 20px;
     top: 20px;
@@ -176,4 +184,8 @@ svg.jtk-drag-drop-hover path {
 
 .jtk-edge-delete {
     line-height: 8px;
+}
+
+.jtk-drag {
+    z-index: 5;
 }
