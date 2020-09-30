@@ -1,8 +1,8 @@
 <template>
     <div style="width: 100%;height: 100%;position: relative;">
+        <!-- load : url="/nodes.json" in jsplumb-toolkit -->
         <jsplumb-toolkit
             ref="toolkitComponent"
-            url="/nodes.json"
             v-bind:render-params="renderParams"
             v-bind:view="view"
             v-bind:surface-id="surfaceId"
@@ -132,7 +132,7 @@ export default {
 
                     [NodeCategoryTypes.deployment]: {
                         parent: "selectable",
-                        component:QuestionNode
+                        component:ActionNode
                     },
                     [NodeCategoryTypes.protocol]: {
                         parent: "selectable",
@@ -140,11 +140,11 @@ export default {
                     },
                     [NodeCategoryTypes.memory]: {
                         parent: "selectable",
-                        component:OutputNode
+                        component:ActionNode
                     },
                     [NodeCategoryTypes.control]: {
                         parent: "selectable",
-                        component:QuestionNode
+                        component:ActionNode
                     },
                     [NodeCategoryTypes.illustration]: {
                         parent: "selectable",

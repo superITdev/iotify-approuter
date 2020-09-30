@@ -45,8 +45,8 @@ export default {
         type: nodeItem.categoryType,
         text: nodeItem.title,
         info: nodeItem,
-        w: 120,
-        h: 80,
+        w: 180,
+        h: 130,
       };
     }
   },
