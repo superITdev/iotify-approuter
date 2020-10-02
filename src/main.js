@@ -31,7 +31,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
-import VueZoomer from 'vue-zoomer';
 
 // jsplumb
 // import 'jsplumb/dist/js/jsplumb.min.js';
@@ -39,10 +38,6 @@ import VueZoomer from 'vue-zoomer';
 
 //jquery ui
 import 'jquery-ui-dist/jquery-ui'
-
-// import Vuelidate from 'vuelidate'
-// Vue.use(Vuelidate);
-
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);
@@ -63,7 +58,6 @@ Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar);
 Vue.use(require('vue-shortkey'));
 Vue.use(contentmenu);
 Vue.use(codemirror);
-Vue.use(VueZoomer);
 Vue.use(VueLineClamp, {
   importCss: true
 })
