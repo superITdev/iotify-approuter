@@ -70,7 +70,7 @@ import {
 
 import {nodeCategories} from '@/data/nodeCategories'
 import nodeTemplates from '@/data/nodeTemplates'
-import NodeItem from '@/components/node/NodeItem'
+import NodeItem from '@/containers/NodeItem'
 
 import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
 
