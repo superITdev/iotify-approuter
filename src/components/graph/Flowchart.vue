@@ -15,10 +15,10 @@
 import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
-import StartNode from './StartNode.vue'
-import ActionNode from './ActionNode.vue'
-import QuestionNode from './QuestionNode.vue'
-import OutputNode from './OutputNode.vue'
+import StartNode from '@/components/graph/node_v01/StartNode.vue'
+import ActionNode from '@/components/graph/node_v01/ActionNode.vue'
+import QuestionNode from '@/components/graph/node_v01/QuestionNode.vue'
+import OutputNode from '@/components/graph/node_v01/OutputNode.vue'
 
 import NodeCategoryTypes from '@/data/NodeCategoryTypes'
 import DeployNode from './DeployNode.vue'

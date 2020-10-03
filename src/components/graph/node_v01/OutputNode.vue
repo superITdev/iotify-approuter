@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}" class="flowchart-object flowchart-output">
+    <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}" class="argraph-v01 flowchart-output">
         <div style="position:relative">
 
             <svg :width="obj.w" :height="obj.h">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import BaseEditableNode from './BaseEditableNode.vue'
+    import BaseEditableNode from '@/components/graph/BaseEditableNode.vue'
     export default {
         mixins:[BaseEditableNode]
     }

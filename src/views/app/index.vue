@@ -20,8 +20,8 @@ import {mapGetters} from 'vuex'
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Flowchart from '@/components/node/Flowchart.vue'
-import Controls from '@/components/node/Controls.vue'
+import Flowchart from '@/components/graph/Flowchart.vue'
+import Controls from '@/components/graph/Controls.vue'
 
 import nodeTemplates from '@/data/nodeTemplates'
 
