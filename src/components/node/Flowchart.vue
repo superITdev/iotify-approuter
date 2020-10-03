@@ -21,6 +21,7 @@ import QuestionNode from './QuestionNode.vue'
 import OutputNode from './OutputNode.vue'
 
 import NodeCategoryTypes from '@/data/NodeCategoryTypes'
+import DeployNode from './DeployNode.vue'
 
 let toolkitComponent;
 let toolkit;
@@ -63,7 +64,6 @@ function nodeFactory(type, data, callback)  {
 }
 
 export default {
-
     name: 'jsp-toolkit',
     props:["surfaceId"],
     data:() => {
@@ -132,7 +132,7 @@ export default {
 
                     [NodeCategoryTypes.deployment]: {
                         parent: "selectable",
-                        component:ActionNode
+                        component:DeployNode
                     },
                     [NodeCategoryTypes.protocol]: {
                         parent: "selectable",
