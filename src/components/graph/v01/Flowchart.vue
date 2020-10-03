@@ -1,8 +1,8 @@
 <template>
-    <div style="width: 100%;height: 100%;position: relative;">
-        <!-- load : url="/nodes.json" in jsplumb-toolkit -->
+    <div style="width: 100%;height: 100%;position: relative;" class="graph-v01">
         <jsplumb-toolkit
             ref="toolkitComponent"
+            url="/nodes.json"
             v-bind:render-params="renderParams"
             v-bind:view="view"
             v-bind:surface-id="surfaceId"
@@ -15,13 +15,12 @@
 import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
-import StartNode from '@/components/graph/node_v01/StartNode.vue'
-import ActionNode from '@/components/graph/node_v01/ActionNode.vue'
-import QuestionNode from '@/components/graph/node_v01/QuestionNode.vue'
-import OutputNode from '@/components/graph/node_v01/OutputNode.vue'
+import StartNode from '@/components/graph/v01/StartNode.vue'
+import ActionNode from '@/components/graph/v01/ActionNode.vue'
+import QuestionNode from '@/components/graph/v01/QuestionNode.vue'
+import OutputNode from '@/components/graph/v01/OutputNode.vue'
 
 import NodeCategoryTypes from '@/data/NodeCategoryTypes'
-import DeployNode from './DeployNode.vue'
 
 let toolkitComponent;
 let toolkit;
@@ -132,7 +131,7 @@ export default {
 
                     [NodeCategoryTypes.deployment]: {
                         parent: "selectable",
-                        component:DeployNode
+                        component:ActionNode
                     },
                     [NodeCategoryTypes.protocol]: {
                         parent: "selectable",

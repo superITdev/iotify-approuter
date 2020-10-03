@@ -4,7 +4,8 @@
   <main>
     <div class="work-canvas">
       <Controls v-bind:surface-id="surfaceId"></Controls>
-      <Flowchart v-bind:surface-id="surfaceId"></Flowchart>
+      <!-- <Graph01 v-bind:surface-id="surfaceId"></Graph01> -->
+      <Graph v-bind:surface-id="surfaceId"></Graph>
     </div>
     <div class="container-fluid">
       <router-view />
@@ -20,13 +21,14 @@ import {mapGetters} from 'vuex'
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Flowchart from '@/components/graph/Flowchart.vue'
-import Controls from '@/components/graph/Controls.vue'
+import Graph01 from '@/components/graph/v01/Flowchart.vue'
+import Controls from '@/components/graph/common/Controls.vue'
+import Graph from '@/components/graph/Graph.vue'
 
 import nodeTemplates from '@/data/nodeTemplates'
 
 export default {
-  components: { Sidebar, Flowchart, Controls },
+  components: { Sidebar, Graph01, Controls, Graph },
   data() {
     return {
       surfaceId: "surface",

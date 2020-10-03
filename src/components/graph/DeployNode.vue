@@ -19,8 +19,8 @@
 </template>
 
 <script>
-    import BaseEditableNode from './BaseEditableNode.vue'
+    import BaseNode from '@/components/graph/BaseNode.vue'
     export default {
-        mixins:[BaseEditableNode]
+        mixins:[BaseNode]
     }
 </script>

@@ -59,7 +59,15 @@ svg.jtk-drag-drop-hover path {
     stroke-dasharray:0;
 }
 
-/* node version-01 */
+/* edge(connector) */
+.jtk-edge-delete {
+    line-height: 8px;
+}
+.jtk-overlay {
+    box-shadow: 0 0 2px;
+}
+
+/* graph version-01 */
 .argraph-v01 {
     z-index: 10;
     border: none;
@@ -160,14 +168,7 @@ svg.jtk-drag-drop-hover path {
     fill:black;
 }
 
-/* edge(connector) */
-.jtk-edge-delete {
-    line-height: 8px;
-}
-.jtk-overlay {
-    box-shadow: 0 0 2px;
-}
-
+/* graph version-02 */
 /* group */
 .jtk-group {
     background-color: #f7f7f7;
@@ -264,11 +265,11 @@ svg.jtk-drag-drop-hover path {
 }
 
 /* edge(connector) */
-.jtk-connector {
+.graph-v02 .jtk-connector {
     z-index:12;
 }
 
-/* .jtk-node .delete {
+.graph-v02 .jtk-node .delete {
     position:absolute;
     top:3px;
-} */
+}
