@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import BaseEditableNode from '@/components/graph/v01/BaseEditableNode.vue'
+    import BaseEditableNode from '@/components/argraph/v01/BaseEditableNode.vue'
     export default {
         mixins:[BaseEditableNode]
     }

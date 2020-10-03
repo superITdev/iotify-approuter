@@ -67,7 +67,7 @@ svg.jtk-drag-drop-hover path {
     box-shadow: 0 0 2px;
 }
 
-/* graph version-01 */
+/* argraph version-01 */
 .argraph-v01 {
     z-index: 10;
     border: none;
@@ -148,16 +148,16 @@ svg.jtk-drag-drop-hover path {
     transform: scale(1.3, 1.3);
 }
 
-.flowchart-start .connect {
+.argraph-v01 .flowchart-start .connect {
     right: 17px;
     left: auto;
     top: 50%;
     margin-top: -7.5px;
 }
-.flowchart-action .connect {
+.argraph-v01 .flowchart-action .connect {
     bottom:18px;
 }
-.flowchart-question .connect {
+.argraph-v01 .flowchart-question .connect {
     bottom:28px;
 }
 
@@ -168,7 +168,7 @@ svg.jtk-drag-drop-hover path {
     fill:black;
 }
 
-/* graph version-02 */
+/* argraph version-02 */
 /* group */
 .jtk-group {
     background-color: #f7f7f7;
@@ -265,11 +265,11 @@ svg.jtk-drag-drop-hover path {
 }
 
 /* edge(connector) */
-.graph-v02 .jtk-connector {
+.argraph-v02 .jtk-connector {
     z-index:12;
 }
 
-.graph-v02 .jtk-node .delete {
+.argraph-v02 .jtk-node .delete {
     position:absolute;
     top:3px;
 }

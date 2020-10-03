@@ -21,9 +21,9 @@ import {mapGetters} from 'vuex'
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Graph01 from '@/components/graph/v01/Flowchart.vue'
-import Controls from '@/components/graph/common/Controls.vue'
-import Graph from '@/components/graph/Graph.vue'
+import Graph01 from '@/components/argraph/v01/Flowchart.vue'
+import Controls from '@/components/argraph/common/Controls.vue'
+import Graph from '@/components/argraph/Graph.vue'
 
 import nodeTemplates from '@/data/nodeTemplates'
 
