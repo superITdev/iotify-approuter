@@ -7,11 +7,11 @@
         mixins:[ BaseNodeComponent ],
         methods:{
             maybeDelete:function() {
-                let node = this.getNode();
+                const node = this.getNode();
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + node.data.text + "'"
+                        msg: "Delete '" + node.data.title + "'"
                     },
                     onOK:() => {
                         this.removeNode();

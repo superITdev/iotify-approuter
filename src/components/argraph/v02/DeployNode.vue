@@ -2,8 +2,8 @@
     <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
         <div class="group-title">
             {{obj.title}}
-            <button class="expand"></button>
-            <button class="group-delete"></button>
+            <button class="expand" v-on:click="toggleGroup()"></button>
+            <button class="group-delete" v-on:click="maybeDelete(true)"></button>
         </div>
         <div jtk-group-content="true"/>
 
@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import BaseNode from '@/components/argraph/v02/BaseNode.vue'
+    import BaseGroup from '@/components/argraph/v02/BaseGroup'
     export default {
-        mixins:[BaseNode]
+        mixins:[BaseGroup]
     }
 </script>

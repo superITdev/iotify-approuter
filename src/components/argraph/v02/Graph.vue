@@ -18,7 +18,6 @@ import NodeCategoryTypes from '@/data/NodeCategoryTypes'
 import DeployNode from '@/components/argraph/v02/DeployNode'
 import SubNode from '@/components/argraph/v02/SubNode'
 
-let toolkitComponent;
 let toolkit;
 let surface;
 
@@ -31,8 +30,7 @@ export default {
             },
             renderParams:{
               layout:{
-                  type:"Spring",
-                  absoluteBacked:true
+                  type: "Absolute"
               },
               jsPlumb:{
                   Connector:"StateMachine",
@@ -40,20 +38,20 @@ export default {
               },
               events:{
                   modeChanged:function (mode) {
-                      let controls = document.querySelector(".controls");
-                      jsPlumb.removeClass(controls.querySelectorAll("[mode]"), "selected-mode");
-                      jsPlumb.addClass(controls.querySelectorAll("[mode='" + mode + "']"), "selected-mode");
+                      jsPlumb.removeClass(jsPlumb.getSelector(".controls [mode]"), "selected-mode");
+                      jsPlumb.addClass(jsPlumb.getSelector(".controls [mode='" + mode + "']"), "selected-mode");
                   },
                   canvasClick:() => {
+                      toolkit.clearSelection();
                       surface.stopEditing();
                   }
               },
-              lassoInvert:true,
-              consumeRightClick: false,
               dragOptions: {
-                  filter: ".delete *, .group-connect *, .delete",
+                  filter: ".jtk-draw-handle, .delete, .expand, .group-delete, .connect",
                   magnetize: true,
               },
+              lassoFilter: ".controls, .controls *, .miniview, .miniview *",
+              consumeRightClick: false,
               zoomToFit:true,
             },
             view:{
@@ -61,7 +59,7 @@ export default {
                     "default": {
                         component:SubNode,
                         events: {
-                            tap: (params) => params.toolkit.toggleSelection(params.node)
+                            // tap: (params) => params.toolkit.toggleSelection(params.node)
                         }
                     },
                     [NodeCategoryTypes.protocol]: {
@@ -86,12 +84,11 @@ export default {
                         orphan:true,
                         constrain:false,
                         layout:{
-                            type:"Circular"
+                            type:"Spring",
+                            absoluteBacked:true
                         },
                         events:{
-                            tap: function (params) {
-                                toolkit.toggleSelection(params.group);
-                            }
+                            // tap: (params) => params.toolkit.toggleSelection(params.group)
                         }
                     },
                     [NodeCategoryTypes.deployment]: {
@@ -106,8 +103,8 @@ export default {
                         paintStyle: { strokeWidth: 2, stroke: "rgb(132, 172, 179)", outlineWidth: 3, outlineStroke: "transparent" },	//	paint style for this edge type.
                         hoverPaintStyle: { strokeWidth: 2, stroke: "rgb(67,67,67)" }, // hover paint style for this edge type.
                         events: {
-                            "click":(p) => {
-                                surface.startEditing(p.edge, {
+                            "click":(parm) => {
+                                surface.startEditing(parm.edge, {
                                     deleteButton:true,
                                     onMaybeDelete:(edge, connection, doDelete) => {
                                         Dialogs.show({
@@ -148,7 +145,7 @@ export default {
     },
 
     mounted() {
-        toolkitComponent = this.$refs.toolkitComponent;
+        const toolkitComponent = this.$refs.toolkitComponent;
         toolkit = toolkitComponent.toolkit;
 
         jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {

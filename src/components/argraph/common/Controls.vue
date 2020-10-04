@@ -10,69 +10,58 @@
 </template>
 
 <script>
+import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
+import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 
-    import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
-    import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
-    
-    let undoManager;
-    let container;
-    let surfaceId;
+let toolkit;
+let surface;
+let undoManager;
 
-    // a wrapper around getSurface, which expects a callback, as the surface may or may not have been
-    // initialised when calls are made to it.
-    function getSurface(cb) {
-        jsPlumbToolkitVue2.getSurface(surfaceId, cb);
-    }
-
-    export default {
-        props:["surfaceId"],
-        methods:{
-            panMode:function() {
-                getSurface((s) => s.setMode("pan"));
-            },
-            selectMode:function() {
-                getSurface((s) => s.setMode("select"));
-            },
-            zoomToFit:function() {
-                getSurface((s) => s.zoomToFit());
-            },
-            undo:function() {
-                undoManager.undo();
-            },
-            redo:function() {
-                undoManager.redo();
-            },
-            clear: function() {
-                getSurface((s) => {
-                    const t = s.getToolkit();
-                    if (t.getNodeCount() === 0 || confirm("Clear canvas?")) {
-                        t.clear();
-                    }
-                });
-            }
+export default {
+    props:["surfaceId"],
+    methods:{
+        panMode:function() {
+            surface.setMode("pan");
         },
-        mounted:function() {
-
-           // debugger
-
-            surfaceId = this.surfaceId;
-            container = this.$refs.container;
-            getSurface((surface) => {
-
-                undoManager = new jsPlumbToolkitUndoRedo({
-                    surface:surface,
-                    compound:true,
-                    onChange:(mgr, undoSize, redoSize) => {
-                        container.setAttribute("can-undo", undoSize > 0);
-                        container.setAttribute("can-redo", redoSize > 0);
-                    }
-                });
-
-                surface.bind("canvasClick", () => {
-                    surface.getToolkit().clearSelection();
-                });
-            });
+        selectMode:function() {
+            surface.setMode("select");
+        },
+        zoomToFit:function() {
+            toolkit.clearSelection();
+            surface.zoomToFit();
+        },
+        undo:function() {
+            undoManager.undo();
+        },
+        redo:function() {
+            undoManager.redo();
+        },
+        clear: function() {
+            const isEmpty = toolkit.getNodeCount()===0 && toolkit.getGroupCount()===0;
+            if (isEmpty || confirm("Clear canvas?")) toolkit.clear();
         }
-    }
+    },
+    mounted:function() {
+        const container = this.$refs.container;
 
+        jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {
+            surface = s;
+            toolkit = s.getToolkit();
+
+            undoManager = new jsPlumbToolkitUndoRedo({
+                surface:surface,
+                compound:true,
+
+                onChange:(mgr, undoSize, redoSize) => {
+                    container.setAttribute("can-undo", undoSize > 0);
+                    container.setAttribute("can-redo", redoSize > 0);
+                }
+            });
+
+            surface.bind("canvasClick", () => {
+                toolkit.clearSelection();
+            });
+        });
+    }
+}
 </script>

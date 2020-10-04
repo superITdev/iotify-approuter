@@ -60,8 +60,6 @@ export default {
         type: nodeItem.categoryType,
         title: nodeItem.title,
         info: nodeItem,
-        // w: 180,
-        // h: 130,
       }
       return v02;
     }
