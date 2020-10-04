@@ -1,8 +1,8 @@
 <template>
     <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
         <div class="group-title">
-            <img src="/assets/img/menu/deploy.png"/>
-            {{obj.info.title}}
+            <img :src="getTitleIcon(obj)"/>
+            {{getTitle(obj)}}
             <button class="expand" v-on:click="toggleGroup()"></button>
             <button class="group-delete" v-on:click="maybeDelete(true)"></button>
         </div>

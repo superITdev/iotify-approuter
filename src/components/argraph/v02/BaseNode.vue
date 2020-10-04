@@ -5,6 +5,8 @@
     export default {
         mixins:[ BaseNodeComponent ],
         methods:{
+            getTitle: obj => obj.info.title,
+            
             maybeDelete:function() {
                 Dialogs.show({
                     id: "dlgConfirm",
