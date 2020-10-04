@@ -58,7 +58,6 @@ export default {
       const v02 = {
         id: jsPlumbUtil.uuid(),
         type: nodeItem.categoryType,
-        title: nodeItem.title,
         info: nodeItem,
       }
       return v02;

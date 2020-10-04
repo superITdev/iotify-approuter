@@ -1,5 +1,4 @@
 <script>
-
     import { Dialogs } from 'jsplumbtoolkit'
     import { BaseNodeComponent } from 'jsplumbtoolkit-vue2'
 
@@ -7,11 +6,10 @@
         mixins:[ BaseNodeComponent ],
         methods:{
             maybeDelete:function() {
-                const node = this.getNode();
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + node.data.title + "'"
+                        msg: "Delete '" + this.obj.info.title + "'"
                     },
                     onOK:() => {
                         this.removeNode();
@@ -20,5 +18,4 @@
             }
         }
     }
-
 </script>

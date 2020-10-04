@@ -1,6 +1,6 @@
 <template>
     <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
-        {{obj.title}}
+        {{obj.info.title}}
         <div class="delete" v-on:click="maybeDelete()"/>
         <div class="connect"/>
 

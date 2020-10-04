@@ -1,5 +1,4 @@
 <script>
-
     import { Dialogs } from 'jsplumbtoolkit'
     import { BaseGroupComponent } from 'jsplumbtoolkit-vue2'
 
@@ -7,11 +6,10 @@
         mixins:[ BaseGroupComponent ],
         methods:{
             maybeDelete:function(removeChildNodes) {
-                const group = this.getGroup();
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + group.data.title + "'"
+                        msg: "Delete '" + this.obj.info.title + "'"
                     },
                     onOK:() => {
                         this.removeGroup(removeChildNodes);
@@ -24,5 +22,4 @@
             }
         }
     }
-
 </script>
