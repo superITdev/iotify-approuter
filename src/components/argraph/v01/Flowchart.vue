@@ -2,7 +2,7 @@
     <div style="width: 100%;height: 100%;position: relative;" class="argraph-v01">
         <jsplumb-toolkit
             ref="toolkitComponent"
-            url="/nodes.json"
+            url="/nodes2.json"
             v-bind:render-params="renderParams"
             v-bind:view="view"
             v-bind:surface-id="surfaceId"
