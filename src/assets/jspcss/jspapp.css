@@ -270,9 +270,16 @@ svg.jtk-drag-drop-hover path {
 
 /* edge(connector) */
 .argraph-v02 .jtk-connector {
-    z-index:12;
+    z-index: 11;
+}
+.argraph-v02 .jtk-edge-delete {
+    z-index: 13;
+}
+.argraph-v02 .jtk-flowchart-handle {
+    z-index: 12;
 }
 
+/* button */
 .argraph-v02 .jtk-node .delete {
     position:absolute;
     top:3px;

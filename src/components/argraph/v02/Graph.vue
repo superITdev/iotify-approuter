@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%;height: 100%;position: relative;">
+    <div style="width: 100%;height: 100%;position: relative;" class="argraph-v02">
         <jsplumb-toolkit
             ref="toolkitComponent"
             v-bind:render-params="renderParams"
@@ -15,7 +15,8 @@ import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
 import NodeCategoryTypes from '@/data/NodeCategoryTypes'
-import DeployNode from '@/components/argraph/DeployNode.vue'
+import DeployNode from '@/components/argraph/v02/DeployNode'
+import SubNode from '@/components/argraph/v02/SubNode'
 
 let toolkitComponent;
 let toolkit;
@@ -30,7 +31,8 @@ export default {
             },
             renderParams:{
               layout:{
-                  type:"Spring"
+                  type:"Spring",
+                  absoluteBacked:true
               },
               jsPlumb:{
                   Connector:"StateMachine",
@@ -49,40 +51,53 @@ export default {
               lassoInvert:true,
               consumeRightClick: false,
               dragOptions: {
-                  filter: ".jtk-draw-handle, .node-action, .node-action i"
+                  filter: ".delete *, .group-connect *, .delete",
+                  magnetize: true,
               },
-              zoomToFit:true
+              zoomToFit:true,
             },
             view:{
                 nodes: {
-                    "selectable": {
+                    "default": {
+                        component:SubNode,
                         events: {
                             tap: (params) => params.toolkit.toggleSelection(params.node)
                         }
                     },
-                    [NodeCategoryTypes.deployment]: {
-                        parent: "selectable",
-                        component:DeployNode
-                    },
                     [NodeCategoryTypes.protocol]: {
-                        parent: "selectable",
-                        component:DeployNode
+                        parent: "default",
                     },
                     [NodeCategoryTypes.memory]: {
-                        parent: "selectable",
-                        component:DeployNode
+                        parent: "default",
                     },
                     [NodeCategoryTypes.control]: {
-                        parent: "selectable",
-                        component:DeployNode
+                        parent: "default",
                     },
                     [NodeCategoryTypes.illustration]: {
-                        parent: "selectable",
-                        component:DeployNode
+                        parent: "default",
                     },
                 },
-                // There are two edge types defined - 'yes' and 'no', sharing a common
-                // parent.
+                groups:{
+                    "default":{
+                        component:DeployNode,
+                        endpoint:"Blank",
+                        anchor:"Continuous",
+                        revert:false,
+                        orphan:true,
+                        constrain:false,
+                        layout:{
+                            type:"Circular"
+                        },
+                        events:{
+                            tap: function (params) {
+                                toolkit.toggleSelection(params.group);
+                            }
+                        }
+                    },
+                    [NodeCategoryTypes.deployment]: {
+                        parent: "default",
+                    },
+                },
                 edges: {
                     "default": {
                         anchor:"AutoDefault",
@@ -110,9 +125,6 @@ export default {
                             [ "Arrow", { location: 1, width: 10, length: 10 }]
                         ]
                     },
-                    "connection":{
-                        parent:"default",
-                    }
                 },
 
                 ports: {
@@ -121,7 +133,7 @@ export default {
                     },
                     "source": {
                         maxConnections: -1,
-                        edgeType: "default" // "connection"
+                        edgeType: "default"
                     },
                     "target": {
                         maxConnections: -1,

@@ -56,5 +56,9 @@ function getNodeThumbIcon(node) {
     }
     return thumbs[node.categoryType];
 }
+function isGroupNode(node) {
+    if (node.categoryType === NodeCategoryTypes.deployment) return true;
+    return false;
+}
 
-export {nodeCategories, getNodeThumbIcon};
+export {nodeCategories, getNodeThumbIcon, isGroupNode};

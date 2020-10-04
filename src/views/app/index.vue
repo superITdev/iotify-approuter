@@ -4,8 +4,8 @@
   <main>
     <div class="work-canvas">
       <Controls v-bind:surface-id="surfaceId"></Controls>
-      <!-- <Graph01 v-bind:surface-id="surfaceId"></Graph01> -->
-      <Graph v-bind:surface-id="surfaceId"></Graph>
+      <!-- <GraphV01 v-bind:surface-id="surfaceId"></GraphV01> -->
+      <GraphV02 v-bind:surface-id="surfaceId"></GraphV02>
     </div>
     <div class="container-fluid">
       <router-view />
@@ -21,14 +21,19 @@ import {mapGetters} from 'vuex'
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Graph01 from '@/components/argraph/v01/Flowchart.vue'
 import Controls from '@/components/argraph/common/Controls.vue'
-import Graph from '@/components/argraph/Graph.vue'
+// import GraphV01 from '@/components/argraph/v01/Flowchart.vue'
+import GraphV02 from '@/components/argraph/v02/Graph.vue'
 
 import nodeTemplates from '@/data/nodeTemplates'
 
 export default {
-  components: { Sidebar, Graph01, Controls, Graph },
+  components: {
+    Sidebar,
+    Controls,
+    // GraphV01,
+    GraphV02,
+  },
   data() {
     return {
       surfaceId: "surface",
@@ -42,14 +47,23 @@ export default {
       const id = el.getAttribute("node-item-id");
       const nodeItem = nodeTemplates[id];
 
-      return {
+      // const v01 = {
+      //   id: jsPlumbUtil.uuid(),
+      //   type: nodeItem.categoryType,
+      //   text: nodeItem.title,
+      //   info: nodeItem,
+      //   w: 180,
+      //   h: 130,
+      // }
+      const v02 = {
         id: jsPlumbUtil.uuid(),
         type: nodeItem.categoryType,
-        text: nodeItem.title,
+        title: nodeItem.title,
         info: nodeItem,
-        w: 180,
-        h: 130,
-      };
+        // w: 180,
+        // h: 130,
+      }
+      return v02;
     }
   },
   mounted:function() {
