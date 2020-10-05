@@ -2,22 +2,19 @@
     import { Dialogs } from 'jsplumbtoolkit'
     import { BaseGroupComponent } from 'jsplumbtoolkit-vue2'
 
-    import {nodeCategories} from '@/data/nodeCategories'
+    import {getNodeInfo} from '@/data/nodeCategories'
 
     export default {
-        mixins:[ BaseGroupComponent ],
+        mixins:[BaseGroupComponent],
         methods:{
-            getTitle: obj => obj.info.title,
-            getTitleIcon: (obj) => {
-                const item = nodeCategories.find(item => item.id===obj.info.categoryType);
-                return item.icon;
-            },
+            getTitle: obj => getNodeInfo(obj).title,
+            getTitleIcon: obj => getNodeInfo(obj).titleIcon,
 
             maybeDelete:function(removeChildNodes) {
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + this.obj.info.title + "'"
+                        msg: "Delete '" + this.getTitle(this.obj) + "'"
                     },
                     onOK:() => {
                         this.removeGroup(removeChildNodes);

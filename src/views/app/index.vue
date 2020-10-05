@@ -26,6 +26,7 @@ import Controls from '@/components/argraph/common/Controls.vue'
 import GraphV02 from '@/components/argraph/v02/Graph.vue'
 
 import nodeTemplates from '@/data/nodeTemplates'
+import {getNodeInfo} from '@/data/nodeCategories'
 
 export default {
   components: {
@@ -46,6 +47,7 @@ export default {
     dataGenerator:function(el) {
       const id = el.getAttribute("node-item-id");
       const nodeItem = nodeTemplates[id];
+      const info = getNodeInfo(nodeItem);
 
       // const v01 = {
       //   id: jsPlumbUtil.uuid(),
@@ -56,9 +58,8 @@ export default {
       //   h: 130,
       // }
       const v02 = {
+        ...info,
         id: jsPlumbUtil.uuid(),
-        type: nodeItem.categoryType,
-        info: nodeItem,
       }
       return v02;
     }

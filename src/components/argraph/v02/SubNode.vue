@@ -1,6 +1,10 @@
 <template>
     <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
-        {{getTitle(obj)}}
+        <div class="parts">
+            <div class="part-left" v-bind:style="{width:obj.w1 + 'px', backgroundColor:obj.color1}"></div>
+            <div class="part-divider" v-bind:style="{width:'blue'}"></div>
+            <div class="part-right" v-bind:style="{width:obj.w2 + 'px'}">{{getTitle(obj)}}</div>
+        </div>
         <div class="delete" v-on:click="maybeDelete()"/>
         <div class="connect"/>
 
@@ -15,3 +19,27 @@
         mixins:[BaseNode]
     }
 </script>
+
+<style scoped>
+.parts {
+    display: flex;
+    align-items: stretch;
+}
+.part-left {
+    background-color: aqua;
+    width: 75px;
+    opacity: 0.15;
+}
+.part-divider {
+    width: 1px;
+    border-width: 0;
+    background-color: black;
+}
+.part-right {
+    background-color: transparent;
+    width: 100px;
+    word-wrap: break-word;
+    padding: 10px;
+}
+
+</style>

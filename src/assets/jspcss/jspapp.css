@@ -287,5 +287,9 @@ svg.jtk-drag-drop-hover path {
 /* button */
 .argraph-v02 .jtk-node .delete {
     position:absolute;
-    top:3px;
+    top:5px;
+}
+.argraph-v02 .jtk-node .connect {
+    position:absolute;
+    top:5px;
 }

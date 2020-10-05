@@ -1,6 +1,6 @@
 <template>
     <div v-bind:style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
-        <div class="group-title">
+        <div class="group-title" v-bind:style="{backgroundColor:obj.titleBgColor}">
             <img :src="getTitleIcon(obj)"/>
             {{getTitle(obj)}}
             <button class="expand" v-on:click="toggleGroup()"></button>

@@ -30,7 +30,8 @@ export default {
             },
             renderParams:{
               layout:{
-                  type: "Absolute"
+                  type:"Spring",
+                  absoluteBacked:true
               },
               jsPlumb:{
                   Connector:"StateMachine",
@@ -82,7 +83,7 @@ export default {
                         anchor:"Continuous",
                         revert:false,
                         orphan:true,
-                        constrain:false,
+                        constrain:true,
                         layout:{
                             type:"Spring",
                             absoluteBacked:true
