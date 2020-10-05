@@ -27,6 +27,16 @@ export default {
     data:() => {
         return {
             toolkitParams:{
+                beforeConnect: function(source, target) {
+                    if (source === target) return false;
+                    if (source.objectType !== target.objectType) {
+                        const node = source.objectType === "Node" ? source : target;
+                        const group = source.objectType === "Group" ? source : target;
+                        const nodes = group.getNodes();
+                        if (nodes.includes(node)) return false;
+                    }
+                    return true;
+                }
             },
             renderParams:{
               layout:{
