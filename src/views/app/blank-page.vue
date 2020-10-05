@@ -6,27 +6,14 @@
         <el-button type="primary" plain>Deploy</el-button>
       </div>
     </div>
-    <!-- <div class="work-content" @dragover.prevent>
-      <v-zoomer
-        ref="zoomer"
-        :max-scale="5"
-      >
-        <chart-node
-          v-for="(item, idx) in chartData.nodes"
-          v-bind="item"
-          :key="idx"
-          @edit="editNode(item,idx)"
-        ></chart-node>
-      </v-zoomer>
-    </div> -->
     <div class="work-footer">
       <div class="work-footer-left">
         <b-card class="text-center">
           <img :src="fullScreen ? '/assets/img/work/full-screen.png' : '/assets/img/work/full-screen.png'" alt="full-screen" @click="toggleFullScreen"/>
         </b-card>
         <b-card class="text-center mt-2">
-          <img src="/assets/img/work/puls.png" alt="plus" @click="$refs.zoomer.zoomIn()"/>
-          <img src="/assets/img/work/minus.png" alt="minus" @click="$refs.zoomer.zoomOut()"/>
+          <img src="/assets/img/work/puls.png" alt="plus" @click="nudgeZoom(true)"/>
+          <img src="/assets/img/work/minus.png" alt="minus" @click="nudgeZoom(false)"/>
         </b-card>
       </div>
     </div>
@@ -136,10 +123,16 @@ import {
     getDirection
 } from '../../utils'
 
+import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
+
+const surfaceId = "surface";
+let surface;
+
 export default {
   components: {
     'v-select': vSelect,
   },
+  
   data() {
     return {
       fullScreen: false,
@@ -206,7 +199,19 @@ export default {
         (document.msFullscreenElement && document.msFullscreenElement !== null)
       )
     },
+
+    nudgeZoom(plus) {
+      let nudge = 0.05;
+      if (!plus) nudge *= -1;
+      surface.nudgeZoom(nudge);
+    }
   },
+
+  mounted() {
+    jsPlumbToolkitVue2.getSurface(surfaceId, (s) => {
+      surface = s;
+    });
+  }
 }
 
 </script>
