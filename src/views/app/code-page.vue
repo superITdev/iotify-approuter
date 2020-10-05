@@ -117,6 +117,7 @@ export default {
     methods: {
       goToWokerPage() {
         this.$router.push('/app/blank-page');
+        document.querySelector(".work-canvas").style.visibility = 'visible';
       }
     },
     computed: {
@@ -124,7 +125,9 @@ export default {
         return this.$refs.cmEditor.codemirror
       }
     },
-    mounted() {}
+    mounted() {
+      document.querySelector(".work-canvas").style.visibility = 'hidden';
+    }
 }
 </script>
 
@@ -135,4 +138,3 @@ export default {
   cursor: pointer;
 }
 </style>
-

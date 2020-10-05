@@ -107,10 +107,13 @@ export default {
             barChartData
         }
     },
-    mounted() {},
+    mounted() {
+      document.querySelector(".work-canvas").style.visibility = 'hidden';
+    },
     methods: {
       goToWokerPage() {
         this.$router.push('/app/blank-page');
+        document.querySelector(".work-canvas").style.visibility = 'visible';
       }
     }
 }
