@@ -21,6 +21,12 @@ import SubNode from '@/components/argraph/v02/SubNode'
 let toolkit;
 let surface;
 
+function checkConnectivity(edges, source, target) {
+    return edges.some(edge => {
+        return (edge.source === source && edge.target === target);
+    })
+}
+
 export default {
     name: 'jsp-toolkit',
     props:["surfaceId"],
@@ -39,6 +45,13 @@ export default {
 
                     // avoid the connection between any node & group.
                     if (source.objectType !== target.objectType) return false;
+
+                    {   // avoid the repeated connections between node & node.
+                        const sedges = source.getAllSourceEdges();
+                        const tedges = source.getAllTargetEdges();
+                        if (checkConnectivity(sedges, source, target)) return false;
+                        if (checkConnectivity(sedges, target, target)) return false;
+                    }
 
                     return true;
                 }
