@@ -8,10 +8,10 @@
         </div>
         <div jtk-group-content="true"/>
 
-        <div class="group-connect connect"/>
-
-        <jtk-source port-type="source" filter=".group-connect" v-pre/>
-        <jtk-target port-type="target" v-pre/>
+        <!-- disable connectivity with this group -->
+        <!-- <div class="group-connect connect"/> -->
+        <!-- <jtk-source port-type="source" filter=".group-connect" v-pre/> -->
+        <!-- <jtk-target port-type="target" v-pre/> -->
     </div>
 </template>
 

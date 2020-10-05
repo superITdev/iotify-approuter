@@ -29,12 +29,17 @@ export default {
             toolkitParams:{
                 beforeConnect: function(source, target) {
                     if (source === target) return false;
-                    if (source.objectType !== target.objectType) {
-                        const node = source.objectType === "Node" ? source : target;
-                        const group = source.objectType === "Group" ? source : target;
-                        const nodes = group.getNodes();
-                        if (nodes.includes(node)) return false;
-                    }
+                    // // avoid the connection between group & in-nodes.
+                    // if (source.objectType !== target.objectType) {
+                    //     const node = source.objectType === "Node" ? source : target;
+                    //     const group = source.objectType === "Group" ? source : target;
+                    //     const nodes = group.getNodes();
+                    //     if (nodes.includes(node)) return false;
+                    // }
+
+                    // avoid the connection between any node & group.
+                    if (source.objectType !== target.objectType) return false;
+
                     return true;
                 }
             },
