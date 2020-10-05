@@ -7,10 +7,14 @@
             v-bind:surface-id="surfaceId"
             v-bind:toolkit-params="toolkitParams">
         </jsplumb-toolkit>
+
+        <HttpSetting ref="httpsetting" />
     </div>
 </template>
 
 <script>
+import HttpSetting from '@/components/HttpSetting'
+
 import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
@@ -21,6 +25,9 @@ import SubNode from '@/components/argraph/v02/SubNode'
 let toolkit;
 let surface;
 
+let httpsetting;
+let router;
+
 function checkConnectivity(edges, source, target) {
     return edges.some(edge => {
         return (edge.source === source && edge.target === target);
@@ -30,6 +37,9 @@ function checkConnectivity(edges, source, target) {
 export default {
     name: 'jsp-toolkit',
     props:["surfaceId"],
+    components: {
+        HttpSetting,
+    },
     data:() => {
         return {
             toolkitParams:{
@@ -99,6 +109,11 @@ export default {
                     },
                     [NodeCategoryTypes.control]: {
                         parent: "default",
+                        events: {
+                            dblclick(params) { // open http-setting modal.
+                                httpsetting.showModal();
+                            }
+                        }
                     },
                     [NodeCategoryTypes.illustration]: {
                         parent: "default",
@@ -117,7 +132,9 @@ export default {
                             absoluteBacked:true
                         },
                         events:{
-                            // tap: (params) => params.toolkit.toggleSelection(params.group)
+                            // tap: (params) => {
+                            //     params.toolkit.toggleSelection(params.group)
+                            // }
                         }
                     },
                     [NodeCategoryTypes.deployment]: {
@@ -145,6 +162,10 @@ export default {
                                         });
                                     }
                                 });
+                            },
+                            dblclick(params) { // open logger-page.
+                                surface.stopEditing();
+                                router.push('/app/logger-page');
                             }
                         },
                         overlays: [
@@ -174,6 +195,9 @@ export default {
     },
 
     mounted() {
+        httpsetting = this.$refs['httpsetting'];
+        router = this.$router;
+
         const toolkitComponent = this.$refs.toolkitComponent;
         toolkit = toolkitComponent.toolkit;
 
