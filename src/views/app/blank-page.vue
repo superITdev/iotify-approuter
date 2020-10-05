@@ -16,8 +16,6 @@
           <img src="/assets/img/work/minus.png" alt="minus" @click="nudgeZoom(false)"/>
         </b-card>
       </div>
-    </div>
-    <div class="work-footer">
       <div class="work-footer-right">
         <img src="/assets/img/work/logger.png" alt="logger" @click="goToPage('/app/logger-page')" />
         <img src="/assets/img/work/code-pen.png" alt="code-pen" @click="goToPage('/app/code-page')" />
@@ -213,59 +211,4 @@ export default {
     });
   }
 }
-
 </script>
-
-<style lang="less" rel="stylesheet/less" scoped>
-  .external-app {
-    height: 65px;
-    margin: 0;
-    cursor: pointer;
-    .left {
-      background: #3D63F4;
-      border: 1px solid #2D51DB;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      padding-top: 10px;
-      text-align: center;
-    }
-    .right {
-      background: white;
-      border: 1px solid #2D51DB;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-      text-align: center;
-      padding-top: 10px;
-    }
-  }
-
-  .drag-area {
-    height: 580px;
-    margin: 10px;
-    border: 1px solid #3C198C;
-    border-radius: 5px;
-    .header {
-      height: 48px;
-      background: linear-gradient(90deg, #3D63F4 0%,#6331D5 100%);
-      color: white;
-      padding: 15px;
-    }
-    .body {
-      background: white;
-      height: 528px;
-    }
-
-    .workplace {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-  }
-
-  .hidden {
-    .header, .body {
-      display: none;
-    }
-    border: 1px dashed !important;
-  }
-</style> 

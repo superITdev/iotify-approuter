@@ -11,10 +11,6 @@ import en from './locales/en.json'
 import es from './locales/es.json'
 import VueI18n from 'vue-i18n'
 import { defaultLocale, localeOptions, firebaseConfig } from './constants/config'
-// Notification Component Add
-import Notifications from './components/Common/Notification'
-// Breadcrumb Component Add
-import Breadcrumb from './components/Common/Breadcrumb'
 // Colxx Component Add
 import Colxx from './components/Common/Colxx'
 // Perfect Scrollbar Add
@@ -51,8 +47,6 @@ const i18n = new VueI18n({
   messages
 });
 
-Vue.use(Notifications);
-Vue.component('piaf-breadcrumb', Breadcrumb);
 Vue.component('b-colxx', Colxx);
 Vue.component('vue-perfect-scrollbar', vuePerfectScrollbar);
 Vue.use(require('vue-shortkey'));
