@@ -17,9 +17,11 @@
         </b-card>
       </div>
       <div class="work-footer-right">
-        <img src="/assets/img/work/logger.png" alt="logger" @click="loadGraph()" />
-        <img src="/assets/img/work/code-pen.png" alt="code-pen" @click="goToPage('/app/code-page')" />
-        <img src="/assets/img/work/setting.png" alt="..." @click="saveGraph()" />
+        <img src="/assets/img/work/save.png" alt="save" title="save" @click="saveGraph()" />
+        <img src="/assets/img/work/open.png" alt="open" title="open" @click="loadGraph()" />
+        <img src="/assets/img/work/logger.png" alt="logger" />
+        <img src="/assets/img/work/code-pen.png" alt="code-pen" title="code-editor" @click="goToPage('/app/code-page')" />
+        <img src="/assets/img/work/setting.png" alt="..." />
       </div>
     </div>
   </div>
