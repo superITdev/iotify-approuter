@@ -17,9 +17,9 @@
         </b-card>
       </div>
       <div class="work-footer-right">
-        <img src="/assets/img/work/logger.png" alt="logger" />
+        <img src="/assets/img/work/logger.png" alt="logger" @click="loadGraph()" />
         <img src="/assets/img/work/code-pen.png" alt="code-pen" @click="goToPage('/app/code-page')" />
-        <img src="/assets/img/work/setting.png" alt="..." />
+        <img src="/assets/img/work/setting.png" alt="..." @click="saveGraph()" />
       </div>
     </div>
   </div>
@@ -27,9 +27,11 @@
 
 <script>
 import { jsPlumbToolkitVue2 } from "jsplumbtoolkit-vue2";
+import {loadGraph, saveGraph} from '@/utils/common.js';
 
 const surfaceId = "surface";
 let surface;
+let toolkit;
 
 export default {
   data() {
@@ -38,6 +40,13 @@ export default {
     }
   },
   methods: {
+    loadGraph() {
+      loadGraph(toolkit);
+    },
+    saveGraph() {
+      saveGraph(toolkit);
+    },
+
     goToPage(path) {
       this.$router.push(path);
     },
@@ -90,6 +99,7 @@ export default {
   mounted() {
     jsPlumbToolkitVue2.getSurface(surfaceId, (s) => {
       surface = s;
+      toolkit = surface.getToolkit();
     });
   }
 }
