@@ -13,7 +13,7 @@
 
           <v-list-item-content>
             <v-list-item-title class="subheading">
-              Meteor + Vuetify
+              App Router
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
@@ -88,7 +88,7 @@
         <v-icon>menu</v-icon>
       </v-app-bar-nav-icon>
       <v-toolbar-title class="font-weight-bold">
-        Meteor + Vuetify
+        App Router
       </v-toolbar-title>
       <v-spacer />
       <v-menu
