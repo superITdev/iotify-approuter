@@ -10,24 +10,29 @@
     <v-navigation-drawer
       color="rgba(61, 99, 244, 0.9)"
       mini-variant
-      mini-variant-width="100"
-      class="lighten-1"
+      dark
+      :mini-variant-width="majorVS.itemWidth"
     >
-      <v-row
-        v-for="n in 6" :key="n"
-        no-gutters justify="center"
-        :class="(n==1 ? 'pt-4 pb-2' : 'py-2')"
-      >
-        <v-col cols="auto">
-          <v-avatar tile size="50">
-            <v-img src="/icon/IoT.svg"></v-img>
-          </v-avatar>
-        </v-col>
-        <v-responsive width="100%"></v-responsive>
-        <v-col cols="auto">
-          <v-card-title class="pa-0 white--text" style="font-size:12px">Deployment</v-card-title>
-        </v-col>
-      </v-row>
+      <v-list flat class="pa-0">
+        <v-list-item-group mandatory v-model="majorVS.activeMajorType">
+          <v-list-item
+            v-for="(major, i) in majorCategories" :key="i"
+            class="pa-0"
+            :color="major.color"
+            active-class="white deep-purple--text"
+            :style="`height:${majorVS.itemHeight}px`"
+            :value="major.type"
+            @click="onMajorCliick(major)"
+          >
+            <v-list-item-content>
+              <v-avatar :size="majorVS.itemIconSize" tile>
+                <v-img :src="major.icon" contain></v-img>
+              </v-avatar>
+              <v-list-item-title class="text-center" :style="`font-size:${majorVS.itemTextSize}px`" v-text="major.title"/>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
 
     <v-main class="overflow-hidden">
@@ -77,12 +82,36 @@
   export default {
     data () {
       return {
+        majorVS: { // vue-style for major-bar ui
+          itemWidth: 90, // px
+          itemHeight: 110, // px
+          itemIconSize: 50, // px
+          itemTextSize: 13, // px
+
+          activeMajorType: ""
+        },
+        majorCategories: [ // data for major category
+          { type:'', title: '', icon: '/icon/IoT.svg', color: 'indigo darken-1', globalRecent: true },
+          { type:'deployment', title: 'Deployment', icon: '/icon/deployment.svg', color: 'indigo accent-4' },
+          { type:'protocol', title: 'Protocol', icon: '/icon/protocol.svg', color: 'green accent-4' },
+          { type:'memory', title: 'Memory', icon: '/icon/memory.svg', color: 'orange accent-4' },
+          { type:'control', title: 'Control', icon: '/icon/control.svg', color: 'cyan accent-4' },
+          { type:'illustration', title: 'Illustration', icon: '/icon/illustration.svg', color: 'purple accent-4' },
+        ],
         items: [
           { title: 'Home', icon: 'mdi-view-dashboard' },
           { title: 'About', icon: 'mdi-forum' },
         ],
-        links: ['Home', 'Contacts', 'Settings'],
       }
     },
+    methods: {
+      onMajorCliick(major) {
+        // when major-category is selected.
+        
+      }
+    }
   }
 </script>
+
+<style scoped>
+</style>
