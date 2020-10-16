@@ -8,7 +8,7 @@
     no-gutters
   >
     <v-navigation-drawer
-      color="rgba(61, 99, 244, 0.5)"
+      color="rgba(61, 99, 244, 0.9)"
       mini-variant
       mini-variant-width="100"
       class="lighten-1"
