@@ -19,14 +19,16 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // Main app
+// import App from '/imports/ui_/App.vue';
 import App from '/imports/ui/App.vue';
 
 // Routes for view router
-
+// import routes from "/imports/routes_";
 import routes from "/imports/routes";
 
 const router = new VueRouter({
   mode: 'history',
+  base: process.env.BASE_URL,
   routes, // short for `routes: routes`
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }
@@ -38,15 +40,13 @@ const checkAuth = function(){
 }
 
 router.beforeResolve(function(to, from, next) {
-  if(to.matched.some( function(record) { return !record.meta.public })){
+  if (to.matched.some( function(record) { return !record.meta.public })) {
     if (!router.app.authenticated && !checkAuth()) {
       next({path:"/"});
-    } else {
-      next()
+      return;
     }
-  } else {
-    next();
   }
+  next();
 });
 
 import store from '/imports/store';
