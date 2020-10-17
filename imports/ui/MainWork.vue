@@ -21,7 +21,7 @@
             :color="major.color"
             active-class="white"
             :style="`height:${majorVS.itemHeight}px`"
-            :value="major.type"
+            :value="major.majorType"
             @click="onMajorCliick(major)"
           >
             <template v-slot:default="{active}">
@@ -43,34 +43,35 @@
         no-gutters
       >
         <v-navigation-drawer
-          dark
-          mini-variant
+          class="iotar-subbar"
         >
-          <v-list-item class="px-2">
-            <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/75.jpg"></v-img>
-            </v-list-item-avatar>
+          <v-list-item>
+            <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
+            <v-list-item-action>
+              <v-btn icon>
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+          <v-list-item>
+            <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable/>
           </v-list-item>
 
-          <v-divider></v-divider>
+          <v-expansion-panels accordion multiple>
+            <v-expansion-panel>
+              <v-expansion-panel-header class="iotar-subbar-subtitle">Recently Used</v-expansion-panel-header>
+              <v-expansion-panel-content class="iotar-subbar-content">
+                node1, node2, node3 ...
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+            <v-expansion-panel>
+              <v-expansion-panel-header class="iotar-subbar-subtitle">Collection</v-expansion-panel-header>
+              <v-expansion-panel-content class="iotar-subbar-content">
+                node1, node2, node3 ...
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
 
-          <v-list
-            dense
-            nav
-          >
-            <v-list-item
-              v-for="item in items"
-              :key="item.title"
-            >
-              <v-list-item-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-action>
-
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
         </v-navigation-drawer>
         <v-main>
         </v-main>
@@ -93,12 +94,12 @@
           activeMajorType: ""
         },
         majorCategories: [ // data for major category
-          { type:'', title: '', icon: 'IoT', color: 'indigo darken-4', globalRecent: true },
-          { type:'deployment', title: 'Deployment', icon: 'deployment', color: 'blue accent-4' },
-          { type:'protocol', title: 'Protocol', icon: 'protocol', color: 'green accent-4' },
-          { type:'memory', title: 'Memory', icon: 'memory', color: 'orange accent-4' },
-          { type:'control', title: 'Control', icon: 'control', color: 'cyan accent-4' },
-          { type:'illustration', title: 'Illustration', icon: 'illustration', color: 'purple accent-4' },
+          { majorType:'', title: '', icon: 'IoT', color: 'indigo darken-4', globalRecent: true },
+          { majorType:'deployment', title: 'Deployment', icon: 'deployment', color: 'blue accent-4' },
+          { majorType:'protocol', title: 'Protocol', icon: 'protocol', color: 'green accent-4' },
+          { majorType:'memory', title: 'Memory', icon: 'memory', color: 'orange accent-4' },
+          { majorType:'control', title: 'Control', icon: 'control', color: 'cyan accent-4' },
+          { majorType:'illustration', title: 'Illustration', icon: 'illustration', color: 'purple accent-4' },
         ],
         items: [
           { title: 'Home', icon: 'mdi-view-dashboard' },
@@ -109,11 +110,25 @@
     methods: {
       onMajorCliick(major) {
         // when major-category is selected.
-        
       }
     }
   }
 </script>
 
 <style scoped>
+.iotar-subbar {
+  font-family: "Nunito", sans-serif;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+.iotar-subbar-title {
+  font-size:18px;
+  font-weight:bold;
+}
+.iotar-subbar-subtitle {
+  font-size:14px;
+}
+.iotar-subbar-content {
+  font-size:14px;
+}
 </style>
