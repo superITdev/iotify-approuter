@@ -71,6 +71,7 @@ const clientConfig = {
     alias: {
       '/imports': path.resolve(__dirname, './imports'),
       // ... and any other directories you might have
+      '/svgicon': path.resolve(__dirname, './svgicon'),
     }
   },
   // resolve: {

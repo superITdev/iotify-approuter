@@ -6,7 +6,8 @@
     "serve": "NO_HMR=1 meteor",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-    "visualize": "meteor --production --extra-packages bundle-visualizer"
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "generate-svgicon": "vsvg -s ./svgicon/svg -t ./svgicon/icon"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.0",
@@ -41,6 +42,7 @@
     "sass-loader": "^9.0.3",
     "vue-loader": "^15.9.3",
     "vue-style-loader": "^4.1.2",
+    "vue-svgicon": "^3.2.9",
     "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.6.0",
     "webpack": "^4.44.2",

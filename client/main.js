@@ -8,7 +8,6 @@ import vuetify from '/imports/plugins/vuetify' // path to vuetify export
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-
 import VueTracker from 'vue-meteor-tracker';
 Vue.use(VueTracker);
 
@@ -17,6 +16,10 @@ Vue.use(VueMeta)
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
+
+import VueSVGIcon from 'vue-svgicon';
+Vue.use(VueSVGIcon);
+import '/svgicon/icon'; // load all compiled svg-js icons.
 
 // Main app
 // import App from '/imports/ui_/App.vue';
