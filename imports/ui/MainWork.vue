@@ -29,7 +29,7 @@
                 <v-avatar :size="majorVS.itemIconSize" tile>
                   <svgicon :icon="major.icon" :color="active ? major.color : 'white'"/>
                 </v-avatar>
-                <v-list-item-title class="text-center" :style="`font-size:${majorVS.itemTextSize}px`" v-text="major.title"/>
+                <v-list-item-title class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -67,29 +67,10 @@
             <v-expansion-panel v-for="(sub, subIdx) in activeSubCategories" :key="subIdx">
               <v-expansion-panel-header class="iotar-subbar-subtitle">{{sub.subTitle}}</v-expansion-panel-header>
               <v-expansion-panel-content class="iotar-subbar-content">
-                <v-row>
-                  <v-col>
-                    Item 1
+                <v-row dense>
+                  <v-col v-for="(nodeItem, nodeIdx) in sub.nodeItems" :key="nodeIdx" cols="4">
+                    <NodeItem :nodeItem="getNodeItemUIinfo(nodeItem)"/>
                   </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-                  <v-col>
-                    Item 1
-                  </v-col>
-
                 </v-row>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -105,241 +86,311 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        majorVS: { // vue-style for major-bar ui
-          itemWidth: 90, // px
-          itemHeight: 110, // px
-          itemIconSize: 50, // px
-          itemTextSize: 13, // px
+import NodeItem from '/imports/ui/NodeItem.vue';
 
-          activeMajorType: ''
+export default {
+  components: {
+    NodeItem,
+  },
+  data () {
+    return {
+      majorVS: { // vue-style for major-bar ui
+        itemWidth: 90, // px
+        itemHeight: 110, // px
+        itemIconSize: 50, // px
+        itemFontSize: 13, // px
+
+        activeMajorType: ''
+      },
+    }
+  },
+  computed: {
+    majorCategories() {
+      const majors = [ // data for major category
+        {
+          majorType:'',
+          title: '',
+          icon: 'IoT',
+          color: 'indigo darken-4',
+          globalRecent: true
         },
-      }
+        {
+          majorType:'deployment',
+          title: 'Deployment',
+          icon: 'deployment',
+          color: 'blue accent-4',
+          nodeBaseInfo: {
+            isGroup: true,
+            titleIcon: "/assets/img/menu/deploy.png",
+            titleBgColor: "#00BAFF",
+            h: 450,
+          },
+        },
+        {
+          majorType:'protocol',
+          title: 'Protocol',
+          icon: 'protocol',
+          color: 'green accent-4',
+          nodeBaseInfo: {
+            w1: 50,
+            w2: 75,
+          },
+        },
+        {
+          majorType:'database',
+          title: 'Database',
+          icon: 'memory',
+          color: 'orange accent-4',
+          nodeBaseInfo: {
+            w1: 50,
+            w2: 90,
+          },
+        },
+        {
+          majorType:'function',
+          title: 'Function',
+          icon: 'control',
+          color: 'cyan accent-4',
+          nodeBaseInfo: {
+            w1: 50,
+            w2: 75,
+          },
+        },
+        {
+          majorType:'staticAsset',
+          title: 'Static Asset',
+          icon: 'illustration',
+          color: 'purple accent-4',
+          nodeBaseInfo: {
+            w1: 50,
+            w2: 100,
+          },
+        },
+      ];
+      return majors;
     },
-    computed: {
-      majorCategories() {
-        const majors = [ // data for major category
-          { majorType:'', title: '', icon: 'IoT', color: 'indigo darken-4', globalRecent: true },
-          { majorType:'deployment', title: 'Deployment', icon: 'deployment', color: 'blue accent-4' },
-          { majorType:'protocol', title: 'Protocol', icon: 'protocol', color: 'green accent-4' },
-          { majorType:'database', title: 'Database', icon: 'memory', color: 'orange accent-4' },
-          { majorType:'function', title: 'Function', icon: 'control', color: 'cyan accent-4' },
-          { majorType:'staticAsset', title: 'Static Asset', icon: 'illustration', color: 'purple accent-4' },
-        ];
-        return majors;
-      },
-      allNodes() {
-        const nodes = [ // fetched from backend
-          // deployment
-          {
-              majorType: 'deployment',
-              itemTitle: "AWS",
-          },
-          {
-              majorType: 'deployment',
-              itemTitle: "GCP",
-          },
-          {
-              majorType: 'deployment',
-              itemTitle: "Edge",
-          },
-          // protocol
-          // protocol/gateway
-          {
-              majorType: 'protocol',
-              subTitle: 'Gateway',
-              itemTitle: "HTTP",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Gateway',
-              itemTitle: "Websocket",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Gateway',
-              itemTitle: "MQTT",
-          },
-          // protocol/client
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "HTTP",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "Websocket",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "MQTT",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "NATS",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "TCP",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "UDP",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "COAP",
-          },
-          {
-              majorType: 'protocol',
-              subTitle: 'Client',
-              itemTitle: "SSH",
-          },
-          // database
-          // database/client
-          {
-              majorType: 'database',
-              subTitle: 'Client',
-              itemTitle: "REDIS",
-          },
-          {
-              majorType: 'database',
-              subTitle: 'Client',
-              itemTitle: "MongoDB",
-          },
-          {
-              majorType: 'database',
-              subTitle: 'Client',
-              itemTitle: "Elastic search",
-          },
-          {
-              majorType: 'database',
-              subTitle: 'Client',
-              itemTitle: "S3",
-          },
-          // database/server
-          {
-              majorType: 'database',
-              subTitle: 'Server',
-              itemTitle: "REDIS",
-          },
-          // function
-          // function/custom
-          {
-              majorType: 'function',
-              subTitle: 'Custom',
-              itemTitle: "Javascript",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Custom',
-              itemTitle: "Go",
-          },
-          // function/prebuilt
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "Timer",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "IETTT",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "Zapier",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "Webhook",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "REST2Websocket",
-          },
-          {
-              majorType: 'function',
-              subTitle: 'Prebuilt',
-              itemTitle: "MQTT2HTTP",
-          },
-          // staticAsset
-          {
-              majorType: 'staticAsset',
-              itemTitle: "Web URL",
-          },
-          {
-              majorType: 'staticAsset',
-              itemTitle: "Icon",
-          },
-          {
-              majorType: 'staticAsset',
-              itemTitle: "Github",
-          },
-        ]
-        return nodes;
-      },
-      activeSubCategories() {
-        const subs = this.getSubCategories(this.majorVS.activeMajorType);
-        return subs;
-      }
+    allNodeItems() {
+      const nodeItems = [ // fetched from backend
+        // deployment
+        {
+            majorType: 'deployment',
+            itemTitle: "AWS",
+        },
+        {
+            majorType: 'deployment',
+            itemTitle: "GCP",
+        },
+        {
+            majorType: 'deployment',
+            itemTitle: "Edge",
+        },
+        // protocol
+        // protocol/gateway
+        {
+            majorType: 'protocol',
+            subTitle: 'Gateway',
+            itemTitle: "HTTP",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Gateway',
+            itemTitle: "Websocket",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Gateway',
+            itemTitle: "MQTT",
+        },
+        // protocol/client
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "HTTP",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "Websocket",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "MQTT",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "NATS",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "TCP",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "UDP",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "COAP",
+        },
+        {
+            majorType: 'protocol',
+            subTitle: 'Client',
+            itemTitle: "SSH",
+        },
+        // database
+        // database/client
+        {
+            majorType: 'database',
+            subTitle: 'Client',
+            itemTitle: "REDIS",
+        },
+        {
+            majorType: 'database',
+            subTitle: 'Client',
+            itemTitle: "MongoDB",
+        },
+        {
+            majorType: 'database',
+            subTitle: 'Client',
+            itemTitle: "Elastic search",
+        },
+        {
+            majorType: 'database',
+            subTitle: 'Client',
+            itemTitle: "S3",
+        },
+        // database/server
+        {
+            majorType: 'database',
+            subTitle: 'Server',
+            itemTitle: "REDIS",
+        },
+        // function
+        // function/custom
+        {
+            majorType: 'function',
+            subTitle: 'Custom',
+            itemTitle: "Javascript",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Custom',
+            itemTitle: "Go",
+        },
+        // function/prebuilt
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "Timer",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "IETTT",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "Zapier",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "Webhook",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "REST2Websocket",
+        },
+        {
+            majorType: 'function',
+            subTitle: 'Prebuilt',
+            itemTitle: "MQTT2HTTP",
+        },
+        // staticAsset
+        {
+            majorType: 'staticAsset',
+            itemTitle: "Web URL",
+        },
+        {
+            majorType: 'staticAsset',
+            itemTitle: "Icon",
+        },
+        {
+            majorType: 'staticAsset',
+            itemTitle: "Github",
+        },
+      ]
+      return nodeItems;
     },
-    methods: {
-      getMajorCategory(majorType) {
-        return this.majorCategories.find(mc => mc.majorType===majorType);
-      },
-      getSubCategories(majorType) {
-        // Filter nodes by majorType.
-        const nodes = this.allNodes.filter(node => node.majorType===majorType);
+    activeSubCategories() {
+      const subs = this.getSubCategories(this.majorVS.activeMajorType);
+      return subs;
+    }
+  },
+  methods: {
+    getMajorCategory(majorType) {
+      return this.majorCategories.find(mc => mc.majorType===majorType);
+    },
+    getSubCategories(majorType) {
+      // Filter nodeItems by majorType.
+      const nodeItems = this.allNodeItems.filter(node => node.majorType===majorType);
 
-        const subs = []; // [ {majorType, subTitle, items[ {} ]} ]
-        nodes.forEach(node => {
-          let sub = subs.find((sub) => sub.subTitle==node.subTitle);
-          if (sub) {
-            // Register the node into sub category.
-            sub.items.push(node);
-          } else {
-            // Create new sub cateogory.
-            sub = {
-              majorType: node.majorType,
-              subTitle: node.subTitle,
-              items: [],
-            };
-            sub.items.push(node);
-            subs.push(sub);
-          }
-        });
-        
-        // default subTitle
-        const defaultSub = subs.find(sub => !sub.subTitle);
-        if (defaultSub) {
-          if (subs.length==1) {
-            defaultSub.subTitle = this.getMajorCategory(majorType).title;
-          } else {
-            defaultSub.subTitle = 'etc';
-          }
+      const subs = []; // [ {majorType, subTitle, nodeItems[ {} ]} ]
+      nodeItems.forEach(node => {
+        let sub = subs.find((sub) => sub.subTitle==node.subTitle);
+        if (sub) {
+          // Register the node into sub category.
+          sub.nodeItems.push(node);
+        } else {
+          // Create new sub cateogory.
+          sub = {
+            majorType: node.majorType,
+            subTitle: node.subTitle,
+            nodeItems: [],
+          };
+          sub.nodeItems.push(node);
+          subs.push(sub);
         }
-        
-        return subs;
-      },
-      onMajorCliick(majorType) {
-        // when major-category is selected.
-        // Open subBar if closed?
-        this.majorVS.activeMajorType = majorType;
+      });
+      
+      // default subTitle
+      const defaultSub = subs.find(sub => !sub.subTitle);
+      if (defaultSub) {
+        if (subs.length==1) {
+          defaultSub.subTitle = this.getMajorCategory(majorType).title;
+        } else {
+          defaultSub.subTitle = 'etc';
+        }
       }
+      
+      return subs;
+    },
+    onMajorCliick(majorType) {
+      // when major-category is selected.
+      // Open subBar if closed?
+      this.majorVS.activeMajorType = majorType;
+    },
+    getNodeItemUIinfo(nodeItem) {
+      // get info to bind for UI item for nodeItem.
+      const major = this.getMajorCategory(nodeItem.majorType);
+      const info = {
+        icon: nodeItem.icon ? nodeItem.icon : major.icon,
+        title: nodeItem.itemTitle,
+        color: major.color,
+        isGroup: major.nodeBaseInfo.isGroup,
+        selector: nodeItem, // only meaning fields : majorType, subTitle, itemTitle
+      }
+      return info;
     }
   }
+}
 </script>
 
 <style scoped>
