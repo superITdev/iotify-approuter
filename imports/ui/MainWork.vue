@@ -56,18 +56,19 @@
           </v-list-item>
 
           <NodePanels
-            :surface-id="surfaceId"
+            :surfaceId="surfaceId"
             selector="[node-item-selector]"
             :data-generator="nodeCreator"
 
-            :sub-categories="activeSubCategories"
-            :node-item-info="getNodeItemUIinfo"
+            :subRecents="activeRecents"
+            :subCategories="activeSubCategories"
+            :nodeItemInfo="getNodeItemUIinfo"
           />
         </v-navigation-drawer>
         <v-main>
-          <Controls :surface-id="surfaceId"/>
-          <!-- <GraphV01 :surface-id="surfaceId"/> -->
-          <GraphV02 :surface-id="surfaceId"/>
+          <Controls :surfaceId="surfaceId"/>
+          <!-- <GraphV01 :surfaceId="surfaceId"/> -->
+          <GraphV02 :surfaceId="surfaceId"/>
         </v-main>
       </v-row>
     </v-main>
@@ -332,6 +333,27 @@ export default {
     activeSubCategories() {
       const subs = this.getSubCategories(this.majorVS.activeMajorType);
       return subs;
+    },
+    activeRecents() {
+      // as for temporary
+      const recents = [];
+
+      if (this.majorVS.activeMajorType==='OverallRecents') {
+          const n = Math.min(this.allNodeItems.length, 8);
+          for(let i = 0; i < n; i++) {
+            recents.push(this.allNodeItems[i]);
+          }
+      } else {
+        const subs = this.getSubCategories(this.majorVS.activeMajorType);
+        subs.forEach(sub => {
+          const n = Math.min(sub.nodeItems.length, 2);
+          for(let i = 0; i < n; i++) {
+            recents.push(sub.nodeItems[i]);
+          }
+        });
+      }
+
+      return recents;
     }
   },
   methods: {
@@ -339,6 +361,8 @@ export default {
       return this.majorCategories.find(mc => mc.majorType===majorType);
     },
     getSubCategories(majorType) {
+      const major = this.getMajorCategory(majorType);
+
       // Filter nodeItems by majorType.
       const nodeItems = this.allNodeItems.filter(node => node.majorType===majorType);
 
@@ -352,6 +376,7 @@ export default {
           // Create new sub cateogory.
           sub = {
             majorType: node.majorType,
+            majorTitle: major.title,
             subTitle: node.subTitle,
             nodeItems: [],
           };
@@ -359,17 +384,7 @@ export default {
           subs.push(sub);
         }
       });
-      
-      // default subTitle
-      const defaultSub = subs.find(sub => !sub.subTitle);
-      if (defaultSub) {
-        if (subs.length==1) {
-          defaultSub.subTitle = this.getMajorCategory(majorType).title;
-        } else {
-          defaultSub.subTitle = 'etc';
-        }
-      }
-      
+
       return subs;
     },
     onMajorCliick(majorType) {
@@ -382,11 +397,13 @@ export default {
       const major = this.getMajorCategory(nodeItem.majorType);
 
       const info = {
+        ...nodeItem,
+        majorTitle: major.title,
+
         icon: nodeItem.icon ? nodeItem.icon : major.icon,
         title: nodeItem.itemTitle,
         color: major.color,
         isGroup: major.nodeBaseInfo.isGroup,
-        selector: [nodeItem.majorType, nodeItem.subTitle, nodeItem.itemTitle].join('/'),
       }
 
       return info;

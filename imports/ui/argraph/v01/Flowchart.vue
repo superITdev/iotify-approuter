@@ -3,10 +3,10 @@
         <jsplumb-toolkit
             ref="toolkitComponent"
             url="/jsplumb/nodes_v01_2.json"
-            v-bind:render-params="renderParams"
-            v-bind:view="view"
-            v-bind:surface-id="surfaceId"
-            v-bind:toolkit-params="toolkitParams">
+            :renderParams="renderParams"
+            :view="view"
+            :surfaceId="surfaceId"
+            :toolkitParams="toolkitParams">
         </jsplumb-toolkit>
     </div>
 </template>

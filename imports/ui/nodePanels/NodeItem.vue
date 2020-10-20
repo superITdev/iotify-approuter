@@ -1,11 +1,11 @@
 <template>
-    <div class="text-center">
+    <div class="text-center" :title="pathTitle">
         <svgicon
             :icon="nodeItem.icon"
             :color="nodeItem.color"
             :width="`${iconSize}`"
             :height="`${iconSize}`"
-            :node-item-selector="nodeItem.selector"
+            :node-item-selector="itemSelector"
             :jtk-is-group="!!nodeItem.isGroup"
             style="cursor: grab;"
         />
@@ -15,7 +15,10 @@
 
 <script>
 export default {
-    props:["nodeItem"],
+    props:[
+        "nodeItem",
+        "titleMode",
+    ],
     
     data() {
         return {
@@ -23,5 +26,25 @@ export default {
             fontSize: 11, // px
         }
     },
+
+    computed: {
+        itemSelector() {
+            const selector = [this.nodeItem.majorType, this.nodeItem.subTitle, this.nodeItem.itemTitle].join('/')
+            return selector;
+        },
+        pathTitle() {
+            switch(this.titleMode) {
+                case 'major':
+                    return this.nodeItem.majorTitle;
+                    break;
+                case 'sub':
+                    if (this.nodeItem.subTitle) return this.nodeItem.subTitle;
+                    break;
+                case 'major-sub':
+                    return this.nodeItem.subTitle ? [this.nodeItem.majorTitle, this.nodeItem.subTitle].join(' / ') : this.nodeItem.majorTitle;
+                    break;
+            }
+        }
+    }
 }
 </script>

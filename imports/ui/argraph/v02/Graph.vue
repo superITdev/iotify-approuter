@@ -2,10 +2,10 @@
     <div style="width: 100%;height: 100%;position: relative;" class="argraph-v02">
         <jsplumb-toolkit
             ref="toolkitComponent"
-            v-bind:render-params="renderParams"
-            v-bind:view="view"
-            v-bind:surface-id="surfaceId"
-            v-bind:toolkit-params="toolkitParams">
+            :renderParams="renderParams"
+            :view="view"
+            :surfaceId="surfaceId"
+            :toolkitParams="toolkitParams">
         </jsplumb-toolkit>
 
         <!-- <HttpSetting ref="httpsetting" /> -->

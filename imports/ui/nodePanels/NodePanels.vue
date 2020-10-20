@@ -1,18 +1,22 @@
 <template>
-<v-expansion-panels accordion multiple tile v-model="subVS.openSubs">
+<v-expansion-panels accordion multiple tile v-model="openPanels">
     <v-expansion-panel>
         <v-expansion-panel-header class="iotar-subbar-subtitle">Recently Used</v-expansion-panel-header>
         <v-expansion-panel-content class="iotar-subbar-content">
-            node1, node2, node3 ...
+            <v-row dense>
+                <v-col v-for="(nodeItem, nodeIdx) in subRecents" :key="nodeIdx" :cols="panelCols">
+                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major-sub"/>
+                </v-col>
+            </v-row>
         </v-expansion-panel-content>
     </v-expansion-panel>
 
     <v-expansion-panel v-for="(sub, subIdx) in subCategories" :key="subIdx">
-        <v-expansion-panel-header class="iotar-subbar-subtitle">{{sub.subTitle}}</v-expansion-panel-header>
+        <v-expansion-panel-header class="iotar-subbar-subtitle">{{sub.subTitle ? sub.subTitle : sub.majorTitle}}</v-expansion-panel-header>
         <v-expansion-panel-content class="iotar-subbar-content">
             <v-row dense>
-                <v-col v-for="(nodeItem, nodeIdx) in sub.nodeItems" :key="nodeIdx" :cols="subVS.cols">
-                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)"/>
+                <v-col v-for="(nodeItem, nodeIdx) in sub.nodeItems" :key="nodeIdx" :cols="panelCols">
+                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major-sub"/>
                 </v-col>
             </v-row>
         </v-expansion-panel-content>
@@ -29,6 +33,7 @@ export default {
 
     props: [
         "surfaceId",
+        "subRecents",
         "subCategories",
         "nodeItemInfo",
     ],
@@ -39,19 +44,34 @@ export default {
 
     data() {
         return {
-            subVS: {
-                // vue-style for sub-bar ui
-                cols: 4,
-                openSubs: [],
-            }
+            panelCols: 4,
+            openRecents: undefined,
+            openSubs: [],
         }
     },
 
-    watch: {
-        subCategories(subs) {
+    computed: {
+        openPanels: {
             // opens all pannels including 'Recentely Used'.
-            const n = subs.length + 1;
-            this.subVS.openSubs = [...Array(n).keys()];
+            get() {
+                if (this.openRecents===undefined) return this.openSubs;
+                else return [this.openRecents].concat(this.openSubs);
+            },
+            set(val) {
+            }
+        },
+    },
+
+    watch: {
+        subRecents(recents) {
+            this.openRecents = 0 < recents.length ? 0 : undefined;
+        },
+        subCategories(subs) {
+            const openSubs = [];
+            subs.forEach((sub, idx) => {
+                if (0 < sub.nodeItems.length) openSubs.push(idx + 1);
+            });
+            this.openSubs = openSubs;
         },
     }
 }
