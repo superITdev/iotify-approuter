@@ -21,6 +21,16 @@ import VueSVGIcon from 'vue-svgicon';
 Vue.use(VueSVGIcon);
 import '/svgicon/icon'; // load all compiled svg-js icons.
 
+// jsplumb-toolkit
+import { JsPlumbToolkitVue2Plugin } from 'jsplumbtoolkit-vue2';
+
+require('/imports/jsplumb/css/jsplumbtoolkit.css');
+require('/imports/jsplumb/css/jsplumbtoolkit-demo-support.css');
+require('/imports/jsplumb/css/jsplumbtoolkit-editable-connectors.css');
+require('/imports/jsplumb/css/jspapp.css');
+
+Vue.use(JsPlumbToolkitVue2Plugin);
+
 // Main app
 // import App from '/imports/ui_/App.vue';
 import App from '/imports/ui/App.vue';

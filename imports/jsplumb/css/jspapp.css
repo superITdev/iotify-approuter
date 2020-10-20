@@ -1,0 +1,295 @@
+/* container */
+/* #app {
+    flex-grow: 1;
+    display: flex;
+} */
+
+.work-canvas {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    position: absolute;
+}
+
+.jtk-miniview {
+    position:absolute;
+    right:10px;
+    top:10px;
+}
+
+/* controls */
+.controls {
+    left: 20px;
+    top: 20px;
+}
+.controls i {
+    font-size: 22px;
+    width: 30px;
+    height: 30px;
+}
+.fa-times:after {
+    content:"✖"
+}
+
+/* drag/drop */
+.jtk-drag {
+    z-index: 10;
+}
+
+.jtk-surface.jtk-drag-drop-active {
+    outline:3px dotted #4ea758 !important;
+}
+.jtk-surface.jtk-drag-drop-hover {
+    outline:3px solid #f7a45d !important;
+}
+svg.jtk-drag-drop-hover, svg.jtk-drag-drop-active {
+    outline:none !important;
+}
+
+svg.jtk-drag-drop-active path {
+    stroke:#4ea758;
+    stroke-width:3px;
+    stroke-dasharray:2 0 2 5;
+}
+svg.jtk-drag-drop-hover path {
+    stroke:#f7a45d;
+    stroke-width:3px;
+    stroke-dasharray:0;
+}
+
+/* edge(connector) */
+.jtk-edge-delete {
+    line-height: 8px;
+}
+.jtk-overlay {
+    box-shadow: 0 0 2px;
+}
+
+/* argraph version-01 */
+.argraph-v01 .flowchart-object {
+    z-index: 10;
+    border: none;
+    overflow: visible;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color:transparent;
+}
+
+.argraph-v01 .jtk-node svg {
+    position: absolute;
+    stroke: #CCC;
+    stroke-width: 2px;
+    fill: white;
+    left: 0;
+    top: 0;
+}
+
+.argraph-v01 .flowchart-object text {
+    stroke: none;
+    fill: black;
+    font-family: "Open Sans",sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.argraph-v01 .flowchart-object .node-action {
+    display: none;
+    position: absolute;
+    top: -14px;
+    cursor: pointer;
+    z-index: 10;
+    left: auto;
+    color:white;
+    transition:transform 0.1s;
+}
+
+.argraph-v01 .flowchart-object .node-action:hover {
+    transform: scale(1.3, 1.3);
+}
+
+.argraph-v01 .flowchart-object .node-edit {
+    right: 20px;
+    background-color: #4ea758;
+}
+
+.argraph-v01 .flowchart-object .node-delete {
+    right: 4px;
+    background-color: #d83f3f;
+}
+
+.argraph-v01 .flowchart-object.jtk-surface-selected-element .node-action {
+    display: flex;
+}
+
+.argraph-v01 .flowchart-object .connect {
+    position:absolute;
+    left:50%;
+    margin-left:-7.5px;
+    background-color:rgb(132, 172, 179);
+    transition:transform 0.1s;
+}
+
+.argraph-v01 .flowchart-object .connect:hover {
+    transform: scale(1.3, 1.3);
+}
+
+.argraph-v01 .flowchart-action .connect {
+    bottom:18px;
+}
+
+.argraph-v01 .flowchart-question .connect {
+    bottom:28px;
+}
+
+.argraph-v01 .flowchart-start .connect {
+    right: 17px;
+    left: auto;
+    top: 50%;
+    margin-top: -7.5px;
+}
+
+.argraph-v01 .connect {
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 50%;
+}
+
+.argraph-v01 .connect:after {
+    content:"→";
+}
+
+.argraph-v01 .connection-drop svg {
+    fill:#CCC;
+}
+
+.argraph-v01 .connection-drop text {
+    fill:black;
+}
+
+/* argraph version-02 */
+/* group */
+.jtk-group {
+    background-color: #f7f7f7;
+    border:2px solid #9e9e9e;
+    z-index: 10;
+    min-width: 250px;
+    min-height: 250px;
+}
+
+.jtk-group.jtk-drag-hover {
+    outline:2px solid red;
+}
+
+.group-title {
+    margin:0;
+    width:100%;
+    display:flex;
+    align-items: center;
+    background-color:#00BAFF;
+    color:white;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-indent:7px;
+    padding:7px;
+    box-sizing: border-box;
+}
+
+.group-title img {
+    width: 14px;
+    height: auto;
+    margin-right: 7px;
+}
+
+.group-title button {
+    cursor:pointer;
+    color: black;
+    background-color: transparent;
+    outline: none;
+    width: 20px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding-bottom: 3px;
+    margin-left:5px;
+    border:1px solid transparent;
+}
+
+.group-title button:hover {
+    background-color:#f7f7f7;
+}
+
+.group-title .expand {
+    margin-left:auto;
+}
+.group-title .expand:after {
+    content:"-";
+}
+
+.group-title .group-delete {
+    right:45px;
+}
+.group-title .group-delete:after {
+    content:"x";
+}
+
+.group-connect {
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.jtk-group.jtk-group-collapsed {
+    height:40px;
+    min-height:0;
+}
+
+.jtk-group.jtk-group-collapsed .group-title button.expand:after {
+    content:"+";
+}
+
+.jtk-group [jtk-group-content] {
+    min-height:210px;
+    margin:5px;
+    width: auto ;
+}
+
+.jtk-group.jtk-group-collapsed [jtk-group-content] {
+    display:none;
+    min-height: 0;
+}
+
+/* edge(connector) */
+.argraph-v02 .jtk-connector {
+    z-index: 11;
+}
+.argraph-v02 .jtk-edge-delete {
+    z-index: 13;
+}
+.argraph-v02 .jtk-flowchart-handle {
+    z-index: 12;
+}
+
+/* button */
+.argraph-v02 .jtk-node .delete {
+    position:absolute;
+    top:5px;
+}
+.argraph-v02 .jtk-node .connect {
+    position:absolute;
+    top:5px;
+}

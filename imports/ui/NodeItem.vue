@@ -1,20 +1,24 @@
 <template>
     <div class="text-center">
-        <v-avatar
-            tile
-            :size="iconSize"
+        <svgicon
+            :icon="nodeItem.icon"
+            :color="nodeItem.color"
+            :width="`${iconSize}`"
+            :height="`${iconSize}`"
             :node-item-selector="nodeItem.selector"
             :jtk-is-group="!!nodeItem.isGroup"
             style="cursor: grab;"
-        >
-            <svgicon :icon="nodeItem.icon" :color="nodeItem.color"/>
-        </v-avatar>
-        <v-list-item-title :style="`font-size:${fontSize}px`" v-text="nodeItem.title"/>
+        />
+        <div :style="`font-size:${fontSize}px`" v-text="nodeItem.title"/>
     </div>
 </template>
 
 <script>
+import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
+
 export default {
+    mixins:[SurfaceDrop],
+
     name: "NodeItem",
     props:["nodeItem"],
     data() {

@@ -20,7 +20,15 @@
     "vue-meteor-tracker": "^2.0.0-beta.5",
     "vue-router": "^3.4.6",
     "vuetify": "^2.3.14",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "jsplumbtoolkit": "file:./imports/jsplumb/toolkit/jsplumbtoolkit.tgz",
+    "jsplumbtoolkit-demo-support": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-demo-support.tgz",
+    "jsplumbtoolkit-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-drop.tgz",
+    "jsplumbtoolkit-editable-connectors": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-editable-connectors.tgz",
+    "jsplumbtoolkit-syntax-highlighter": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-syntax-highlighter.tgz",
+    "jsplumbtoolkit-undo-redo": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-undo-redo.tgz",
+    "jsplumbtoolkit-vue2": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2.tgz",
+    "jsplumbtoolkit-vue2-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2-drop.tgz"
   },
   "meteor": {
     "testModule": "tests/main.js"
