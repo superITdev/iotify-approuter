@@ -53,6 +53,10 @@ const checkAuth = function(){
 }
 
 router.beforeResolve(function(to, from, next) {
+  // app icon
+  const link = document.querySelector("[rel='icon']")
+  link.setAttribute('href', '/img/favicon.ico');
+
   if (to.matched.some( function(record) { return !record.meta.public })) {
     if (!router.app.authenticated && !checkAuth()) {
       next({path:"/"});
