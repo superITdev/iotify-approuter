@@ -14,13 +14,9 @@
 </template>
 
 <script>
-import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
-
 export default {
-    mixins:[SurfaceDrop],
-
-    name: "NodeItem",
     props:["nodeItem"],
+    
     data() {
         return {
             iconSize: 40, // px

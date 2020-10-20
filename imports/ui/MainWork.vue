@@ -55,34 +55,19 @@
             <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable/>
           </v-list-item>
 
-          <v-expansion-panels accordion multiple tile v-model="subVS.openSubs">
-            <v-expansion-panel>
-              <v-expansion-panel-header class="iotar-subbar-subtitle">Recently Used</v-expansion-panel-header>
-              <v-expansion-panel-content class="iotar-subbar-content">
-                node1, node2, node3 ...
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-            <v-expansion-panel v-for="(sub, subIdx) in activeSubCategories" :key="subIdx">
-              <v-expansion-panel-header class="iotar-subbar-subtitle">{{sub.subTitle}}</v-expansion-panel-header>
-              <v-expansion-panel-content class="iotar-subbar-content">
-                <v-row dense>
-                  <v-col v-for="(nodeItem, nodeIdx) in sub.nodeItems" :key="nodeIdx" :cols="subVS.cols">
-                    <NodeItem
-                      :nodeItem="getNodeItemUIinfo(nodeItem)"
-                      v-bind:surface-id="surfaceId"
-                      selector="[node-item-selector]"
-                      v-bind:data-generator="nodeCreator"                      
-                    />
-                  </v-col>
-                </v-row>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <NodePanels
+            :surface-id="surfaceId"
+            selector="[node-item-selector]"
+            :data-generator="nodeCreator"
+
+            :sub-categories="activeSubCategories"
+            :node-item-info="getNodeItemUIinfo"
+          />
         </v-navigation-drawer>
         <v-main>
-          <Controls v-bind:surface-id="surfaceId"/>
-          <!-- <GraphV01 v-bind:surface-id="surfaceId"/> -->
-          <GraphV02 v-bind:surface-id="surfaceId"/>
+          <Controls :surface-id="surfaceId"/>
+          <!-- <GraphV01 :surface-id="surfaceId"/> -->
+          <GraphV02 :surface-id="surfaceId"/>
         </v-main>
       </v-row>
     </v-main>
@@ -91,7 +76,7 @@
 </template>
 
 <script>
-import NodeItem from '/imports/ui/NodeItem.vue';
+import NodePanels from '/imports/ui/nodePanels/NodePanels.vue';
 
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
@@ -102,7 +87,7 @@ import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
 
 export default {
   components: {
-    NodeItem,
+    NodePanels,
     Controls,
     // GraphV01,
     GraphV02,
@@ -119,21 +104,16 @@ export default {
 
         activeMajorType: ''
       },
-      subVS: { // vue-style for sub-bar ui
-        cols: 4,
-        openSubs: [],
-      }
     }
   },
   computed: {
     majorCategories() {
       const majors = [ // data for major category
         {
-          majorType:'',
+          majorType:'OverallRecents',
           title: '',
           icon: 'IoT',
           color: 'indigo darken-4',
-          globalRecent: true
         },
         {
           majorType:'deployment',
@@ -351,11 +331,6 @@ export default {
     },
     activeSubCategories() {
       const subs = this.getSubCategories(this.majorVS.activeMajorType);
-
-      // opens all pannels including 'Recentely Used'.
-      const n = subs.length + 1;
-      this.subVS.openSubs = [...Array(n).keys()];
-
       return subs;
     }
   },
@@ -433,7 +408,7 @@ export default {
       // }
 
       const major = this.getMajorCategory(majorType);
-      const v02 = {        
+      const v02 = {
         ...major.nodeBaseInfo, // base
         ...nodeItem, // self
         // customize
@@ -463,11 +438,5 @@ export default {
 .iotar-subbar-title {
   font-size:18px;
   font-weight:bold;
-}
-.iotar-subbar-subtitle {
-  font-size:14px;
-}
-.iotar-subbar-content {
-  font-size:14px;
 }
 </style>
