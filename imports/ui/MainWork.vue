@@ -52,7 +52,7 @@
             </v-list-item-action>
           </v-list-item>
           <v-list-item>
-            <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable/>
+            <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
           </v-list-item>
 
           <NodePanels
@@ -86,6 +86,8 @@ import Controls from '/imports/ui/argraph/common/Controls.vue'
 // import GraphV01 from '/imports/ui/argraph/v01/Flowchart.vue'
 import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
 
+import debounce from 'lodash.debounce'
+
 export default {
   components: {
     NodePanels,
@@ -105,6 +107,9 @@ export default {
 
         activeMajorType: ''
       },
+
+      searchNodeItems: "",
+      filterNodeItems: "", // debounced searchNodeItems
     }
   },
   computed: {
@@ -328,7 +333,9 @@ export default {
             itemTitle: "Github",
         },
       ]
-      return nodeItems;
+      // filter by search
+      const result = nodeItems.filter(nodeItem => nodeItem.itemTitle.toLowerCase().includes(this.filterNodeItems.toLowerCase()));
+      return result;
     },
     activeSubCategories() {
       const subs = this.getSubCategories(this.majorVS.activeMajorType);
@@ -391,6 +398,7 @@ export default {
       // when major-category is selected.
       // Open subBar if closed?
       this.majorVS.activeMajorType = majorType;
+      this.searchNodeItems = "";
     },
     getNodeItemUIinfo(nodeItem) {
       // get info to bind for UI item for nodeItem.
@@ -436,12 +444,23 @@ export default {
       }
 
       return v02;
-    }
+    },
+    doSearchNodeItems() {
+      this.filterNodeItems = this.searchNodeItems==null ? "" : this.searchNodeItems;
+    },
   },
-  mounted:function() {
+  created() {
+    this.debounceSearchNodeItems = debounce(this.doSearchNodeItems, 500);
+  },
+  mounted() {
     jsPlumbToolkit.ready(() => {
         Dialogs.initialize({selector: ".dlg"});
     });
+  },
+  watch: {
+    searchNodeItems(/*newVal, oldVal*/) {
+      this.debounceSearchNodeItems();
+    }
   }
 }
 </script>

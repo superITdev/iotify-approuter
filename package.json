@@ -13,14 +13,6 @@
     "@babel/runtime": "^7.12.0",
     "babel-runtime": "^6.26.0",
     "jquery": "^3.5.1",
-    "meteor-node-stubs": "^0.4.1",
-    "moment": "^2.29.1",
-    "vue": "^2.6.12",
-    "vue-meta": "^1.6.0",
-    "vue-meteor-tracker": "^2.0.0-beta.5",
-    "vue-router": "^3.4.6",
-    "vuetify": "^2.3.14",
-    "vuex": "^3.5.1",
     "jsplumbtoolkit": "file:./imports/jsplumb/toolkit/jsplumbtoolkit.tgz",
     "jsplumbtoolkit-demo-support": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-demo-support.tgz",
     "jsplumbtoolkit-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-drop.tgz",
@@ -28,7 +20,16 @@
     "jsplumbtoolkit-syntax-highlighter": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-syntax-highlighter.tgz",
     "jsplumbtoolkit-undo-redo": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-undo-redo.tgz",
     "jsplumbtoolkit-vue2": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2.tgz",
-    "jsplumbtoolkit-vue2-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2-drop.tgz"
+    "jsplumbtoolkit-vue2-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2-drop.tgz",
+    "lodash.debounce": "^4.0.8",
+    "meteor-node-stubs": "^0.4.1",
+    "moment": "^2.29.1",
+    "vue": "^2.6.12",
+    "vue-meta": "^1.6.0",
+    "vue-meteor-tracker": "^2.0.0-beta.5",
+    "vue-router": "^3.4.6",
+    "vuetify": "^2.3.14",
+    "vuex": "^3.5.1"
   },
   "meteor": {
     "testModule": "tests/main.js"
