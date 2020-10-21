@@ -64,7 +64,7 @@ export default {
 
     watch: {
         subRecents(recents) {
-            this.openRecents = 0 < recents.length ? 0 : undefined;
+            this.openRecents = (recents != null) && 0 < recents.length ? 0 : undefined;
         },
         subCategories(subs) {
             const openSubs = [];

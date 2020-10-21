@@ -66,6 +66,7 @@ router.beforeResolve(function(to, from, next) {
   next();
 });
 
+// import store from '/imports/store_';
 import store from '/imports/store';
 
 import login from '/imports/methods/login'

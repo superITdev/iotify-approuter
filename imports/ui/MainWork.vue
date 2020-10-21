@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import NodeMajorTypes from '/common/NodeMajorTypes.js';
 import NodePanels from '/imports/ui/nodePanels/NodePanels.vue';
 
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
@@ -116,13 +117,13 @@ export default {
     majorCategories() {
       const majors = [ // data for major category
         {
-          majorType:'OverallRecents',
+          majorType: NodeMajorTypes.overallRecents,
           title: '',
           icon: 'IoT',
           color: 'indigo darken-4',
         },
         {
-          majorType:'deployment',
+          majorType: NodeMajorTypes.deployment,
           title: 'Deployment',
           icon: 'deployment',
           color: 'blue accent-4',
@@ -133,7 +134,7 @@ export default {
           },
         },
         {
-          majorType:'protocol',
+          majorType: NodeMajorTypes.protocol,
           title: 'Protocol',
           icon: 'protocol',
           color: 'green accent-4',
@@ -143,7 +144,7 @@ export default {
           },
         },
         {
-          majorType:'database',
+          majorType: NodeMajorTypes.database,
           title: 'Database',
           icon: 'memory',
           color: 'orange accent-4',
@@ -153,7 +154,7 @@ export default {
           },
         },
         {
-          majorType:'function',
+          majorType: NodeMajorTypes.function,
           title: 'Function',
           icon: 'control',
           color: 'cyan accent-4',
@@ -163,7 +164,7 @@ export default {
           },
         },
         {
-          majorType:'staticAsset',
+          majorType: NodeMajorTypes.staticAsset,
           title: 'Static Asset',
           icon: 'illustration',
           color: 'purple accent-4',
@@ -179,157 +180,157 @@ export default {
       const nodeItems = [ // fetched from backend
         // deployment
         {
-            majorType: 'deployment',
+            majorType: NodeMajorTypes.deployment,
             itemTitle: "AWS",
         },
         {
-            majorType: 'deployment',
+            majorType: NodeMajorTypes.deployment,
             itemTitle: "GCP",
         },
         {
-            majorType: 'deployment',
+            majorType: NodeMajorTypes.deployment,
             itemTitle: "Edge",
         },
         // protocol
         // protocol/gateway
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Gateway',
             itemTitle: "HTTP",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Gateway',
             itemTitle: "Websocket",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Gateway',
             itemTitle: "MQTT",
         },
         // protocol/client
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "HTTP",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "Websocket",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "MQTT",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "NATS",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "TCP",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "UDP",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "COAP",
         },
         {
-            majorType: 'protocol',
+            majorType: NodeMajorTypes.protocol,
             subTitle: 'Client',
             itemTitle: "SSH",
         },
         // database
         // database/client
         {
-            majorType: 'database',
+            majorType: NodeMajorTypes.database,
             subTitle: 'Client',
             itemTitle: "REDIS",
         },
         {
-            majorType: 'database',
+            majorType: NodeMajorTypes.database,
             subTitle: 'Client',
             itemTitle: "MongoDB",
         },
         {
-            majorType: 'database',
+            majorType: NodeMajorTypes.database,
             subTitle: 'Client',
             itemTitle: "Elastic search",
         },
         {
-            majorType: 'database',
+            majorType: NodeMajorTypes.database,
             subTitle: 'Client',
             itemTitle: "S3",
         },
         // database/server
         {
-            majorType: 'database',
+            majorType: NodeMajorTypes.database,
             subTitle: 'Server',
             itemTitle: "REDIS",
         },
         // function
         // function/custom
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Custom',
             itemTitle: "Javascript",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Custom',
             itemTitle: "Go",
         },
         // function/prebuilt
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "Timer",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "IETTT",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "Zapier",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "Webhook",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "REST2Websocket",
         },
         {
-            majorType: 'function',
+            majorType: NodeMajorTypes.function,
             subTitle: 'Prebuilt',
             itemTitle: "MQTT2HTTP",
         },
         // staticAsset
         {
-            majorType: 'staticAsset',
+            majorType: NodeMajorTypes.staticAsset,
             itemTitle: "Web URL",
         },
         {
-            majorType: 'staticAsset',
+            majorType: NodeMajorTypes.staticAsset,
             itemTitle: "Icon",
         },
         {
-            majorType: 'staticAsset',
+            majorType: NodeMajorTypes.staticAsset,
             itemTitle: "Github",
         },
       ]
@@ -342,24 +343,7 @@ export default {
       return subs;
     },
     activeRecents() {
-      // as for temporary
-      const recents = [];
-
-      if (this.majorVS.activeMajorType==='OverallRecents') {
-          const n = Math.min(this.allNodeItems.length, 8);
-          for(let i = 0; i < n; i++) {
-            recents.push(this.allNodeItems[i]);
-          }
-      } else {
-        const subs = this.getSubCategories(this.majorVS.activeMajorType);
-        subs.forEach(sub => {
-          const n = Math.min(sub.nodeItems.length, 2);
-          for(let i = 0; i < n; i++) {
-            recents.push(sub.nodeItems[i]);
-          }
-        });
-      }
-
+      const recents = this.$store.state.recentlyUsedNodeItems[this.majorVS.activeMajorType];
       return recents;
     }
   },
@@ -441,6 +425,10 @@ export default {
         title: nodeItem.itemTitle,
 
         id: jsPlumbUtil.uuid(),
+        // options
+        extra: {
+          saveStore: this.majorVS.activeMajorType && this.majorVS.activeMajorType != NodeMajorTypes.overallRecents
+        }
       }
 
       return v02;

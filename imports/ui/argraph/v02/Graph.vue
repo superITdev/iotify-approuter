@@ -21,12 +21,20 @@ import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 import DeployNode from '/imports/ui/argraph/v02/DeployNode.vue'
 import SubNode from '/imports/ui/argraph/v02/SubNode.vue'
 
+import NodeMajorTypes from '/common/NodeMajorTypes.js'
+
+import csStorage from '/common/CSStorage.js';
+
 let toolkit;
 let surface;
 
 // let httpsetting;
 let router;
 
+function onNodeItemFactory(type, data, callback) {
+    if (data.extra.saveStore) csStorage.registerRecentNodeItem(data, true);
+    callback(data);
+}
 function checkConnectivity(edges, source, target) {
     return edges.some(edge => {
         return (edge.source === source && edge.target === target);
@@ -41,7 +49,10 @@ export default {
     },
     data:() => {
         return {
-            toolkitParams:{
+            toolkitParams: {
+                groupFactory: onNodeItemFactory,
+                nodeFactory: onNodeItemFactory,
+
                 beforeConnect: function(source, target) {
                     if (source === target) return false;
                     // // avoid the connection between group & in-nodes.
@@ -100,13 +111,13 @@ export default {
                             // tap: (params) => params.toolkit.toggleSelection(params.node)
                         }
                     },
-                    'protocol': {
+                    [NodeMajorTypes.protocol]: {
                         parent: "default",
                     },
-                    'database': {
+                    [NodeMajorTypes.database]: {
                         parent: "default",
                     },
-                    'function': {
+                    [NodeMajorTypes.function]: {
                         parent: "default",
                         events: {
                             dblclick(params) { // open http-setting modal.
@@ -115,7 +126,7 @@ export default {
                             }
                         }
                     },
-                    'staticAsset': {
+                    [NodeMajorTypes.staticAsset]: {
                         parent: "default",
                     },
                 },
@@ -137,7 +148,7 @@ export default {
                             // }
                         }
                     },
-                    'deployment': {
+                    [NodeMajorTypes.deployment]: {
                         parent: "default",
                     },
                 },

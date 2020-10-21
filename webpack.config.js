@@ -72,6 +72,7 @@ const clientConfig = {
       '/imports': path.resolve(__dirname, './imports'),
       // ... and any other directories you might have
       '/svgicon': path.resolve(__dirname, './svgicon'),
+      '/common': path.resolve(__dirname, './common'),
     }
   },
   // resolve: {
@@ -118,6 +119,7 @@ const serverConfig = {
     alias: {
       '/imports': path.resolve(__dirname, './imports'),
       // ... and any other directories you might have
+      '/common': path.resolve(__dirname, './common'),
     }
   },
   devServer: {

@@ -20,6 +20,8 @@ import ActionNode from '/imports/ui/argraph/v01/ActionNode.vue'
 import QuestionNode from '/imports/ui/argraph/v01/QuestionNode.vue'
 import OutputNode from '/imports/ui/argraph/v01/OutputNode.vue'
 
+import NodeMajorTypes from '/common/NodeMajorTypes.js'
+
 let toolkitComponent;
 let toolkit;
 let surface;
@@ -127,23 +129,23 @@ export default {
                         component:OutputNode
                     },
 
-                    'deployment': {
+                    [NodeMajorTypes.deployment]: {
                         parent: "selectable",
                         component:ActionNode
                     },
-                    'protocol': {
+                    [NodeMajorTypes.protocol]: {
                         parent: "selectable",
                         component:ActionNode
                     },
-                    'database': {
+                    [NodeMajorTypes.database]: {
                         parent: "selectable",
                         component:ActionNode
                     },
-                    'function': {
+                    [NodeMajorTypes.function]: {
                         parent: "selectable",
                         component:ActionNode
                     },
-                    'staticAsset': {
+                    [NodeMajorTypes.staticAsset]: {
                         parent: "selectable",
                         component:ActionNode
                     },
