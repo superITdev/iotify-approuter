@@ -5,7 +5,7 @@
         <v-expansion-panel-content class="iotar-subbar-content">
             <v-row dense>
                 <v-col v-for="(nodeItem, nodeIdx) in subRecents" :key="nodeIdx" :cols="panelCols">
-                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major-sub"/>
+                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major-sub" recentlyUsed="true"/>
                 </v-col>
             </v-row>
         </v-expansion-panel-content>

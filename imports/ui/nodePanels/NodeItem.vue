@@ -5,7 +5,8 @@
             :color="nodeItem.color"
             :width="`${iconSize}`"
             :height="`${iconSize}`"
-            :node-item-selector="itemSelector"
+            :nodeItemSelector="nodeItemSelector"
+            :recentlyUsed="recentlyUsed"
             :jtk-is-group="!!nodeItem.isGroup"
             style="cursor: grab;"
         />
@@ -18,6 +19,7 @@ export default {
     props:[
         "nodeItem",
         "titleMode",
+        "recentlyUsed",
     ],
     
     data() {
@@ -28,7 +30,7 @@ export default {
     },
 
     computed: {
-        itemSelector() {
+        nodeItemSelector() {
             const selector = [this.nodeItem.majorType, this.nodeItem.subTitle, this.nodeItem.itemTitle].join('/')
             return selector;
         },

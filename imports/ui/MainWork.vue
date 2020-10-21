@@ -57,7 +57,7 @@
 
           <NodePanels
             :surfaceId="surfaceId"
-            selector="[node-item-selector]"
+            selector="[nodeItemSelector]"
             :data-generator="nodeCreator"
 
             :subRecents="activeRecents"
@@ -401,7 +401,8 @@ export default {
       return info;
     },
     nodeCreator:function(el) {
-      const id = el.getAttribute("node-item-selector");
+      const recentlyUsed = el.getAttribute("recentlyUsed");
+      const id = el.getAttribute("nodeItemSelector");
       let [majorType, subTitle, itemTitle] = id.split('/');
       if (!subTitle) subTitle = undefined;
 
@@ -427,7 +428,7 @@ export default {
         id: jsPlumbUtil.uuid(),
         // options
         extra: {
-          saveStore: this.majorVS.activeMajorType && this.majorVS.activeMajorType != NodeMajorTypes.overallRecents
+          saveStore: !recentlyUsed
         }
       }
 
