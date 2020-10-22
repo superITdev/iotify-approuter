@@ -120,16 +120,15 @@ export default {
           majorType: NodeMajorTypes.overallRecents,
           title: '',
           icon: 'IoT',
-          color: 'indigo darken-4',
+          color: '#1A237E', // indigo darken-4
         },
         {
           majorType: NodeMajorTypes.deployment,
           title: 'Deployment',
           icon: 'deployment',
-          color: 'blue accent-4',
+          color: '#2962FF', // blue accent-4
           nodeBaseInfo: {
             isGroup: true,
-            titleBgColor: "#00BAFF",
             h: 450,
           },
         },
@@ -137,7 +136,7 @@ export default {
           majorType: NodeMajorTypes.protocol,
           title: 'Protocol',
           icon: 'protocol',
-          color: 'green accent-4',
+          color: '#00C853', // green accent-4
           nodeBaseInfo: {
             w1: 50,
             w2: 75,
@@ -147,7 +146,7 @@ export default {
           majorType: NodeMajorTypes.database,
           title: 'Database',
           icon: 'memory',
-          color: 'orange accent-4',
+          color: '#FF6D00', // orange accent-4
           nodeBaseInfo: {
             w1: 50,
             w2: 90,
@@ -157,7 +156,7 @@ export default {
           majorType: NodeMajorTypes.function,
           title: 'Function',
           icon: 'control',
-          color: 'cyan accent-4',
+          color: '#00B8D4', // cyan accent-4
           nodeBaseInfo: {
             w1: 50,
             w2: 75,
@@ -167,7 +166,7 @@ export default {
           majorType: NodeMajorTypes.staticAsset,
           title: 'Static Asset',
           icon: 'illustration',
-          color: 'purple accent-4',
+          color: '#AA00FF', // purple accent-4
           nodeBaseInfo: {
             w1: 50,
             w2: 100,
@@ -461,6 +460,8 @@ export default {
           saveStore: !recentlyUsed
         }
       }
+      if (major.nodeBaseInfo.isGroup) v02.titleBgColor = major.color;
+      else v02.color1 = major.color;
 
       return v02;
     },
