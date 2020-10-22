@@ -65,7 +65,7 @@
             :nodeItemInfo="getNodeItemUIinfo"
           />
         </v-navigation-drawer>
-        <v-main>
+        <v-main class="ma-1">
           <Controls :surfaceId="surfaceId"/>
           <!-- <GraphV01 :surfaceId="surfaceId"/> -->
           <GraphV02 :surfaceId="surfaceId"/>

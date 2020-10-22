@@ -4,14 +4,14 @@
     display: flex;
 } */
 
-.work-canvas {
+/* .work-canvas {
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
     padding: 5px;
     position: absolute;
-}
+} */
 
 .jtk-miniview {
     position:absolute;
@@ -29,7 +29,11 @@
     width: 30px;
     height: 30px;
 }
-.fa-times:after {
+.fa-home2:after {
+    content:"⌂";
+    margin-bottom: 0.4rem;
+}
+.fa-times2:after {
     content:"✖"
 }
 
