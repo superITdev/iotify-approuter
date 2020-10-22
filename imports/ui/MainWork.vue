@@ -35,7 +35,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main class="overflow-hidden">
+    <v-main class="overflow-hidden iotar-graph-bg">
       <v-row
         class="fill-height"
         no-gutters
@@ -493,5 +493,8 @@ export default {
 .iotar-subbar-title {
   font-size:18px;
   font-weight:bold;
+}
+.iotar-graph-bg {
+  background: url(/img/graph-bg.jpg);
 }
 </style>
