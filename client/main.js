@@ -19,7 +19,13 @@ Vue.use(Vuex)
 
 import VueSVGIcon from 'vue-svgicon';
 Vue.use(VueSVGIcon);
-import '/svgicon/icon'; // load all compiled svg-js icons.
+// load all compiled svg-js icons.
+import '/svgicon/icon/index.js';
+import '/svgicon/icon/deployment/index.js';
+import '/svgicon/icon/protocol/index.js';
+import '/svgicon/icon/database/index.js';
+import '/svgicon/icon/function/index.js';
+import '/svgicon/icon/staticAsset/index.js';
 
 // jsplumb-toolkit
 import { JsPlumbToolkitVue2Plugin } from 'jsplumbtoolkit-vue2';

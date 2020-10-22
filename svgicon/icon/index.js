@@ -1,7 +1,12 @@
 /* eslint-disable */
 require('./control')
+require('./database')
 require('./deployment')
+require('./deployment')
+require('./function')
 require('./illustration')
 require('./IoT')
 require('./memory')
 require('./protocol')
+require('./protocol')
+require('./staticAsset')
