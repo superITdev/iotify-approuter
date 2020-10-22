@@ -1,18 +1,4 @@
 /* container */
-/* #app {
-    flex-grow: 1;
-    display: flex;
-} */
-
-/* .work-canvas {
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    padding: 5px;
-    position: absolute;
-} */
-
 .jtk-miniview {
     position:absolute;
     right:10px;
@@ -38,10 +24,6 @@
 }
 
 /* drag/drop */
-.jtk-drag {
-    z-index: 10;
-}
-
 .jtk-surface.jtk-drag-drop-active {
     outline:3px dotted #4ea758 !important;
 }

@@ -2,7 +2,7 @@
     <div class="controls" ref="container">
         <i class="fa fa-arrows selected-mode" mode="pan" title="Pan Mode" v-on:click="panMode()"></i>
         <i class="fa fa-pencil" mode="select" title="Select Mode" v-on:click="selectMode()"></i>
-        <i class="fa fa-home2" reset title="Zoom To Fit" v-on:click="zoomToFit()"></i>
+        <i class="fa fa-home2" title="Zoom To Fit" v-on:click="zoomToFit()"></i>
         <!-- <i class="fa fa-undo" undo title="Undo last action" v-on:click="undo()"></i>
         <i class="fa fa-repeat" redo title="Redo last action" v-on:click="redo()"></i> -->
         <i class="fa fa-times2" title="Clear" v-on:click="clear()"></i>

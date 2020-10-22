@@ -66,8 +66,31 @@
           />
         </v-navigation-drawer>
         <v-main class="ma-1">
-          <Controls :surfaceId="surfaceId"/>
+          <!-- <Controls :surfaceId="surfaceId"/> -->
           <!-- <GraphV01 :surfaceId="surfaceId"/> -->
+          <!-- controls -->
+          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex">
+            <v-btn icon :color="graphCS.toolColor" title="Pan"><v-icon>mdi-pan</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Select"><v-icon :color="graphCS.toolSelColor">mdi-image-size-select-small</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit"><v-icon>mdi-fit-to-page-outline</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Undo"><v-icon>mdi-undo-variant</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Redo"><v-icon>mdi-redo-variant</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Clear"><v-icon>mdi-close-circle-multiple-outline</v-icon></v-btn>
+          </v-sheet>
+          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex flex-column" style="left:0; bottom:0;">
+            <v-btn icon :color="graphCS.toolColor" title="Full screen"><v-icon>mdi-fullscreen</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom In"><v-icon>mdi-magnify-plus-outline</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom Out"><v-icon>mdi-magnify-minus-outline</v-icon></v-btn>
+          </v-sheet>
+          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex" style="right:0; bottom:0;">
+            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-human-handsup</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-code-not-equal-variant</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-dots-horizontal</v-icon></v-btn>
+          </v-sheet>
+          <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
+            <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
+            <v-btn class="iotar-graph-tool-btn" :color="graphCS.btnColor" dark rounded small>Deploy</v-btn>
+          </v-row>
           <GraphV02 :surfaceId="surfaceId"/>
         </v-main>
       </v-row>
@@ -111,6 +134,12 @@ export default {
 
       searchNodeItems: "",
       filterNodeItems: "", // debounced searchNodeItems
+
+      graphCS: { // vue-style for controls on graph space
+        toolColor: '',
+        toolSelColor: 'blue darken-1',
+        btnColor: 'blue darken-1',
+      },
     }
   },
   computed: {
@@ -497,5 +526,12 @@ export default {
 }
 .iotar-graph-bg {
   background: url(/img/graph-bg.jpg);
+}
+.iotar-graph-toolbox {
+  position: absolute;
+  z-index: 20;
+}
+.iotar-graph-tool-btn {
+  text-transform:none !important;
 }
 </style>
