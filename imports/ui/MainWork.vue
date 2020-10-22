@@ -22,7 +22,7 @@
             active-class="white"
             :style="`height:${majorVS.itemHeight}px`"
             :value="major.majorType"
-            @click="onMajorCliick(major.majorType)"
+            @click="onMajorType(major.majorType)"
           >
             <template v-slot:default="{active}">
               <v-list-item-content>
@@ -68,19 +68,37 @@
         <v-main class="ma-1">
           <!-- <Controls :surfaceId="surfaceId"/> -->
           <!-- <GraphV01 :surfaceId="surfaceId"/> -->
-          <!-- controls -->
+          <!-- toolbox -->
           <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex">
-            <v-btn icon :color="graphCS.toolColor" title="Pan"><v-icon>mdi-pan</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Select"><v-icon :color="graphCS.toolSelColor">mdi-image-size-select-small</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit"><v-icon>mdi-fit-to-page-outline</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Undo"><v-icon>mdi-undo-variant</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Redo"><v-icon>mdi-redo-variant</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Clear"><v-icon>mdi-close-circle-multiple-outline</v-icon></v-btn>
+            <v-btn icon :color="graphCS.setMode==='pan' ? graphCS.toolSelColor : graphCS.toolColor" title="Pan" v-on:click="onGraphSetMode('pan')">
+              <v-icon>mdi-pan</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.setMode==='select' ? graphCS.toolSelColor : graphCS.toolColor" title="Select" v-on:click="onGraphSetMode('select')">
+              <v-icon>mdi-image-size-select-small</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit" v-on:click="onGraphZoomToFit">
+              <v-icon>mdi-fit-to-page-outline</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Undo" v-on:click="onGraphUndo" :disabled="!graphCS.undoable">
+              <v-icon>mdi-undo-variant</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Redo" v-on:click="onGraphRedo" :disabled="!graphCS.redoable">
+              <v-icon>mdi-redo-variant</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Clear" v-on:click="onGraphClear">
+              <v-icon>mdi-close-circle-multiple-outline</v-icon>
+            </v-btn>
           </v-sheet>
           <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex flex-column" style="left:0; bottom:0;">
-            <v-btn icon :color="graphCS.toolColor" title="Full screen"><v-icon>mdi-fullscreen</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom In"><v-icon>mdi-magnify-plus-outline</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom Out"><v-icon>mdi-magnify-minus-outline</v-icon></v-btn>
+            <v-btn icon :color="graphCS.toolColor" :title="fullScreen ? 'Exit full screen' : 'full screen'" v-on:click="onFullScreen">
+              <v-icon>{{ fullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom In" v-on:click="onNudgeZoom(true)">
+              <v-icon>mdi-magnify-plus-outline</v-icon>
+            </v-btn>
+            <v-btn icon :color="graphCS.toolColor" title="Zoom Out" v-on:click="onNudgeZoom(false)">
+              <v-icon>mdi-magnify-minus-outline</v-icon>
+            </v-btn>
           </v-sheet>
           <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex" style="right:0; bottom:0;">
             <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-human-handsup</v-icon></v-btn>
@@ -91,7 +109,7 @@
             <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
             <v-btn class="iotar-graph-tool-btn" :color="graphCS.btnColor" dark rounded small>Deploy</v-btn>
           </v-row>
-          <GraphV02 :surfaceId="surfaceId"/>
+          <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
         </v-main>
       </v-row>
     </v-main>
@@ -103,19 +121,34 @@
 import NodeMajorTypes from '/common/NodeMajorTypes.js';
 import NodePanels from '/imports/ui/nodePanels/NodePanels.vue';
 
-import  { Dialogs, jsPlumbToolkit, jsPlumbUtil } from "jsplumbtoolkit"
+import  { Dialogs, jsPlumbToolkit, jsPlumbUtil, Surface } from "jsplumbtoolkit"
+import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
+import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import Controls from '/imports/ui/argraph/common/Controls.vue'
+// import Controls from '/imports/ui/argraph/v01/Controls.vue'
 // import GraphV01 from '/imports/ui/argraph/v01/Flowchart.vue'
 import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
 
 import debounce from 'lodash.debounce'
 
+let toolkit;
+let surface;
+let undoManager;
+
+function isFullScreenMode() {
+  const fullScreen =
+    (document.fullscreenElement != null) ||
+    (document.webkitFullscreenElement != null) ||
+    (document.mozFullScreenElement != null) ||
+    (document.msFullscreenElement != null)
+  return fullScreen;
+}
+
 export default {
   components: {
     NodePanels,
-    Controls,
+    // Controls,
     // GraphV01,
     GraphV02,
   },
@@ -139,7 +172,12 @@ export default {
         toolColor: '',
         toolSelColor: 'blue darken-1',
         btnColor: 'blue darken-1',
+        setMode: 'pan',
+        undoable: false,
+        redoable: false,
       },
+
+      fullScreen: false,
     }
   },
   computed: {
@@ -436,12 +474,6 @@ export default {
 
       return subs;
     },
-    onMajorCliick(majorType) {
-      // when major-category is selected.
-      // Open subBar if closed?
-      this.majorVS.activeMajorType = majorType;
-      this.searchNodeItems = "";
-    },
     getNodeItemUIinfo(nodeItem) {
       // get info to bind for UI item for nodeItem.
       const major = this.getMajorCategory(nodeItem.majorType);
@@ -497,14 +529,99 @@ export default {
     doSearchNodeItems() {
       this.filterNodeItems = this.searchNodeItems==null ? "" : this.searchNodeItems;
     },
-  },
-  created() {
-    this.debounceSearchNodeItems = debounce(this.doSearchNodeItems, 500);
+
+    onMajorType(majorType) {
+      // when major-category is selected.
+      // Open subBar if closed?
+      this.majorVS.activeMajorType = majorType;
+      this.searchNodeItems = "";
+    },
+    onGraphSetMode(mode) {
+      surface.setMode(mode);
+    },
+    onGraphSetModeChanged(mode) {
+      this.graphCS.setMode = mode;
+    },
+    onGraphZoomToFit() {
+      toolkit.clearSelection();
+      surface.zoomToFit();
+    },
+    onGraphUndo() {
+      undoManager.undo();
+    },
+    onGraphRedo() {
+      undoManager.redo();
+    },
+    onGraphClear() {
+      const isEmpty = toolkit.getNodeCount()===0 && toolkit.getGroupCount()===0;
+      if (isEmpty || confirm("Clear canvas?")) toolkit.clear();
+    },
+    onFullScreen() {
+      const fullScreen = isFullScreenMode();
+
+      if (fullScreen) { // exit full screen
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        }
+      } else { // go to full screen
+        const docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+          docElm.requestFullscreen()
+        } else if (docElm.mozRequestFullScreen) {
+          docElm.mozRequestFullScreen()
+        } else if (docElm.webkitRequestFullScreen) {
+          docElm.webkitRequestFullScreen()
+        } else if (docElm.msRequestFullscreen) {
+          docElm.msRequestFullscreen()
+        }
+      }
+    },
+    onFullScreenChange() {
+      this.fullScreen = isFullScreenMode();
+    },
+    onNudgeZoom(plus) {
+      let nudge = 0.05;
+      if (!plus) nudge *= -1;
+      surface.nudgeZoom(nudge);
+    },
   },
   mounted() {
     jsPlumbToolkit.ready(() => {
         Dialogs.initialize({selector: ".dlg"});
     });
+    jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {
+        surface = s;
+        toolkit = s.getToolkit();
+
+        undoManager = new jsPlumbToolkitUndoRedo({
+            surface:surface,
+            compound:true,
+            onChange:(mgr, undoSize, redoSize) => {
+              this.graphCS.undoable = undoSize > 0;
+              this.graphCS.redoable = redoSize > 0;
+            }
+        });
+    });
+  },
+  created() {
+    this.debounceSearchNodeItems = debounce(this.doSearchNodeItems, 500);
+
+    document.addEventListener('fullscreenchange', this.onFullScreenChange);
+    document.addEventListener('webkitfullscreenchange', this.onFullScreenChange);
+    document.addEventListener('mozfullscreenchange', this.onFullScreenChange);
+    document.addEventListener('MSFullscreenChange', this.onFullScreenChange);
+  },
+  destroyed() {
+    document.removeEventListener('fullscreenchange', onFullScreenChange);
+    document.removeEventListener('webkitfullscreenchange', onFullScreenChange);
+    document.removeEventListener('mozfullscreenchange', onFullScreenChange);
+    document.removeEventListener('MSFullscreenChange', onFullScreenChange);
   },
   watch: {
     searchNodeItems(/*newVal, oldVal*/) {

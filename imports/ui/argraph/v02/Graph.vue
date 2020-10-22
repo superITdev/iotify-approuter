@@ -25,6 +25,7 @@ import NodeMajorTypes from '/common/NodeMajorTypes.js'
 
 import csStorage from '/common/CSStorage.js';
 
+let $self;
 let toolkit;
 let surface;
 
@@ -87,8 +88,7 @@ export default {
               },
               events:{
                   modeChanged:function (mode) {
-                      jsPlumb.removeClass(jsPlumb.getSelector(".controls [mode]"), "selected-mode");
-                      jsPlumb.addClass(jsPlumb.getSelector(".controls [mode='" + mode + "']"), "selected-mode");
+                      $self.$emit("onGraphSetModeChanged", mode);
                   },
                   canvasClick:() => {
                       toolkit.clearSelection();
@@ -208,6 +208,7 @@ export default {
 
     mounted() {
         // httpsetting = this.$refs['httpsetting'];
+        $self = this;
         router = this.$router;
 
         const toolkitComponent = this.$refs.toolkitComponent;
