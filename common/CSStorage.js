@@ -1,7 +1,8 @@
 // wrapper class for client side local storage.
 import CSDBStorage from '/common/CSDBStorage.js';
 import {default as $store} from '/imports/store';
-import NodeMajorTypes from '/common/NodeMajorTypes';
+import NodeMajorTypes from '/common/NodeMajorTypes.js';
+import * as NodeUtil from '/common/NodeUtil.js';
 
 const nLimitsRecentNodeItems = 9; // maximum number of recetly used node-items to register.
 
@@ -42,7 +43,7 @@ class CSStorage {
         let recents = $store.state.recentlyUsedNodeItems[category];
 
         if (!recents) recents = [];
-        recents = recents.filter(item => !(item.majorType===nodeItem.majorType && item.subTitle===nodeItem.subTitle && item.itemTitle===nodeItem.itemTitle));
+        recents = recents.filter(item => !NodeUtil.checkTypeWithNode(item, nodeItem));
         recents.unshift(nodeItem);
 
         recents = recents.slice(0, nLimitsRecentNodeItems);

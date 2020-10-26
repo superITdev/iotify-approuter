@@ -7,14 +7,11 @@
             :surfaceId="surfaceId"
             :toolkitParams="toolkitParams">
         </jsplumb-toolkit>
-
-        <!-- <HttpSetting ref="httpsetting" /> -->
+        <SettingFrame :sparams="settings.httpServer" />
     </div>
 </template>
 
 <script>
-// import HttpSetting from '/imports/ui/HttpSetting'
-
 import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
@@ -22,14 +19,16 @@ import DeployNode from '/imports/ui/argraph/v02/DeployNode.vue'
 import SubNode from '/imports/ui/argraph/v02/SubNode.vue'
 
 import NodeMajorTypes from '/common/NodeMajorTypes.js'
+import * as NodeUtil from '/common/NodeUtil.js'
 
-import csStorage from '/common/CSStorage.js';
+import csStorage from '/common/CSStorage.js'
+
+import SettingFrame from '/imports/ui/nodeSetting/SettingFrame.vue'
 
 let $self;
 let toolkit;
 let surface;
 
-// let httpsetting;
 let router;
 
 function onNodeItemFactory(type, data, callback) {
@@ -46,7 +45,7 @@ export default {
     name: 'jsp-toolkit',
     props:["surfaceId"],
     components: {
-        // HttpSetting,
+        SettingFrame,
     },
     data:() => {
         return {
@@ -93,7 +92,7 @@ export default {
                   canvasClick:() => {
                       toolkit.clearSelection();
                       surface.stopEditing();
-                  }
+                  },
               },
               dragOptions: {
                   filter: ".jtk-draw-handle, .delete, .expand, .group-delete, .connect",
@@ -113,21 +112,35 @@ export default {
                     },
                     [NodeMajorTypes.protocol]: {
                         parent: "default",
+                        events: {
+                            dblclick(params) {
+                                $self.onNodeSetting(params);
+                            },
+                        }
                     },
                     [NodeMajorTypes.database]: {
                         parent: "default",
+                        events: {
+                            dblclick(params) {
+                                $self.onNodeSetting(params);
+                            },
+                        }
                     },
                     [NodeMajorTypes.function]: {
                         parent: "default",
                         events: {
-                            dblclick(params) { // open http-setting modal.
-                                alert("HttpSetting should be opend");
-                                // httpsetting.showModal();
-                            }
+                            dblclick(params) {
+                                $self.onNodeSetting(params);
+                            },
                         }
                     },
                     [NodeMajorTypes.staticAsset]: {
                         parent: "default",
+                        events: {
+                            dblclick(params) {
+                                $self.onNodeSetting(params);
+                            },
+                        }
                     },
                 },
                 groups:{
@@ -145,7 +158,10 @@ export default {
                         events:{
                             // tap: (params) => {
                             //     params.toolkit.toggleSelection(params.group)
-                            // }
+                            // },
+                            dblclick(params) {
+                                $self.onNodeSetting(params);
+                            },
                         }
                     },
                     [NodeMajorTypes.deployment]: {
@@ -202,12 +218,19 @@ export default {
                         }
                     }
                 }
-            }
+            },
+            
+            settings: {
+                httpServer: { // parameters for http-server
+                    show: false,
+                    data: {
+                    },
+                },
+            },
         };
     },
 
     mounted() {
-        // httpsetting = this.$refs['httpsetting'];
         $self = this;
         router = this.$router;
 
@@ -220,6 +243,23 @@ export default {
                 renderer: s
             });
         });
+    },
+
+    methods: {
+        onNodeSetting(params) {
+            let nodeData;
+            if (params.node) {
+                params.e.stopPropagation();
+                nodeData = params.node.data;
+            } else if (params.group) {
+                nodeData = params.group.data;
+            }
+
+            if (NodeUtil.checkTypeByPath(nodeData, 'protocol/Gateway/HTTP')) {
+                this.settings.httpServer.show = true;
+                this.settings.httpServer.data = nodeData;
+            }
+        }
     }
 }
 </script>

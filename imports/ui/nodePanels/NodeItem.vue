@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import * as NodeUtil from '/common/NodeUtil.js'
+
 export default {
     props:[
         "nodeItem",
@@ -31,21 +33,10 @@ export default {
 
     computed: {
         nodeItemSelector() {
-            const selector = [this.nodeItem.majorType, this.nodeItem.subTitle, this.nodeItem.itemTitle].join('/')
-            return selector;
+            return NodeUtil.makeTypePath(this.nodeItem);
         },
         pathTitle() {
-            switch(this.titleMode) {
-                case 'major':
-                    return this.nodeItem.majorTitle;
-                    break;
-                case 'sub':
-                    if (this.nodeItem.subTitle) return this.nodeItem.subTitle;
-                    break;
-                case 'major-sub':
-                    return this.nodeItem.subTitle ? [this.nodeItem.majorTitle, this.nodeItem.subTitle].join(' / ') : this.nodeItem.majorTitle;
-                    break;
-            }
+            return NodeUtil.makeTitleCrumb(this.nodeItem, this.titleMode);
         }
     }
 }

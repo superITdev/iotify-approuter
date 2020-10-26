@@ -120,6 +120,7 @@
 <script>
 import NodeMajorTypes from '/common/NodeMajorTypes.js';
 import NodePanels from '/imports/ui/nodePanels/NodePanels.vue';
+import * as NodeUtil from '/common/NodeUtil.js';
 
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil, Surface } from "jsplumbtoolkit"
 import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
@@ -496,7 +497,7 @@ export default {
       let [majorType, subTitle, itemTitle] = id.split('/');
       if (!subTitle) subTitle = undefined;
 
-      const nodeItem = this.allNodeItems.find(nodeItem => nodeItem.majorType==majorType && nodeItem.subTitle==subTitle && nodeItem.itemTitle==itemTitle);
+      const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypeWithNode(nodeItem, {majorType, subTitle, itemTitle}));
       
       // const v01 = {
       //   id: jsPlumbUtil.uuid(),
@@ -512,6 +513,7 @@ export default {
         ...major.nodeBaseInfo, // base
         ...nodeItem, // self
         // customize
+        majorTitle: major.title,
         type: nodeItem.majorType, // jsplumb's node-type to create
         title: nodeItem.itemTitle,
 
