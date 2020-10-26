@@ -5,7 +5,7 @@
         persistent
     >
         <v-card>
-            <v-toolbar dark color="primary">
+            <v-toolbar dark color="primary" dense>
                 <v-icon>mdi-tooltip-text-outline</v-icon>
                 <span v-for="i in 2" :key="i">&nbsp;</span>
 
@@ -35,7 +35,7 @@ export default {
             }
         },
         title() {
-            return NodeUtil.makeTitleCrumb(this.sparams.data);
+            return "Settings (" + NodeUtil.makeTitleCrumb(this.sparams.data) + ")";
         }
     }
 }
