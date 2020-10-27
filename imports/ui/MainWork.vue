@@ -456,7 +456,7 @@ export default {
 
       const subs = []; // [ {majorType, subTitle, nodeItems[ {} ]} ]
       nodeItems.forEach(node => {
-        let sub = subs.find((sub) => sub.subTitle==node.subTitle);
+        let sub = subs.find((sub) => NodeUtil.checkPartType(sub.subTitle, node.subTitle));
         if (sub) {
           // Register the node into sub category.
           sub.nodeItems.push(node);

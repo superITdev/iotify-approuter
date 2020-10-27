@@ -21,6 +21,7 @@
     "jsplumbtoolkit-undo-redo": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-undo-redo.tgz",
     "jsplumbtoolkit-vue2": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2.tgz",
     "jsplumbtoolkit-vue2-drop": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-vue2-drop.tgz",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "meteor-node-stubs": "^0.4.1",
     "moment": "^2.29.1",

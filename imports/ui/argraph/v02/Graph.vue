@@ -7,7 +7,7 @@
             :surfaceId="surfaceId"
             :toolkitParams="toolkitParams">
         </jsplumb-toolkit>
-        <SettingFrame :sparams="settings.httpServer" />
+        <NodeSetting :setting="nodeSetting" />
     </div>
 </template>
 
@@ -23,7 +23,8 @@ import * as NodeUtil from '/common/NodeUtil.js'
 
 import csStorage from '/common/CSStorage.js'
 
-import SettingFrame from '/imports/ui/nodeSetting/SettingFrame.vue'
+import NodeSetting from '/imports/ui/nodeSetting/NodeSetting.vue'
+import cloneDeep from 'lodash.clonedeep'
 
 let $self;
 let toolkit;
@@ -45,7 +46,7 @@ export default {
     name: 'jsp-toolkit',
     props:["surfaceId"],
     components: {
-        SettingFrame,
+        NodeSetting,
     },
     data:() => {
         return {
@@ -220,12 +221,9 @@ export default {
                 }
             },
             
-            settings: {
-                httpServer: { // parameters for http-server
-                    show: false,
-                    data: {
-                    },
-                },
+            nodeSetting: {
+                show: false, // show/hide setting dialog.
+                nodeData: {}, // cloned node data to be edited on setting form.
             },
         };
     },
@@ -253,12 +251,12 @@ export default {
                 nodeData = params.node.data;
             } else if (params.group) {
                 nodeData = params.group.data;
+            } else {
+                return;
             }
-
-            if (NodeUtil.checkTypeByPath(nodeData, 'protocol/Gateway/HTTP')) {
-                this.settings.httpServer.show = true;
-                this.settings.httpServer.data = nodeData;
-            }
+            
+            this.nodeSetting.show = true;
+            this.nodeSetting.nodeData = cloneDeep(nodeData);
         }
     }
 }

@@ -23,19 +23,25 @@ import * as NodeUtil from '/common/NodeUtil.js'
 
 export default {
     props: [
-        "sparams",
+        "setting",
     ],
     computed: {
+        nodeData() {
+            return this.setting.nodeData;
+        },
+        validSetting() {
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
+        },
         showHide: {
             get() {
-                return this.sparams.show;
+                return this.setting.show && this.validSetting;
             },
             set(val) {
-                this.sparams.show = val;
+                this.setting.show = val;
             }
         },
         title() {
-            return "Settings (" + NodeUtil.makeTitleCrumb(this.sparams.data) + ")";
+            return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
         }
     }
 }
