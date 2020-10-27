@@ -3,34 +3,36 @@
         v-model="showHide"
         hide-overlay
         persistent
+        :width="formSize.width"
     >
-        <v-card>
-            <v-toolbar dark color="primary" dense>
-                <v-icon>mdi-tooltip-text-outline</v-icon>
-                <span v-for="i in 2" :key="i">&nbsp;</span>
-
-                <v-toolbar-title>{{title}}</v-toolbar-title>
+        <v-card :height="formSize.height">
+            <v-system-bar dark color="primary" dense class="py-4 white--text">
+                <v-icon small>mdi-tooltip-text-outline</v-icon>
+                <v-toolbar-title class="ml-1 subtitle-1">{{title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
-
-                <v-btn icon @click="showHide = false"><v-icon>mdi-close</v-icon></v-btn>
-            </v-toolbar>
+                <v-btn x-small icon @click="showHide = false"><v-icon class="ma-2">mdi-close</v-icon></v-btn>
+            </v-system-bar>
+            <v-container>
+                <Http :nodeData="nodeData" v-if="isHttpServer"/>
+            </v-container>
         </v-card>
-    </v-dialog>    
+    </v-dialog>
 </template>
 
 <script>
 import * as NodeUtil from '/common/NodeUtil.js'
+import Http from '/imports/ui/nodeSetting/Http.vue'
 
 export default {
     props: [
         "setting",
     ],
+    components: {
+        Http,
+    },
     computed: {
         nodeData() {
             return this.setting.nodeData;
-        },
-        validSetting() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
         },
         showHide: {
             get() {
@@ -42,7 +44,19 @@ export default {
         },
         title() {
             return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
-        }
+        },
+        validSetting() {
+            return this.isHttpServer // || others, all
+        },
+        formSize() {
+            let width = 650, height=650;
+            // if (this.isHttpServer) {}
+            // else if ...
+            return {width, height};
+        },
+        isHttpServer() {
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
+        },
     }
 }
 </script>

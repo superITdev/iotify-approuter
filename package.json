@@ -10,7 +10,7 @@
     "generate-svgicon": "vsvg -s ./svgicon/svg -t ./svgicon/icon"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.0",
+    "@babel/runtime": "^7.12.1",
     "babel-runtime": "^6.26.0",
     "jquery": "^3.5.1",
     "jsplumbtoolkit": "file:./imports/jsplumb/toolkit/jsplumbtoolkit.tgz",
@@ -28,17 +28,17 @@
     "vue": "^2.6.12",
     "vue-meta": "^1.6.0",
     "vue-meteor-tracker": "^2.0.0-beta.5",
-    "vue-router": "^3.4.6",
-    "vuetify": "^2.3.14",
+    "vue-router": "^3.4.8",
+    "vuetify": "^2.3.16",
     "vuex": "^3.5.1"
   },
   "meteor": {
     "testModule": "tests/main.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.0",
+    "@babel/core": "^7.12.3",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.12.0",
+    "@babel/preset-env": "^7.12.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.6.0",
@@ -46,11 +46,11 @@
     "eslint": "^6.8.0",
     "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-vue": "^6.2.2",
-    "file-loader": "^6.1.1",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "sass": "^1.27.0",
     "sass-loader": "^9.0.3",
-    "vue-loader": "^15.9.3",
+    "vue-loader": "^15.9.4",
     "vue-style-loader": "^4.1.2",
     "vue-svgicon": "^3.2.9",
     "vue-template-compiler": "^2.6.12",

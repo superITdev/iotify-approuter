@@ -76,7 +76,8 @@ const saveGraph = function() {
 } ();
 
 function checkPartType(a, b) {
-    if (a === b) return true;
+    if (a == b) return true;
+    if (!a || !b) return false;
     return a.equalsIgnoreCase(b);
 }
 function checkType(node, major, sub, item) {
