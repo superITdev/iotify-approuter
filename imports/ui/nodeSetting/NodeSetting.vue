@@ -13,7 +13,8 @@
                 <v-btn x-small icon @click="showHide = false"><v-icon class="ma-2">mdi-close</v-icon></v-btn>
             </v-system-bar>
             <v-container>
-                <Http :nodeData="nodeData" v-if="isHttpServer"/>
+                <HttpServer :nodeData="nodeData" v-if="isHttpServer"/>
+                <WebsocketServer :nodeData="nodeData" v-if="isWebsocketServer"/>
             </v-container>
         </v-card>
     </v-dialog>
@@ -21,14 +22,16 @@
 
 <script>
 import * as NodeUtil from '/common/NodeUtil.js'
-import Http from '/imports/ui/nodeSetting/Http.vue'
+import HttpServer from '/imports/ui/nodeSetting/HttpServer.vue'
+import WebsocketServer from '/imports/ui/nodeSetting/WebsocketServer.vue'
 
 export default {
     props: [
         "setting",
     ],
     components: {
-        Http,
+        HttpServer,
+        WebsocketServer
     },
     computed: {
         nodeData() {
@@ -46,16 +49,18 @@ export default {
             return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpServer // || others, all
+            return this.isHttpServer || this.isWebsocketServer
         },
         formSize() {
             let width = 650, height=700;
-            // if (this.isHttpServer) {}
-            // else if ...
+            if (this.isWebsocketServer) height=460;
             return {width, height};
         },
         isHttpServer() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
+        },
+        isWebsocketServer() {
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/Websocket');
         },
     }
 }

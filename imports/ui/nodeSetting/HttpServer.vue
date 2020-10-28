@@ -31,22 +31,24 @@
             </v-col>
         </v-row>
 
-        <v-responsive :height="vs.rowGap"/>
-        <v-text-field
-            label="Endpoint URL"
-            hint="Send data on the public URL above. Show sample curl command."
-            value="https://endpoint122.app.route.network"
-            persistent-hint
-            outlined
-            dense
-        />
+        <div>
+            <v-responsive :height="vs.rowGap"/>
+            <v-text-field
+                label="Endpoint URL"
+                value="https://endpoint122.app.route.network"
+                hint="Send data on the public URL above. Show sample curl command."
+                persistent-hint
+                outlined
+                dense
+            />
+        </div>
         
         <div v-show="simpleAdvanced=='simple'">
             <v-responsive :height="vs.rowGap"/>
             <v-text-field
                 label="Channel"
-                hint="All received payload shall be published on channel rambo"
                 value="rambo"
+                hint="All received payload shall be published on channel rambo"
                 persistent-hint
                 outlined
                 dense
@@ -73,8 +75,8 @@
                         </v-row>
                         <v-text-field
                             label="Publish on Channel"
-                            hint="E.g. Any GET request on /api/rambo/romeo will be published on channel mych-rambo."
                             :value="'mych-{{resource}}'"
+                            hint="E.g. Any GET request on /api/rambo/romeo will be published on channel mych-rambo."
                             persistent-hint
                             outlined
                             dense
