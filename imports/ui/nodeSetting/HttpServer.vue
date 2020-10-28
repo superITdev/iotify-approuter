@@ -112,7 +112,7 @@ export default {
     ],
     data: () => (
         {
-            simpleAdvanced: 'advanced',
+            simpleAdvanced: 'simple',
             manualAutomatic: 'automatic',
             loadBalancingTicks: [1, 2, 3, 4, 5, 6],
             loadBalancing: [2, 4],
@@ -124,7 +124,7 @@ export default {
             responseChannel: 2,
 
             vs: { // view style
-                rowGap: 25,
+                rowGap: 15,
             }
         }
     )

@@ -16,6 +16,7 @@
                 <HttpServer :nodeData="nodeData" v-if="isHttpServer"/>
                 <WebsocketServer :nodeData="nodeData" v-else-if="isWebsocketServer"/>
                 <WebsocketPayload :nodeData="nodeData" v-else-if="isWebsocketPayload"/>
+                <REDISClient :nodeData="nodeData" v-else-if="isRedisClient"/>
             </v-container>
         </v-card>
     </v-dialog>
@@ -26,6 +27,7 @@ import * as NodeUtil from '/common/NodeUtil.js'
 import HttpServer from '/imports/ui/nodeSetting/HttpServer.vue'
 import WebsocketServer from '/imports/ui/nodeSetting/WebsocketServer.vue'
 import WebsocketPayload from '/imports/ui/nodeSetting/WebsocketPayload.vue'
+import REDISClient from '/imports/ui/nodeSetting/REDISClient.vue'
 
 export default {
     props: [
@@ -35,6 +37,7 @@ export default {
         HttpServer,
         WebsocketServer,
         WebsocketPayload,
+        REDISClient,
     },
     computed: {
         nodeData() {
@@ -52,13 +55,14 @@ export default {
             return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload
+            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload || this.isRedisClient
         },
         formSize() {
             let width = 650, height=700;
             
             if (this.isWebsocketServer) height=500;
             else if (this.isWebsocketPayload) height=500;
+            else if (this.isRedisClient) height=850;
 
             return {width, height};
         },
@@ -70,6 +74,9 @@ export default {
         },
         isWebsocketPayload() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Client/Websocket');
+        },
+        isRedisClient() {
+            return NodeUtil.checkTypeByPath(this.nodeData, 'database/Client/REDIS');
         },
     }
 }

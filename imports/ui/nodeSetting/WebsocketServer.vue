@@ -66,7 +66,7 @@ export default {
         {
             simpleAdvanced: 'advanced',
             vs: { // view style
-                rowGap: 25,
+                rowGap: 15,
             }
         }
     )

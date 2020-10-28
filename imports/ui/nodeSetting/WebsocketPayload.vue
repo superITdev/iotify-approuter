@@ -39,7 +39,7 @@ export default {
     data: () => (
         {
             vs: { // view style
-                rowGap: 25,
+                rowGap: 15,
             },
             options: null,
         }
