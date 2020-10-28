@@ -14,7 +14,8 @@
             </v-system-bar>
             <v-container>
                 <HttpServer :nodeData="nodeData" v-if="isHttpServer"/>
-                <WebsocketServer :nodeData="nodeData" v-if="isWebsocketServer"/>
+                <WebsocketServer :nodeData="nodeData" v-else-if="isWebsocketServer"/>
+                <WebsocketPayload :nodeData="nodeData" v-else-if="isWebsocketPayload"/>
             </v-container>
         </v-card>
     </v-dialog>
@@ -24,6 +25,7 @@
 import * as NodeUtil from '/common/NodeUtil.js'
 import HttpServer from '/imports/ui/nodeSetting/HttpServer.vue'
 import WebsocketServer from '/imports/ui/nodeSetting/WebsocketServer.vue'
+import WebsocketPayload from '/imports/ui/nodeSetting/WebsocketPayload.vue'
 
 export default {
     props: [
@@ -31,7 +33,8 @@ export default {
     ],
     components: {
         HttpServer,
-        WebsocketServer
+        WebsocketServer,
+        WebsocketPayload,
     },
     computed: {
         nodeData() {
@@ -49,11 +52,14 @@ export default {
             return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpServer || this.isWebsocketServer
+            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload
         },
         formSize() {
             let width = 650, height=700;
-            if (this.isWebsocketServer) height=460;
+            
+            if (this.isWebsocketServer) height=500;
+            else if (this.isWebsocketPayload) height=500;
+
             return {width, height};
         },
         isHttpServer() {
@@ -61,6 +67,9 @@ export default {
         },
         isWebsocketServer() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/Websocket');
+        },
+        isWebsocketPayload() {
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Client/Websocket');
         },
     }
 }
