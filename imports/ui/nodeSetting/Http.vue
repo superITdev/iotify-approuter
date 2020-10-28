@@ -12,7 +12,7 @@
             <v-col cols="auto">
                 <div v-show="simpleAdvanced=='advanced'">
                     <div class="d-flex">
-                        <div class="mr-5">Load Banlancing</div>
+                        <div class="form-label mr-5">Load Banlancing</div>
                         <v-radio-group dense row v-model="manualAutomatic" class="ma-0 pa-0" hide-details="true">
                             <v-radio label="Manual" value="manual"/>
                             <v-radio label="Automatic" value="automatic" class="mr-0"/>
@@ -35,8 +35,10 @@
         <v-text-field
             label="Endpoint URL"
             hint="Send data on the public URL above. Show sample curl command."
-            placeholder="https://endpoint122.app.router.network"
+            value="https://endpoint122.app.route.network"
             persistent-hint
+            outlined
+            dense
         />
         
         <div v-show="simpleAdvanced=='simple'">
@@ -44,14 +46,59 @@
             <v-text-field
                 label="Channel"
                 hint="All received payload shall be published on channel rambo"
-                placeholder="rambo"
+                value="rambo"
                 persistent-hint
+                outlined
+                dense
             />
         </div>
 
         <div v-show="simpleAdvanced=='advanced'">
             <v-responsive :height="vs.rowGap"/>
             <div class="form-label">Route Handler</div>
+            <v-tabs v-model="curRoute">
+                <v-tab v-for="(route, i) in routes" :key="i">{{route}}</v-tab>
+                <v-btn text class="align-self-center" rounded>+ Add new</v-btn>
+            </v-tabs>
+            <v-tabs-items v-model="curRoute">
+                <v-tab-item v-for="(route, i) in routes" :key="i">
+                    <v-sheet outlined class="pa-5">
+                        <v-row dense no-gutters>
+                            <v-col cols="3">
+                                <v-select :items="routeProtocols" value="GET" outlined dense/>
+                            </v-col>
+                            <v-col cols="6" class="ml-5">
+                                <v-text-field dense outlined value="/api/:resource/:operation"/>
+                            </v-col>
+                        </v-row>
+                        <v-text-field
+                            label="Publish on Channel"
+                            hint="E.g. Any GET request on /api/rambo/romeo will be published on channel mych-rambo."
+                            :value="'mych-{{resource}}'"
+                            persistent-hint
+                            outlined
+                            dense
+                        />
+                        <v-radio-group dense v-model="responseChannel"
+                            label="Response From channel"
+                            hint="E.g. Response will be published from channel mych-rambo-rsp."
+                            persistent-hint
+                        >
+                            <v-radio label="Always send HTTP 200"/>
+                            <v-radio label="Respond from a unique Reply-To channel"/>
+                            <v-radio>
+                                <template v-slot:label>
+                                    <div class="d-flex align-center">
+                                        <div>Respond from</div>
+                                        <v-text-field dense outlined :value="'mych-{{resource}}-rsp'" label="fixed channel" hide-details class="ml-5"/>
+                                        <v-text-field dense outlined :value="10" label="timeout" suffix="sec" hide-details class="ml-5" style="width:110px"/>
+                                    </div>
+                                </template>
+                            </v-radio>
+                        </v-radio-group>
+                    </v-sheet>
+                </v-tab-item>
+            </v-tabs-items>
         </div>
     </v-container>
 </template>
@@ -68,6 +115,12 @@ export default {
             loadBalancingTicks: [1, 2, 3, 4, 5, 6],
             loadBalancing: [2, 4],
 
+            curRoute: null,
+            routes: ['default', 'route2'],
+            routeProtocols: ['GET', 'POST'],
+
+            responseChannel: 2,
+
             vs: { // view style
                 rowGap: 25,
             }
@@ -77,5 +130,7 @@ export default {
 </script>
 
 <style scoped>
-
+.form-label {
+    font-weight: regular;
+}
 </style>

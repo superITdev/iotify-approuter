@@ -49,7 +49,7 @@ export default {
             return this.isHttpServer // || others, all
         },
         formSize() {
-            let width = 650, height=650;
+            let width = 650, height=700;
             // if (this.isHttpServer) {}
             // else if ...
             return {width, height};
