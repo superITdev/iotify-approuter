@@ -82,8 +82,8 @@ function checkPartType(a, b) {
 }
 function checkType(node, major, sub, item) {
     return checkPartType(node.majorType, major)
-    && checkPartType(node.subTitle, sub)
-    && checkPartType(node.itemTitle, item);
+        && checkPartType(node.subTitle, sub)
+        && checkPartType(node.itemTitle, item);
 }
 function checkTypeWithNode(nodeA, nodeB) {
     return checkType(nodeA, nodeB.majorType, nodeB.subTitle, nodeB.itemTitle);
@@ -99,6 +99,12 @@ function checkTypeByPath(node, path, delimiter) {
     if (delimiter === undefined) delimiter = typePathDelimiter;
     let [major, sub, item] = path.split(delimiter);
     return checkType(node, major, sub, item);
+}
+function checkTypeByPath2(node, path, delimiter) {
+    if (delimiter === undefined) delimiter = typePathDelimiter;
+    let [major, sub, item] = path.split(delimiter);
+    return checkPartType(node.majorType, major)
+        && checkPartType(node.subTitle, sub)
 }
 
 const titleCrumbDelimiter = ' / ';
@@ -130,4 +136,5 @@ export {
     checkTypeByPath,
     makeTypePath,
     makeTitleCrumb,
+    checkTypeByPath2,
 }

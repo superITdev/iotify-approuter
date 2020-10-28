@@ -6,7 +6,7 @@
         :width="formSize.width"
     >
         <v-card :height="formSize.height">
-            <v-system-bar dark color="primary" dense class="py-4 white--text">
+            <v-system-bar dark color="deep-purple darken-4" dense class="py-4 white--text">
                 <v-icon small>mdi-tooltip-text-outline</v-icon>
                 <v-toolbar-title class="ml-1 subtitle-1">{{title}}</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -17,6 +17,7 @@
                 <WebsocketServer :nodeData="nodeData" v-else-if="isWebsocketServer"/>
                 <WebsocketPayload :nodeData="nodeData" v-else-if="isWebsocketPayload"/>
                 <REDISClient :nodeData="nodeData" v-else-if="isRedisClient"/>
+                <CustomFunction :nodeData="nodeData" v-else-if="isCustomFunction"/>
             </v-container>
         </v-card>
     </v-dialog>
@@ -28,6 +29,7 @@ import HttpServer from '/imports/ui/nodeSetting/HttpServer.vue'
 import WebsocketServer from '/imports/ui/nodeSetting/WebsocketServer.vue'
 import WebsocketPayload from '/imports/ui/nodeSetting/WebsocketPayload.vue'
 import REDISClient from '/imports/ui/nodeSetting/REDISClient.vue'
+import CustomFunction from '/imports/ui/nodeSetting/CustomFunction.vue'
 
 export default {
     props: [
@@ -38,6 +40,7 @@ export default {
         WebsocketServer,
         WebsocketPayload,
         REDISClient,
+        CustomFunction,
     },
     computed: {
         nodeData() {
@@ -55,7 +58,7 @@ export default {
             return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload || this.isRedisClient
+            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload || this.isRedisClient || this.isCustomFunction
         },
         formSize() {
             let width = 650, height=700;
@@ -63,8 +66,9 @@ export default {
             if (this.isWebsocketServer) height=500;
             else if (this.isWebsocketPayload) height=500;
             else if (this.isRedisClient) height=850;
+            else if (this.isCustomFunction) width=1000;
 
-            return {width, height};
+            return {width, height:undefined};
         },
         isHttpServer() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
@@ -77,6 +81,9 @@ export default {
         },
         isRedisClient() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'database/Client/REDIS');
+        },
+        isCustomFunction() {
+            return NodeUtil.checkTypeByPath2(this.nodeData, 'function/Custom');
         },
     }
 }

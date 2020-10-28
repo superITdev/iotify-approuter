@@ -74,7 +74,7 @@
         <div v-show="simpleAdvanced=='advanced'">
             <v-responsive :height="vs.rowGap"/>
             <div class="form-label">function(redis, payload, cid)</div>
-            <div class="grey darken-3 white--text mt-3" style="height:35vh">
+            <div class="grey darken-3 white--text mt-3" style="height:350px;">
             </div>
             <div class="form-label mt-3">Test</div>
         </div>
