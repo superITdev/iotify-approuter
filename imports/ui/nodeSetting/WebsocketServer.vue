@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <v-row dense no-gutters justify="space-between">
             <v-col cols="auto">
                 <div class="form-label">Server Type</div>
@@ -54,7 +54,7 @@
                 />
             </v-row>
         </div>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -64,9 +64,9 @@ export default {
     ],
     data: () => (
         {
-            simpleAdvanced: 'advanced',
+            simpleAdvanced: 'simple',
             vs: { // view style
-                rowGap: 15,
+                rowGap: 10,
             }
         }
     )

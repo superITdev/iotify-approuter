@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <v-row dense no-gutters justify="space-between">
             <v-col cols="auto">
                 <div class="form-label">Client Type</div>
@@ -37,8 +37,11 @@
             </v-row>
             
             <div class="form-label mb-3">Add argument</div>
-            <v-text-field dense outlined :value="'mych-{{resource}}'" style="width:50%;"/>
-            <v-text-field dense outlined :value="'{{payload.contents}}'" style="width:50%;"/>
+            <v-row dense no-gutters>
+                <v-text-field dense outlined :value="'mych-{{resource}}'"/>
+                <div style="width:15px;"/>
+                <v-text-field dense outlined :value="'{{payload.contents}}'"/>
+            </v-row>
             
             <div class="form-label">+ Add another argument</div>
             <v-card-text>Based on setting above. following command will be executed.<br> <strong>mych-123 ts 1232</strong></v-card-text>
@@ -74,11 +77,11 @@
         <div v-show="simpleAdvanced=='advanced'">
             <v-responsive :height="vs.rowGap"/>
             <div class="form-label">function(redis, payload, cid)</div>
-            <div class="grey darken-3 white--text mt-3" style="height:350px;">
+            <div class="grey darken-3 white--text mt-3" style="height:300px;">
             </div>
-            <div class="form-label mt-3">Test</div>
+            <div class="form-label mt-3" style="height:150px;">Test</div>
         </div>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -88,13 +91,13 @@ export default {
     ],
     data: () => (
         {
-            simpleAdvanced: 'advanced',
+            simpleAdvanced: 'simple',
             responseTab: null,
             responseChannel: 2,
             commands: ['ZADD'],
 
             vs: { // view style
-                rowGap: 15,
+                rowGap: 10,
             }
         }
     )

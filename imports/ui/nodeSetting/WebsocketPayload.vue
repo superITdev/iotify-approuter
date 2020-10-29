@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <div>
             <v-text-field
                 label="Inject on Channel"
@@ -28,7 +28,7 @@
                 </template>
             </v-radio>
         </v-radio-group>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
     data: () => (
         {
             vs: { // view style
-                rowGap: 15,
+                rowGap: 10,
             },
             options: null,
         }

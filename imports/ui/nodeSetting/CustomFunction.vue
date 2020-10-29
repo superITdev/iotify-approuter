@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <v-row dense no-gutters>
             <v-col cols="4">
                 <div class="global-config indigo accent-4 white--text text-center pa-1">Global Config</div>
@@ -71,7 +71,7 @@
                 <div class="grey lighten-4 mt-2" style="width:100%; height:250px;"/>
             </v-col>
         </v-row>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -82,7 +82,7 @@ export default {
     data: () => (
         {
             vs: { // view style
-                rowGap: 15,
+                rowGap: 10,
             },
             globalConfig: {
                 initiallyOpen: ['item1'],

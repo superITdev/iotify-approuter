@@ -8,7 +8,7 @@
     no-gutters
   >
     <v-navigation-drawer
-      color="rgba(61, 99, 244, 0.9)"
+      color="indigo accent-4"
       mini-variant
       dark
       :mini-variant-width="majorVS.itemWidth"
@@ -107,7 +107,7 @@
           </v-sheet>
           <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
             <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
-            <v-btn class="iotar-graph-tool-btn" :color="graphCS.btnColor" dark rounded small>Deploy</v-btn>
+            <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small>Deploy</v-btn>
           </v-row>
           <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
         </v-main>
@@ -171,8 +171,7 @@ export default {
 
       graphCS: { // vue-style for controls on graph space
         toolColor: '',
-        toolSelColor: 'blue darken-1',
-        btnColor: 'blue darken-1',
+        toolSelColor: 'indigo accent-4',
         setMode: 'pan',
         undoable: false,
         redoable: false,

@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <div>
         <v-row dense no-gutters justify="space-between">
             <v-col cols="auto">
                 <div class="form-label">Server Type</div>
@@ -102,7 +102,7 @@
                 </v-tab-item>
             </v-tabs-items>
         </div>
-    </v-container>
+    </div>
 </template>
 
 <script>
@@ -124,7 +124,7 @@ export default {
             responseChannel: 2,
 
             vs: { // view style
-                rowGap: 15,
+                rowGap: 10,
             }
         }
     )
