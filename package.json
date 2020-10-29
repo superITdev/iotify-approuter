@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.1",
     "babel-runtime": "^6.26.0",
+    "chart.js": "^2.9.4",
     "jquery": "^3.5.1",
     "jsplumbtoolkit": "file:./imports/jsplumb/toolkit/jsplumbtoolkit.tgz",
     "jsplumbtoolkit-demo-support": "file:./imports/jsplumb/toolkit/jsplumbtoolkit-demo-support.tgz",

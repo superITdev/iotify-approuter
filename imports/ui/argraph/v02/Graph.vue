@@ -8,6 +8,7 @@
             :toolkitParams="toolkitParams">
         </jsplumb-toolkit>
         <NodeSetting :setting="nodeSetting" />
+        <LoggerView :setting="loggerView" />
     </div>
 </template>
 
@@ -23,8 +24,9 @@ import * as NodeUtil from '/common/NodeUtil.js'
 
 import csStorage from '/common/CSStorage.js'
 
-import NodeSetting from '/imports/ui/nodeSetting/NodeSetting.vue'
+import NodeSetting from '/imports/ui/NodeSetting/NodeSetting.vue'
 import cloneDeep from 'lodash.clonedeep'
+import LoggerView from '/imports/ui/LoggerView/LoggerView.vue'
 
 let $self;
 let toolkit;
@@ -47,6 +49,7 @@ export default {
     props:["surfaceId"],
     components: {
         NodeSetting,
+        LoggerView,
     },
     data:() => {
         return {
@@ -191,10 +194,9 @@ export default {
                                     }
                                 });
                             },
-                            dblclick(params) { // open logger-page.
+                            dblclick(params) {
                                 surface.stopEditing();
-                                alert("Logger-view should be opend");
-                                // router.push('/app/logger-page');
+                                $self.onLoggerView(params);
                             }
                         },
                         overlays: [
@@ -224,6 +226,10 @@ export default {
             nodeSetting: {
                 show: false, // show/hide setting dialog.
                 nodeData: {}, // cloned node data to be edited on setting form.
+            },
+            loggerView: {
+                show: false,
+                data: {},
             },
         };
     },
@@ -257,7 +263,10 @@ export default {
             
             this.nodeSetting.show = true;
             this.nodeSetting.nodeData = cloneDeep(nodeData);
-        }
+        },
+        onLoggerView(params) {
+            this.loggerView.show = true;
+        },
     }
 }
 </script>

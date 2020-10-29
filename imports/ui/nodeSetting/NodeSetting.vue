@@ -25,11 +25,11 @@
 
 <script>
 import * as NodeUtil from '/common/NodeUtil.js'
-import HttpServer from '/imports/ui/nodeSetting/HttpServer.vue'
-import WebsocketServer from '/imports/ui/nodeSetting/WebsocketServer.vue'
-import WebsocketPayload from '/imports/ui/nodeSetting/WebsocketPayload.vue'
-import REDISClient from '/imports/ui/nodeSetting/REDISClient.vue'
-import CustomFunction from '/imports/ui/nodeSetting/CustomFunction.vue'
+import HttpServer from '/imports/ui/NodeSetting/HttpServer.vue'
+import WebsocketServer from '/imports/ui/NodeSetting/WebsocketServer.vue'
+import WebsocketPayload from '/imports/ui/NodeSetting/WebsocketPayload.vue'
+import REDISClient from '/imports/ui/NodeSetting/REDISClient.vue'
+import CustomFunction from '/imports/ui/NodeSetting/CustomFunction.vue'
 
 export default {
     props: [

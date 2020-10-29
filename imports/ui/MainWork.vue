@@ -119,7 +119,7 @@
 
 <script>
 import NodeMajorTypes from '/common/NodeMajorTypes.js';
-import NodePanels from '/imports/ui/nodePanels/NodePanels.vue';
+import NodePanels from '/imports/ui/NodePanels/NodePanels.vue';
 import * as NodeUtil from '/common/NodeUtil.js';
 
 import  { Dialogs, jsPlumbToolkit, jsPlumbUtil, Surface } from "jsplumbtoolkit"

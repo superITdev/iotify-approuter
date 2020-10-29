@@ -26,7 +26,7 @@
 
 <script>
 import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
-import NodeItem from '/imports/ui/nodePanels/NodeItem.vue'
+import NodeItem from '/imports/ui/NodePanels/NodeItem.vue'
 
 export default {
     mixins:[SurfaceDrop],
