@@ -1,48 +1,36 @@
 <template>
-<v-card
-  width="100%"
-  height="100%"
-  >
+<v-card class="fill-height">
   <v-row
     class="fill-height"
     no-gutters
   >
-    <v-navigation-drawer
-      color="indigo accent-4"
-      mini-variant
-      dark
-      :mini-variant-width="majorVS.itemWidth"
-    >
-      <v-list flat class="pa-0">
-        <v-list-item-group mandatory v-model="majorVS.activeMajorType">
-          <v-list-item
-            v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
-            class="pa-0"
-            :color="major.color"
-            active-class="white"
-            :style="`height:${majorVS.itemHeight}px`"
-            :value="major.majorType"
-            @click="onMajorType(major.majorType)"
-          >
-            <template v-slot:default="{active}">
-              <v-list-item-content>
-                <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
-                <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
-              </v-list-item-content>
-            </template>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
+    <v-list flat class="pa-0 indigo accent-4" dense dark :width="majorVS.itemWidth">
+      <v-list-item-group mandatory v-model="majorVS.activeMajorType">
+        <v-list-item
+          v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
+          class="pa-0"
+          :color="major.color"
+          active-class="white"
+          :style="`height:${majorVS.itemHeight}px`"
+          :value="major.majorType"
+          @click="onMajorType(major.majorType)"
+        >
+          <template v-slot:default="{active}">
+            <v-list-item-content>
+              <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
+              <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
 
-    <v-main class="overflow-hidden iotar-graph-bg">
+    <v-main class="iotar-graph-bg">
       <v-row
         class="fill-height"
         no-gutters
       >
-        <v-navigation-drawer
-          class="iotar-subbar"
-        >
+        <v-list class="iotar-subbar" width="255">
           <v-list-item>
             <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
             <v-list-item-action>
@@ -51,6 +39,7 @@
               </v-btn>
             </v-list-item-action>
           </v-list-item>
+
           <v-list-item>
             <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
           </v-list-item>
@@ -64,7 +53,7 @@
             :subCategories="activeSubCategories"
             :nodeItemInfo="getNodeItemUIinfo"
           />
-        </v-navigation-drawer>
+        </v-list>
         <v-main class="ma-1">
           <!-- <Controls :surfaceId="surfaceId"/> -->
           <!-- <GraphV01 :surfaceId="surfaceId"/> -->
@@ -636,7 +625,7 @@ export default {
 .iotar-subbar {
   font-family: "Nunito", sans-serif;
   border-left: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;
 }
 .iotar-subbar-title {
   font-size:18px;
