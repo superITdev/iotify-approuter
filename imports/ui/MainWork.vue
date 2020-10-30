@@ -1,108 +1,95 @@
 <template>
-<v-card class="fill-height">
-  <v-row
-    class="fill-height"
-    no-gutters
-  >
-    <v-list flat class="pa-0 indigo accent-4" dense dark :width="majorVS.itemWidth">
-      <v-list-item-group mandatory v-model="majorVS.activeMajorType">
-        <v-list-item
-          v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
-          class="pa-0"
-          :color="major.color"
-          active-class="white"
-          :style="`height:${majorVS.itemHeight}px`"
-          :value="major.majorType"
-          @click="onMajorType(major.majorType)"
-        >
-          <template v-slot:default="{active}">
-            <v-list-item-content>
-              <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
-              <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-
-    <v-main class="iotar-graph-bg">
-      <v-row
-        class="fill-height"
-        no-gutters
+<v-card class="fill-height d-flex">
+  <v-list dense dark flat tile class="pa-0 indigo accent-4" :width="majorVS.itemWidth">
+    <v-list-item-group mandatory v-model="majorVS.activeMajorType">
+      <v-list-item
+        v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
+        class="pa-0"
+        :color="major.color"
+        active-class="white"
+        :style="`height:${majorVS.itemHeight}px`"
+        :value="major.majorType"
+        @click="onMajorType(major.majorType)"
       >
-        <v-list class="iotar-subbar" width="255">
-          <v-list-item>
-            <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
-            <v-list-item-action>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
+        <template v-slot:default="{active}">
+          <v-list-item-content>
+            <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
+            <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
+          </v-list-item-content>
+        </template>
+      </v-list-item>
+    </v-list-item-group>
+  </v-list>
+  <v-list flat tile class="iotar-subbar" width="255">
+    <v-list-item>
+      <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
+      <v-list-item-action>
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </v-list-item-action>
+    </v-list-item>
 
-          <v-list-item>
-            <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
-          </v-list-item>
+    <v-list-item>
+      <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
+    </v-list-item>
 
-          <NodePanels
-            :surfaceId="surfaceId"
-            selector="[nodeItemSelector]"
-            :data-generator="nodeCreator"
+    <NodePanels
+      :surfaceId="surfaceId"
+      selector="[nodeItemSelector]"
+      :data-generator="nodeCreator"
 
-            :subRecents="activeRecents"
-            :subCategories="activeSubCategories"
-            :nodeItemInfo="getNodeItemUIinfo"
-          />
-        </v-list>
-        <v-main class="ma-1">
-          <!-- <Controls :surfaceId="surfaceId"/> -->
-          <!-- <GraphV01 :surfaceId="surfaceId"/> -->
-          <!-- toolbox -->
-          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex">
-            <v-btn icon :color="graphCS.setMode==='pan' ? graphCS.toolSelColor : graphCS.toolColor" title="Pan" v-on:click="onGraphSetMode('pan')">
-              <v-icon>mdi-pan</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.setMode==='select' ? graphCS.toolSelColor : graphCS.toolColor" title="Select" v-on:click="onGraphSetMode('select')">
-              <v-icon>mdi-image-size-select-small</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit" v-on:click="onGraphZoomToFit">
-              <v-icon>mdi-fit-to-page-outline</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Undo" v-on:click="onGraphUndo" :disabled="!graphCS.undoable">
-              <v-icon>mdi-undo-variant</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Redo" v-on:click="onGraphRedo" :disabled="!graphCS.redoable">
-              <v-icon>mdi-redo-variant</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Clear" v-on:click="onGraphClear">
-              <v-icon>mdi-close-circle-multiple-outline</v-icon>
-            </v-btn>
-          </v-sheet>
-          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex flex-column" style="left:0; bottom:0;">
-            <v-btn icon :color="graphCS.toolColor" :title="fullScreen ? 'Exit full screen' : 'full screen'" v-on:click="onFullScreen">
-              <v-icon>{{ fullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom In" v-on:click="onNudgeZoom(true)">
-              <v-icon>mdi-magnify-plus-outline</v-icon>
-            </v-btn>
-            <v-btn icon :color="graphCS.toolColor" title="Zoom Out" v-on:click="onNudgeZoom(false)">
-              <v-icon>mdi-magnify-minus-outline</v-icon>
-            </v-btn>
-          </v-sheet>
-          <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex" style="right:0; bottom:0;">
-            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-human-handsup</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-code-not-equal-variant</v-icon></v-btn>
-            <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-dots-horizontal</v-icon></v-btn>
-          </v-sheet>
-          <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
-            <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
-            <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small>Deploy</v-btn>
-          </v-row>
-          <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
-        </v-main>
-      </v-row>
-    </v-main>
-  </v-row>
+      :subRecents="activeRecents"
+      :subCategories="activeSubCategories"
+      :nodeItemInfo="getNodeItemUIinfo"
+    />
+  </v-list>
+  <div class="flex-grow-1 iotar-graph-bg pa-1">
+    <!-- <Controls :surfaceId="surfaceId"/> -->
+    <!-- <GraphV01 :surfaceId="surfaceId"/> -->
+    <!-- toolbox -->
+    <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex">
+      <v-btn icon :color="graphCS.setMode==='pan' ? graphCS.toolSelColor : graphCS.toolColor" title="Pan" v-on:click="onGraphSetMode('pan')">
+        <v-icon>mdi-pan</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.setMode==='select' ? graphCS.toolSelColor : graphCS.toolColor" title="Select" v-on:click="onGraphSetMode('select')">
+        <v-icon>mdi-image-size-select-small</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit" v-on:click="onGraphZoomToFit">
+        <v-icon>mdi-fit-to-page-outline</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Undo" v-on:click="onGraphUndo" :disabled="!graphCS.undoable">
+        <v-icon>mdi-undo-variant</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Redo" v-on:click="onGraphRedo" :disabled="!graphCS.redoable">
+        <v-icon>mdi-redo-variant</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Clear" v-on:click="onGraphClear">
+        <v-icon>mdi-close-circle-multiple-outline</v-icon>
+      </v-btn>
+    </v-sheet>
+    <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex flex-column" style="left:0; bottom:0;">
+      <v-btn icon :color="graphCS.toolColor" :title="fullScreen ? 'Exit full screen' : 'full screen'" v-on:click="onFullScreen">
+        <v-icon>{{ fullScreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen' }}</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Zoom In" v-on:click="onNudgeZoom(true)">
+        <v-icon>mdi-magnify-plus-outline</v-icon>
+      </v-btn>
+      <v-btn icon :color="graphCS.toolColor" title="Zoom Out" v-on:click="onNudgeZoom(false)">
+        <v-icon>mdi-magnify-minus-outline</v-icon>
+      </v-btn>
+    </v-sheet>
+    <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex" style="right:0; bottom:0;">
+      <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-human-handsup</v-icon></v-btn>
+      <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-code-not-equal-variant</v-icon></v-btn>
+      <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-dots-horizontal</v-icon></v-btn>
+    </v-sheet>
+    <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
+      <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
+      <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small>Deploy</v-btn>
+    </v-row>
+    <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
+  </div>
 </v-card>
 </template>
 
@@ -624,8 +611,8 @@ export default {
 <style scoped>
 .iotar-subbar {
   font-family: "Nunito", sans-serif;
-  border-left: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1) !important;
+  border-left: 2px solid rgba(0, 0, 0, 0.05);
+  border-right: 2px solid rgba(0, 0, 0, 0.05);
 }
 .iotar-subbar-title {
   font-size:18px;
@@ -633,6 +620,7 @@ export default {
 }
 .iotar-graph-bg {
   background: url(/img/graph-bg.jpg);
+  position: relative;
 }
 .iotar-graph-toolbox {
   position: absolute;

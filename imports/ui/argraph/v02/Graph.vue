@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100%;height: 100%;position: relative;" class="argraph-v02">
+    <div style="width:100%; height:100%; position:relative;" class="argraph-v02">
         <jsplumb-toolkit
             ref="toolkitComponent"
             :renderParams="renderParams"
