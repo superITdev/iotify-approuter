@@ -17,6 +17,11 @@ Vue.use(VueMeta)
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
+// vue perfect scrollbar
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+Vue.use(PerfectScrollbar)
+
 import VueSVGIcon from 'vue-svgicon';
 Vue.use(VueSVGIcon);
 // load all compiled svg-js icons.

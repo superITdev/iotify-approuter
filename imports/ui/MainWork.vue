@@ -1,50 +1,54 @@
 <template>
-<v-card class="fill-height d-flex">
-  <v-list dense dark flat tile class="pa-0 indigo accent-4 iotar-part" :width="majorVS.itemWidth">
-    <v-list-item-group mandatory v-model="majorVS.activeMajorType">
-      <v-list-item
-        v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
-        class="pa-0"
-        :color="major.color"
-        active-class="white"
-        :style="`height:${majorVS.itemHeight}px`"
-        :value="major.majorType"
-        @click="onMajorType(major.majorType)"
-      >
-        <template v-slot:default="{active}">
-          <v-list-item-content>
-            <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
-            <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
-          </v-list-item-content>
-        </template>
+<v-card class="fill-height d-flex" flat tile>
+  <perfect-scrollbar class="indigo accent-4">
+    <v-list dense dark flat tile class="pa-0 indigo accent-4" :width="majorVS.itemWidth">
+      <v-list-item-group mandatory v-model="majorVS.activeMajorType">
+        <v-list-item
+          v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
+          class="pa-0"
+          :color="major.color"
+          active-class="white"
+          :style="`height:${majorVS.itemHeight}px`"
+          :value="major.majorType"
+          @click="onMajorType(major.majorType)"
+        >
+          <template v-slot:default="{active}">
+            <v-list-item-content>
+              <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
+              <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </perfect-scrollbar>
+  <perfect-scrollbar>
+    <v-list flat tile class="iotar-subbar" width="255">
+      <v-list-item>
+        <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-list-item-action>
       </v-list-item>
-    </v-list-item-group>
-  </v-list>
-  <v-list flat tile class="iotar-subbar iotar-part" width="255">
-    <v-list-item>
-      <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
-      <v-list-item-action>
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </v-list-item-action>
-    </v-list-item>
 
-    <v-list-item>
-      <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
-    </v-list-item>
+      <v-list-item>
+        <v-text-field dense outlined prepend-inner-icon="mdi-magnify" clearable v-model="searchNodeItems"/>
+      </v-list-item>
 
-    <NodePanels
-      :surfaceId="surfaceId"
-      selector="[nodeItemSelector]"
-      :data-generator="nodeCreator"
+      <NodePanels
+        :surfaceId="surfaceId"
+        selector="[nodeItemSelector]"
+        :data-generator="nodeCreator"
 
-      :subRecents="activeRecents"
-      :subCategories="activeSubCategories"
-      :nodeItemInfo="getNodeItemUIinfo"
-    />
-  </v-list>
-  <div class="flex-grow-1 iotar-graph-bg pa-1 iotar-part">
+        :subRecents="activeRecents"
+        :subCategories="activeSubCategories"
+        :nodeItemInfo="getNodeItemUIinfo"
+      />
+    </v-list>
+  </perfect-scrollbar>
+  <div class="flex-grow-1 iotar-graph-view pa-1">
     <!-- <Controls :surfaceId="surfaceId"/> -->
     <!-- <GraphV01 :surfaceId="surfaceId"/> -->
     <!-- toolbox -->
@@ -608,23 +612,32 @@ export default {
 }
 </script>
 
-<style scoped>
-.iotar-part {
-  height:100vh;
-  overflow-y:auto;
+<style>
+.ps {
+  /* perfect-scrollbar */
+  height: 100vh;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+.ps__rail-y {
+  background-color: transparent !important;
+}
+.ps__thumb-y {
+  background-color: transparent !important;
+  width: 6px !important;
+  right: 0 !important;
 }
 .iotar-subbar {
   font-family: "Nunito", sans-serif;
-  border-left: 2px solid rgba(0, 0, 0, 0.05);
-  border-right: 2px solid rgba(0, 0, 0, 0.05);
 }
 .iotar-subbar-title {
   font-size:18px;
   font-weight:bold;
 }
-.iotar-graph-bg {
+.iotar-graph-view {
   background: url(/img/graph-bg.jpg);
   position: relative;
+  height: 100vh;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 .iotar-graph-toolbox {
   position: absolute;

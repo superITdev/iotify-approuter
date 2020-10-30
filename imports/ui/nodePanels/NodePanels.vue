@@ -1,5 +1,5 @@
 <template>
-<v-expansion-panels accordion multiple tile v-model="openPanels">
+<v-expansion-panels accordion multiple tile v-model="openPanels" class="px-1">
     <v-expansion-panel>
         <v-expansion-panel-header class="iotar-subbar-subtitle">Recently Used</v-expansion-panel-header>
         <v-expansion-panel-content class="iotar-subbar-content">
