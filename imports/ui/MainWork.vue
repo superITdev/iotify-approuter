@@ -1,6 +1,6 @@
 <template>
 <v-card class="fill-height d-flex">
-  <v-list dense dark flat tile class="pa-0 indigo accent-4" :width="majorVS.itemWidth">
+  <v-list dense dark flat tile class="pa-0 indigo accent-4 iotar-part" :width="majorVS.itemWidth">
     <v-list-item-group mandatory v-model="majorVS.activeMajorType">
       <v-list-item
         v-for="(major, majorIdx) in majorCategories" :key="majorIdx"
@@ -20,7 +20,7 @@
       </v-list-item>
     </v-list-item-group>
   </v-list>
-  <v-list flat tile class="iotar-subbar" width="255">
+  <v-list flat tile class="iotar-subbar iotar-part" width="255">
     <v-list-item>
       <v-list-item-title class="iotar-subbar-title">App Router</v-list-item-title>
       <v-list-item-action>
@@ -44,7 +44,7 @@
       :nodeItemInfo="getNodeItemUIinfo"
     />
   </v-list>
-  <div class="flex-grow-1 iotar-graph-bg pa-1">
+  <div class="flex-grow-1 iotar-graph-bg pa-1 iotar-part">
     <!-- <Controls :surfaceId="surfaceId"/> -->
     <!-- <GraphV01 :surfaceId="surfaceId"/> -->
     <!-- toolbox -->
@@ -609,6 +609,10 @@ export default {
 </script>
 
 <style scoped>
+.iotar-part {
+  height:100vh;
+  overflow-y:auto;
+}
 .iotar-subbar {
   font-family: "Nunito", sans-serif;
   border-left: 2px solid rgba(0, 0, 0, 0.05);
