@@ -5,7 +5,7 @@
         fullscreen
     >
         <v-card tile flat>
-            <v-container class="px-5" style="max-width:100%;">
+            <v-card class="pa-5" tile flat>
                 <v-row align="center" dense>
                     <v-icon>mdi-tooltip-text-outline</v-icon>
                     <v-toolbar-title class="ml-2 subtitle-1">Logger</v-toolbar-title>
@@ -99,7 +99,7 @@
                         </v-list>
                     </v-col>
                 </v-row>
-            </v-container>
+            </v-card>
         </v-card>
     </v-dialog>
 </template>

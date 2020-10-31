@@ -14,13 +14,13 @@
                     <v-icon>mdi-close</v-icon>
                 </v-btn>
             </v-toolbar>
-            <v-container class="ma-0 pa-5" style="max-width:100%;">
+            <v-card class="pa-5">
                 <HttpServer :nodeData="nodeData" v-if="isHttpServer"/>
                 <WebsocketServer :nodeData="nodeData" v-else-if="isWebsocketServer"/>
                 <WebsocketPayload :nodeData="nodeData" v-else-if="isWebsocketPayload"/>
                 <REDISClient :nodeData="nodeData" v-else-if="isRedisClient"/>
                 <CustomFunction :nodeData="nodeData" v-else-if="isCustomFunction"/>
-            </v-container>
+            </v-card>
         </v-card>
     </v-dialog>
 </template>

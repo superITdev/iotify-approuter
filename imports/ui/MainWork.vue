@@ -612,20 +612,7 @@ export default {
 }
 </script>
 
-<style>
-.ps {
-  /* perfect-scrollbar */
-  height: 100vh;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}
-.ps__rail-y {
-  background-color: transparent !important;
-}
-.ps__thumb-y {
-  background-color: transparent !important;
-  width: 6px !important;
-  right: 0 !important;
-}
+<style scoped>
 .iotar-subbar {
   font-family: "Nunito", sans-serif;
 }
@@ -645,5 +632,21 @@ export default {
 }
 .iotar-graph-tool-btn {
   text-transform:none !important;
+}
+</style>
+
+<style>
+.ps {
+  /* perfect-scrollbar */
+  height: 100vh;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+.ps__rail-y {
+  background-color: transparent !important;
+}
+.ps__thumb-y {
+  background-color: transparent !important;
+  width: 6px !important;
+  right: 0 !important;
 }
 </style>
