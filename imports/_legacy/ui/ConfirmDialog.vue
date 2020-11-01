@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { EventBus } from '../methods/event-bus.js';
+import { EventBus } from '../_legacy/methods/event-bus.js';
 export default {
   name:"Confirm",
   computed: {

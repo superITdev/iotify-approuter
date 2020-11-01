@@ -208,8 +208,8 @@
 </template>
 
 <script>
-import { Clicks } from "/imports/api/clicks"
-import { AUTH0 } from '/imports/auth0-variables'
+import { Clicks } from "/imports/_legacy/api/clicks"
+import { AUTH0 } from '/imports/_legacy/auth0-variables'
 
 export default {
   name:"Home",

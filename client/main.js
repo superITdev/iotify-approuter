@@ -42,12 +42,10 @@ require('/imports/jsplumb/css/jspapp.css');
 
 Vue.use(JsPlumbToolkitVue2Plugin);
 
-// Main app
-// import App from '/imports/ui_/App.vue';
+// alive_legacy
+// import App from '/imports/_legacy/ui/App.vue';
+// import routes from "/imports/_legacy/routes";
 import App from '/imports/ui/App.vue';
-
-// Routes for view router
-// import routes from "/imports/routes_";
 import routes from "/imports/routes";
 
 const router = new VueRouter({
@@ -58,11 +56,9 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 });
-
 const checkAuth = function(){
   return !!localStorage.getItem("Meteor.loginToken") && !!localStorage.getItem("Meteor.userId")
 }
-
 router.beforeResolve(function(to, from, next) {
   // app icon
   const link = document.querySelector("[rel='icon']")
@@ -77,15 +73,14 @@ router.beforeResolve(function(to, from, next) {
   next();
 });
 
-// import store from '/imports/store_';
+// alive_legacy
+// import store from '/imports/_legacy/store';
+// import login from '/imports/_legacy/methods/login'
+// import globalMixin from '/imports/_legacy/methods/global'
+// Vue.mixin(globalMixin);
+// Meteor.login = login;
+
 import store from '/imports/store';
-
-import login from '/imports/methods/login'
-
-import globalMixin from '/imports/methods/global'
-Vue.mixin(globalMixin);
-
-Meteor.login = login;
 
 Meteor.startup(() => {
   new Vue({

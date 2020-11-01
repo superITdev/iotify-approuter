@@ -166,9 +166,9 @@
 </template>
 
 <script>
-import UploadButton from '/imports/ui_/UploadButton.vue'
-import DatePicker from '/imports/ui_/DatePicker.vue'
-import Avatars from '/imports/api/avatars'
+import UploadButton from '/imports/_legacy/ui/UploadButton.vue'
+import DatePicker from '/imports/_legacy/ui/DatePicker.vue'
+import Avatars from '/imports/_legacy/api/avatars'
 
 export default {
   name:"profile",

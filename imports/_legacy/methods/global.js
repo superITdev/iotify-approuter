@@ -1,4 +1,4 @@
-import { EventBus } from '/imports/methods/event-bus.js';
+import { EventBus } from '/imports/_legacy/methods/event-bus.js';
 import moment from 'moment'
 const global = {
   computed : {

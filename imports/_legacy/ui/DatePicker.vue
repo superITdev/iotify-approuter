@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import Rules from '/imports/methods/rules'
+import Rules from '/imports/_legacy/methods/rules'
 import moment from 'moment'
 import 'moment/locale/es'  // without this line it didn't work
 moment.locale('es')

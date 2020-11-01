@@ -23,7 +23,7 @@
               Now, copy your app's "Client ID" and "Domain" fields.
             </li>
             <li>
-              Paste them in the file /imports/auth0-variables.js. There you'll find instructions of how to paste them.
+              Paste them in the file /imports/_legach/auth0-variables.js. There you'll find instructions of how to paste them.
             </li>
             <li>
               Go to Home page and click on "Log Me In!!".
