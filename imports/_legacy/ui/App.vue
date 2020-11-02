@@ -161,12 +161,12 @@
       </v-tooltip>
     </v-app-bar>
     <v-main>
-      <v-container grid-list-md>
+      <v-card>
         <bread-crumbs />
         <router-view @logmein="showLock()" />
         <snack-bar />
         <confirm-dialog />
-      </v-container>
+      </v-card>
     </v-main>
     <v-footer
       app
