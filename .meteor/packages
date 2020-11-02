@@ -28,3 +28,4 @@ observe-sequence
 jquery
 ardatan:webpack
 ardatan:webpack-dev-middleware
+highland:meteor-streams

@@ -47,7 +47,7 @@
                         </v-menu>
                     </v-col>
                     <v-col align-self="start" cols="auto">
-                        <v-btn icon large color="indigo accent-4" dark><v-icon>mdi-chart-box-outline</v-icon></v-btn>
+                        <v-btn icon large color="indigo accent-4" dark @click="onGetLog"><v-icon>mdi-chart-box-outline</v-icon></v-btn>
                     </v-col>                    
                 </v-row>
                 <v-row justify="space-between" dense no-gutters align="center">
@@ -107,6 +107,7 @@
 <script>
 import {barChartData} from '/imports/ui/LoggerView/Charts/charts.js'
 import BarChart from '/imports/ui/LoggerView/Charts/Bar.vue'
+import {GetLog} from '/imports/api'
 
 export default {
     props: [
@@ -116,24 +117,12 @@ export default {
         BarChart,
     },
     data() {
-        // test data
-        const logData = [];
-        for (let i = 0; i < 100; i++) {
-            const logitem = {
-                field0: 'Jul 24 06:00:53.834pm',
-                field1: 'info',
-                field2: 'ec2-3-90-18-3-90-18',
-                field3: '0.196951969519695',
-                field4: 'Transformed frame initialized in 40.399606ms, billable_ize_bytes: 15891, size_bytes: 24012, source_id: 341 billable_ize_bytes: 15891, size_bytes: 24012, source_id: 341 billable_ize_bytes: 15891, size_bytes: 24012, source_id: 341 billable_ize_bytes: 15891, size_bytes: 24012, source_id: 341billable_ize_bytes: 15891, size_bytes: 24012, source_id: 341',
-            }
-            logData.push(logitem);
-        }
         return {
             searchDate: new Date().toISOString().substr(0, 10),
             searchDatePicker: false,
 
             barChartData,
-            logData,
+            logData: [],
         }
     },
     computed: {
@@ -145,6 +134,19 @@ export default {
                 this.setting.show = val;
             }
         },
+    },
+    methods: {
+        onGetLog() {
+            const self = this;
+            this.logData = [];
+            GetLog(undefined, (result) => {
+                // console.log(result);
+                self.logData.unshift(result);
+            });
+        },
+    },
+    meteor: {
+        // Meteor.call : find/fetch data
     }
 }
 </script>
