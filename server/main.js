@@ -8,8 +8,3 @@ import { Meteor } from 'meteor/meteor';
 Meteor.startup(() => {
   // code to run on server at startup
 });
-
-const chartStream = new Meteor.Stream('chat');
-chartStream.on('message', function(message) {
-  console.log('user: ' + message);
-});
