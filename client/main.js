@@ -79,7 +79,6 @@ router.beforeResolve(function(to, from, next) {
 // import globalMixin from '/imports/_legacy/methods/global'
 // Vue.mixin(globalMixin);
 // Meteor.login = login;
-
 import store from '/imports/store';
 
 Meteor.startup(() => {
