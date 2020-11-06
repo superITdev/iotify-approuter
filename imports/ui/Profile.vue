@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="valid" persistent>
+  <v-dialog v-model="valid" persistent max-width="750">
     <v-card class="pa-5">
       <v-card-text>
         <v-form
@@ -131,7 +131,7 @@
                 <v-card-title class="title">Avatar</v-card-title>
                 <v-img max-width="200" :src="!!avatar ? avatar : !!values.picture ? values.picture : '/img/favicon.ico'" :aspect-ratio="1"/>
                 <div class="">{{progress.get}}</div>
-                <v-progress-linear v-if="!!loadingImage" indeterminate/>
+                <v-progress-linear v-if="!!loadingImage" indeterminate style="max-width:200px;"/>
                 <v-card-actions>
                   <UploadButton @selected-callback="imageSelected" :multiple="false"/>
                 </v-card-actions>
@@ -142,8 +142,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn to="/">Back</v-btn>
-        <v-btn @click="save">Save</v-btn>
+        <v-btn small to="/">Back</v-btn>
+        <v-btn small @click="save">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
