@@ -8,7 +8,7 @@
         <v-list-item-title class="ml-2">App Router</v-list-item-title>
         <v-spacer/>
         <v-btn small class="grey darken-3 text-none">
-          <v-avatar v-if="!!meAvatar" size="20"><v-img :src="meAvatar" lazy-src="/img/logo.ico"/></v-avatar>
+          <v-avatar v-if="!!meAvatar" size="20"><v-img :src="meAvatar" lazy-src="/img/favicon.ico"/></v-avatar>
           <v-icon v-else>mdi-account-outline</v-icon>
           <span class="ml-1">Profile</span>
         </v-btn>
@@ -64,7 +64,7 @@ const auth0Lock = new Auth0Lock(
       redirectUrl: AUTH0.CALLBACK
     },
     theme: {
-      logo: "/img/logo.ico",
+      logo: "/img/favicon.ico",
       primaryColor: '#31324F'
     }
   }
@@ -123,5 +123,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.auth0-lock-badge-bottom {
+  display: none;
+}
+.auth0-lock-name {
+  display: none;
+}
 </style>
