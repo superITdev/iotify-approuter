@@ -1,11 +1,12 @@
-import PageNotFound from '/imports/ui/PageNotFound.vue';
+// import PageNotFound from '/imports/ui/PageNotFound.vue';
 import Dashboard from '/imports/ui/Dashboard.vue'
 import MainWork from '/imports/ui/MainWork.vue'
 
 export default [
   {
     path: '*',
-    component: PageNotFound,
+    // component: PageNotFound,
+    redirect: '/',
     meta: { public: true }
   },
   {
@@ -18,6 +19,6 @@ export default [
     path:"/work",
     name:"MainWork",
     component: MainWork,
-    meta: { public: true },
+    meta: { public: false },
   },
 ];

@@ -1,17 +1,26 @@
 <template>
   <v-app id="app">
-    <router-view></router-view>
+    <router-view/>
+    <SnackBar/>
+    <ConfirmDialog/>
   </v-app>
 </template>
 
 <script>
-import csStorage from '/common/CSStorage.js';
+import csStorage from '/common/CSStorage.js'
+
+import ConfirmDialog from '/imports/ui/component/ConfirmDialog.vue'
+import SnackBar from '/imports/ui/component/SnackBar.vue'
 
 export default {
   metaInfo: {
     // app title
     title: 'IoTIFY',
     titleTemplate: '%s | App Router', // all titles will be injected into this template
+  },
+  components: {
+    ConfirmDialog,
+    SnackBar,
   },
   mounted() {
     // used when saving / loading json data.
@@ -22,6 +31,6 @@ export default {
     };
 
     csStorage.init();
-  }
+  },
 }
 </script>

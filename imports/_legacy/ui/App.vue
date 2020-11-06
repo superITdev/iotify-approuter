@@ -64,10 +64,10 @@
 
     <v-main>
       <v-card>
-        <bread-crumbs />
-        <router-view @logmein="showLock()" />
-        <snack-bar />
-        <confirm-dialog />
+        <BreadCrumbs/>
+        <router-view @logmein="showLock()"/>
+        <SnackBar/>
+        <ConfirmDialog/>
       </v-card>
     </v-main>
 
@@ -78,13 +78,12 @@
 </template>
 
 <script>
-import ConfirmDialog from '/imports/ui/component/ConfirmDialog.vue'
 import BreadCrumbs from '/imports/ui/component/BreadCrumbs.vue'
+import ConfirmDialog from '/imports/ui/component/ConfirmDialog.vue'
 import SnackBar from '/imports/ui/component/SnackBar.vue'
 
 import Avatars from '/imports/api/avatars.js'
 import { AUTH0 } from '/imports/auth0-config.js'
-// eslint-disable-next-line
 const auth0Lock = new Auth0Lock(
   AUTH0.CLIENT_ID,
   AUTH0.DOMAIN,
