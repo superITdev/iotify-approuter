@@ -15,7 +15,6 @@
                 label="Given Name"
                 required
                 :rules="notEmpty"
-                hint="p.e: Natalia"
                 prepend-icon="face"
               ></v-text-field>
             </v-flex>
@@ -27,7 +26,6 @@
                 label="Family Name"
                 required
                 :rules="notEmpty"
-                hint="p.e: Díaz Santos"
                 prepend-icon="people"
               ></v-text-field>
             </v-flex>
@@ -45,7 +43,6 @@
               <v-text-field
                 v-model="values.phone"
                 label="Phone"
-                hint="p.e: +57 3143335255"
                 prepend-icon="phone"
                 type="tel"
               ></v-text-field>
@@ -66,7 +63,6 @@
               <v-text-field
                 v-model="values.address"
                 label="Address"
-                hint="p.e: Carrera 17A # 116-55"
                 prepend-icon="place"
                 type="text"
               ></v-text-field>
@@ -76,7 +72,6 @@
               <v-text-field
                 v-model="values.city"
                 label="City"
-                hint="p.e: Bogotá"
                 type="text"
                 prepend-icon="location_city"
               ></v-text-field>
@@ -86,7 +81,6 @@
               <v-text-field
                 v-model="values.state"
                 label="State / Province / Dpt"
-                hint="p.e: Bogotá D.C."
                 type="text"
                 prepend-icon="my_location"
               ></v-text-field>
@@ -96,7 +90,6 @@
               <v-text-field
                 v-model="values.country"
                 label="Country"
-                hint="p.e: Colombia"
                 type="text"
                 prepend-icon="language"
               ></v-text-field>
@@ -106,7 +99,6 @@
               <v-text-field
                 v-model="values.postcode"
                 label="Post code"
-                hint="p.e: 110111"
                 type="text"
                 prepend-icon="local_post_office"
               ></v-text-field>
@@ -117,7 +109,6 @@
                 label="Description"
                 v-model="values.description"
                 rows="3"
-                hint="p.e: I like space ships"
                 prepend-icon="short_text">
               </v-textarea>
               <v-radio-group v-model="values.gender" :mandatory="false" label="Gender">
