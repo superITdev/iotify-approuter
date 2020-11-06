@@ -7,7 +7,7 @@
         </div>
         <v-list-item-title class="ml-2">App Router</v-list-item-title>
         <v-spacer/>
-        <v-btn small class="grey darken-3 text-none">
+        <v-btn small class="grey darken-3 text-none" to="/profile">
           <v-avatar v-if="!!meAvatar" size="20"><v-img :src="meAvatar" lazy-src="/img/favicon.ico"/></v-avatar>
           <v-icon v-else>mdi-account-outline</v-icon>
           <span class="ml-1">Profile</span>
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import Avatars from '/imports/api/avatars.js'
 import { AUTH0 } from '/imports/auth0-config.js'
 const auth0Lock = new Auth0Lock(
   AUTH0.CLIENT_ID,
@@ -71,6 +70,13 @@ const auth0Lock = new Auth0Lock(
 );
 
 export default {
+  watch: {
+    user(n, o) {
+      if (!!n != !!o) {
+        this.$store.commit("authenticated", !!n);
+      }
+    },
+  },
   methods: {
     onAuthenticate() {
       if (this.authenticated) {

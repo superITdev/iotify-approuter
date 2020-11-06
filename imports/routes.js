@@ -1,6 +1,7 @@
-// import PageNotFound from '/imports/ui/PageNotFound.vue';
+// import PageNotFound from '/imports/ui/PageNotFound.vue'
 import Dashboard from '/imports/ui/Dashboard.vue'
 import MainWork from '/imports/ui/MainWork.vue'
+import Profile from '/imports/ui/Profile.vue'
 
 export default [
   {
@@ -14,6 +15,12 @@ export default [
     name:"Dashboard",
     component: Dashboard,
     meta: { public: true },
+  },
+  {
+    path:"/profile",
+    name:"profile",
+    component: Profile,
+    meta: { public: false },
   },
   {
     path:"/work",

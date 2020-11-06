@@ -1,3 +1,5 @@
+import Avatars from '/imports/api/avatars.js'
+
 const GlobalVue = {
   computed: {
     authenticated() {
@@ -5,11 +7,6 @@ const GlobalVue = {
     },
   },
   watch: {
-    user(n, o) {
-      if (!!n != !!o) {
-        this.$store.commit("authenticated", !!n);
-      }
-    },
     "user.profile.avatar"(a) { // Use it when autopublish is off
       if (a) this.$subscribe("avatars.get.mine", [a]);
     }
