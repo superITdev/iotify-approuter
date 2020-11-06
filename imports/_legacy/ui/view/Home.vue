@@ -35,7 +35,7 @@
         </v-card-actions>
       </v-card>
     </v-flex>
-    <!-- Auth0  and meteor-accounts-->
+    <!-- Auth0 and meteor-accounts-->
     <v-flex xs12 sm6 md4 d-flex>
       <v-card>
         <v-img
@@ -68,7 +68,7 @@
           </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn text color="orange" v-if="!settedAuth0" :to="{name:'setauth0'}">Set AUTH0!!</v-btn>
+          <v-btn text color="orange" v-if="!settedAuth0" :to="{name: 'setauth0'}">Set AUTH0!!</v-btn>
           <v-btn text color="orange" @click="login" v-else-if="!authenticated">Log me in!!</v-btn>
         </v-card-actions>
       </v-card>
@@ -199,7 +199,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn text color="success" @click="showSnack('success')">Show!!</v-btn>
-          <v-spacer></v-spacer>
+          <v-spacer/>
           <v-btn text color="error" @click="showSnack('error')">Show!!</v-btn>
         </v-card-actions>
       </v-card>
@@ -208,65 +208,66 @@
 </template>
 
 <script>
-import { Clicks } from "/imports/_legacy/api/clicks"
-import { AUTH0 } from '/imports/_legacy/auth0-variables'
+import { Clicks } from "/imports/_legacy/api/clicks.js"
+import { AUTH0 } from '/imports/auth0-config.js'
+import { EventBus } from '/imports/methods/EventBus.js'
 
 export default {
   name:"Home",
   methods: {
     clicked(id) {
-      self=this;
-      if(!id){
+      self = this;
+      if (!id) {
         Clicks.insert(
           {
-            times:1
+            times: 1
           },
-          (err, result) => {
-            self.addOne(id)
-            return
-          }
+          (err, result) => self.addOne(id)
         )
       } else {
         this.addOne(id);
       }
-
     },
     addOne(id) {
       Clicks.update(
         {
-          _id : id
+          _id: id
         },
         {
           $inc: {
-            times : 1
+            times: 1
           }
         }
       )
     },
-    login(){
+    login() {
       this.$emit("logmein");
     },
-    showSnack(color, text=false){
-      if (!text) {
-        text:"This is "+color+"."
-      }
-      this.$store.commit("snack",{
-        color,
-        text
-      });
+    showSnack(color, text='empty') {
+      this.$store.commit("snack", {color, text});
     },
-    showConfirm(title, text){
-      this.confirm(title, text).then((res)=>{
-        if (!res) {
-          this.showSnack("error", "Not accepted");
-          return;
-        }
-        this.showSnack("success", "Accepted");
+    confirm: async function(title, text) {
+      this.$store.commit("confirm", {title, text});
+
+      let promise = new Promise((resolve, reject) => {
+        EventBus.$on('confirmed', (status)=>{
+          resolve(status)
+        });
+      });
+      let result = await promise;
+
+      this.$store.commit("deactivateConfirm");
+      return result;
+    },
+    showConfirm(title, text) {
+      this.confirm(title, text).then(res => {
+        if (res) this.showSnack("success", "Accepted");
+        else this.showSnack("error", "Not accepted");
       })
     }
   },
   computed: {
-    settedAuth0(){
+    settedAuth0() {
       return !!AUTH0.CLIENT_ID && !!AUTH0.DOMAIN
     }
   },

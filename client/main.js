@@ -44,9 +44,11 @@ Vue.use(JsPlumbToolkitVue2Plugin);
 
 // alive_legacy
 // import App from '/imports/_legacy/ui/App.vue';
-// import routes from "/imports/_legacy/routes";
+// import routes from "/imports/_legacy/routes.js";
 import App from '/imports/ui/App.vue';
-import routes from "/imports/routes";
+import routes from "/imports/routes.js";
+
+import store from '/imports/store'
 
 const router = new VueRouter({
   mode: 'history',
@@ -56,30 +58,27 @@ const router = new VueRouter({
     return { x: 0, y: 0 }
   }
 });
-const checkAuth = function(){
-  return !!localStorage.getItem("Meteor.loginToken") && !!localStorage.getItem("Meteor.userId")
-}
-router.beforeResolve(function(to, from, next) {
+router.beforeResolve((to, from, next) => {
   // app icon
   const link = document.querySelector("[rel='icon']")
   link.setAttribute('href', '/img/favicon.ico');
-
-  if (to.matched.some( function(record) { return !record.meta.public })) {
-    if (!router.app.authenticated && !checkAuth()) {
-      next({path:"/"});
-      return;
+  
+  if (to.matched.some(record => !record.meta.public)) {
+    if (!router.app.authenticated) {
+      const checkAuth = !!localStorage.getItem("Meteor.loginToken") && !!localStorage.getItem("Meteor.userId");
+      if (!checkAuth) {
+        next({path:"/"});
+        return;
+      }
     }
   }
   next();
 });
 
-// alive_legacy
-// import store from '/imports/_legacy/store';
-// import login from '/imports/_legacy/methods/login'
-// import globalMixin from '/imports/_legacy/methods/global'
-// Vue.mixin(globalMixin);
-// Meteor.login = login;
-import store from '/imports/store';
+import login from '/imports/methods/login.js'
+Meteor.login = login;
+import GlobalVue from '/imports/methods/GlobalVue.js'
+Vue.mixin(GlobalVue);
 
 Meteor.startup(() => {
   new Vue({

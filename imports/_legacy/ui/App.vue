@@ -1,165 +1,67 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      fixed
-      app
-    >
+    <v-navigation-drawer v-model="drawer" fixed app>
       <v-list dense>
         <v-list-item>
-          <v-list-item-avatar>
-            <img src="/img/logo.ico">
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title class="subheading">
-              App Router
-            </v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn
-              icon
-              small
-              @click.stop="drawer=false"
-            >
-              <v-icon>chevron_left</v-icon>
-            </v-btn>
-          </v-list-item-action>
+          <v-list-item-avatar><img src="/img/logo.ico"></v-list-item-avatar>
+          <v-list-item-content><v-list-item-title class="subheading">App Router</v-list-item-title></v-list-item-content>
+          <v-list-item-action><v-btn icon small @click.stop="drawer=false"><v-icon>chevron_left</v-icon></v-btn></v-list-item-action>
         </v-list-item>
         <v-divider />
-        <v-list-item
-          v-if="!!user"
-          :to="{name:'profile'}"
-          exact
-        >
-          <v-list-item-avatar>
-            <img
-              :src="avatar"
-              lazy-src="/img/logo.ico"
-            >
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ !!user.profile.name ? user.profile.name : user.profile.email }}</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item v-if="!!user" :to="{name: 'profile'}" exact>
+          <v-list-item-avatar><img :src="meAvatar" lazy-src="/img/logo.ico"></v-list-item-avatar>
+          <v-list-item-content><v-list-item-title>{{ !!user.profile.name ? user.profile.name : user.profile.email }}</v-list-item-title></v-list-item-content>
         </v-list-item>
-        <!-- <v-divider v-if="!!user"></v-divider> -->
-        <v-list-item
-          :to="{name:'home'}"
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>home</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item :to="{name:'home'}" exact>
+          <v-list-item-action><v-icon>home</v-icon></v-list-item-action>
+          <v-list-item-content><v-list-item-title>home</v-list-item-title></v-list-item-content>
         </v-list-item>
-        <v-list-item
-          :to="{name:'about'}"
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>info</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>About us</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item :to="{name:'about'}" exact>
+          <v-list-item-action><v-icon>info</v-icon></v-list-item-action>
+          <v-list-item-content><v-list-item-title>About us</v-list-item-title></v-list-item-content>
         </v-list-item>
-        <v-list-item
-          :to="{name:'setauth0'}"
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>person</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Set Auth0</v-list-item-title>
-          </v-list-item-content>
+        <v-list-item :to="{name:'setauth0'}" exact>
+          <v-list-item-action><v-icon>person</v-icon></v-list-item-action>
+          <v-list-item-content><v-list-item-title>Set Auth0</v-list-item-title></v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      hide-on-scroll
-      color="tertiary"
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer">
-        <v-icon>menu</v-icon>
-      </v-app-bar-nav-icon>
-      <v-toolbar-title class="font-weight-bold">
-        App Router
-      </v-toolbar-title>
+
+    <v-app-bar app hide-on-scroll color="tertiary">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"><v-icon>menu</v-icon></v-app-bar-nav-icon>
+      
+      <v-toolbar-title class="font-weight-bold">App Router</v-toolbar-title>
       <v-spacer />
-      <v-menu
-        v-if="!!authenticated && !!user"
-        offset-y
-      >
+      
+      <v-menu v-if="!!authenticated && !!user" offset-y>
         <template v-slot:activator="{ on }">
-          <v-avatar
-            size="36px"
-            ripple
-            class="pointer"
-            v-on="on"
-          >
-            <img
-              :src="avatar"
-              lazy-src="/img/logo.ico"
-              alt=""
-            >
+          <v-avatar size="36px" ripple class="pointer" v-on="on">
+            <img :src="meAvatar" lazy-src="/img/logo.ico" alt="">
           </v-avatar>
         </template>
         <v-list>
-          <template v-for="(item,i) in options">
-            <v-divider
-              v-if="i!=0"
-              :key="i+'-divider'"
-              dark
-            />
-            <v-list-item
-              v-if="item.action != 'logout'"
-              :key="i"
-              :to="{name:item.action}"
-            >
-              <v-list-item-action>
-                <v-icon v-if="item.icon">
-                  {{ item.icon }}
-                </v-icon>
-              </v-list-item-action>
+          <template v-for="(item, i) in options">
+            <v-divider v-if="i != 0 " :key="`${i}-divider`"/>
+            <v-list-item v-if="item.action != 'logout'" :key="i" :to="{name: item.action}">
+              <v-list-item-action><v-icon v-if="item.icon">{{ item.icon }}</v-icon></v-list-item-action>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item>
-            <v-list-item
-              v-else
-              :key="i"
-              @click="logout"
-            >
-              <v-list-item-action>
-                <v-icon v-if="item.icon">
-                  {{ item.icon }}
-                </v-icon>
-              </v-list-item-action>
+            <v-list-item v-else :key="i" @click="logout">
+              <v-list-item-action><v-icon v-if="item.icon">{{ item.icon }}</v-icon></v-list-item-action>
               <v-list-item-title>{{ item.text }}</v-list-item-title>
             </v-list-item>
           </template>
         </v-list>
       </v-menu>
-      <v-tooltip
-        v-else
-        bottom
-      >
+      
+      <v-tooltip v-else bottom>
         <template v-slot:activator="{ on }">
-          <v-btn
-            text
-            icon
-            v-on="on"
-            @click="showLock()"
-          >
-            <v-icon>fas fa-sign-in-alt</v-icon>
-          </v-btn>
+          <v-btn text icon v-on="on" @click="showLock()"><v-icon>fas fa-sign-in-alt</v-icon></v-btn>
         </template>
         <span>Log in</span>
       </v-tooltip>
     </v-app-bar>
+
     <v-main>
       <v-card>
         <bread-crumbs />
@@ -168,25 +70,20 @@
         <confirm-dialog />
       </v-card>
     </v-main>
-    <v-footer
-      app
-      fixed
-      class="px-2"
-    >
-      <span><a
-        href="https://iotify.io/"
-        target="_blank"
-      > IoTIFY</a></span>
+
+    <v-footer app fixed class="px-2">
+      <span><a href="https://iotify.io/" target="_blank"> IoTIFY</a></span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import ConfirmDialog from './ConfirmDialog.vue'
-import BreadCrumbs from './BreadCrumbs.vue'
-import SnackBar from './SnackBar.vue'
-import Avatars from '../api/avatars'
-import { AUTH0 } from '../auth0-variables'
+import ConfirmDialog from '/imports/ui/component/ConfirmDialog.vue'
+import BreadCrumbs from '/imports/ui/component/BreadCrumbs.vue'
+import SnackBar from '/imports/ui/component/SnackBar.vue'
+
+import Avatars from '/imports/api/avatars.js'
+import { AUTH0 } from '/imports/auth0-config.js'
 // eslint-disable-next-line
 const auth0Lock = new Auth0Lock(
   AUTH0.CLIENT_ID,
@@ -219,7 +116,6 @@ export default {
   data() {
     return {
       click_id:0,
-      lock: auth0Lock,
       drawer: null,
       options: [
         {
@@ -236,79 +132,66 @@ export default {
     }
   },
   computed: {
-    snackbar:{
-      get: function(){
+    snackbar: {
+      get() {
         return this.$store.state.snackbar;
       },
-      set: function(s){
+      set(s) {
         if (!s) {
           this.$store.commit("deactivateSnack");
         }
       }
     },
-    snackbarColor(){
+    snackbarColor() {
       return this.$store.state.snackbarColor;
     },
-    snacktext(){
+    snacktext() {
       return this.$store.state.snacktext;
     }
   },
   watch: {
-    user(n,o){
+    user(n, o) {
       if (!!n != !!o) {
         this.$store.commit("authenticated", !!n);
       }
     },
     // Use it when autopublish is off
-    "user.profile.avatar"(a){
-      if (a) {
-        this.$subscribe("avatars.get.mine", [a] );
-      }
+    "user.profile.avatar"(a) {
+      if (a) this.$subscribe("avatars.get.mine", [a] );
     }
   },
   mounted(){
-    this.$nextTick(function() {
-      this.lock.on('authenticated', function(authResult){
-        this.lock.getUserInfo(authResult.accessToken, function(error, profile) {
-          if (error) {
-            return;
-          }
-          this.login(profile);
+    this.$nextTick(() => {
+      auth0Lock.on('authenticated', (authResult) => {
+        auth0Lock.getUserInfo(authResult.accessToken, (error, profile) => {
+          if (!error) this.login(profile);
         });
       });
-    }.bind(this));
+    });
   },
   meteor: {
-    // Get user logged
-    user(){
+    user() {
       return Meteor.user();
     },
-    avatar(){
-      if (!this.user) {
-        return "/img/logo.ico";
-      }
-      if (this.user.profile.avatar) {
-        let myavatar = Avatars.findOne({ _id:this.user.profile.avatar });
-        if (myavatar) {
-          return myavatar.link("thumbnail");
+    meAvatar() {
+      if (this.user) {
+        if (this.user.profile.avatar) {
+          const avatar = Avatars.findOne({ _id: this.user.profile.avatar });
+          if (avatar) return avatar.link("thumbnail");
         }
-      }
-      if (this.user.profile.picture) {
-        return this.user.profile.picture;
+        if (this.user.profile.picture) return this.user.profile.picture;
       }
       return "/img/logo.ico";
     }
   },
   methods: {
-    showLock(){
-      this.$nextTick(function(){
-        this.lock.show();
-      });
+    showLock() {
+      this.$nextTick(() => auth0Lock.show());
     },
-    login(profile){
+    login(profile) {
       Meteor.login(profile);
     },
-    logout(){
+    logout() {
       Meteor.logout();
       this.$store.commit("updateCrumbs", false);
       this.$router.push("/");

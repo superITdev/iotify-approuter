@@ -1,8 +1,8 @@
-import Home from '/imports/_legacy/ui/home/Home.vue'
-import Profile from '/imports/_legacy/ui/profile/Profile.vue'
-import About from '/imports/_legacy/ui/about/About.vue'
-import SetAuth0 from '/imports/_legacy/ui/SetAuth0.vue'
-import PageNotFound from '/imports/_legacy/ui/PageNotFound.vue';
+import Home from '/imports/_legacy/ui/view/Home.vue'
+import Profile from '/imports/_legacy/ui/view/Profile.vue'
+import About from '/imports/_legacy/ui/view/About.vue'
+import SetAuth0 from '/imports/_legacy/ui/view/SetAuth0.vue'
+import PageNotFound from '/imports/_legacy/ui/view/PageNotFound.vue';
 
 export default [
  {

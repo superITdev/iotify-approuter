@@ -14,7 +14,7 @@
 </template>
 <script>
   export default  {
-    data(){
+    data() {
       return {
       }
     },
@@ -31,9 +31,7 @@
   }
   .v-dialog.loading-dialog {
     box-shadow: none;
-
     overflow-y: unset;
-
     width: auto;
   }
 </style>

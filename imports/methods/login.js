@@ -5,5 +5,4 @@ const login = function(profile, callback) {
     userCallback: callback
   });
 };
-
 export default login;

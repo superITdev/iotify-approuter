@@ -1,13 +1,13 @@
-import { FilesCollection } from 'meteor/ostrio:files';
+import { FilesCollection } from 'meteor/ostrio:files'
+
 const Avatars = new FilesCollection({
   collectionName: 'Avatars',
-  storagePath : Meteor.absolutePath+"/private/Avatars", // Change on production mode
+  storagePath : Meteor.absolutePath + "/private/Avatars", // Change on production mode
   allowClientCode: false, // Disallow remove files from Client
+
   onBeforeUpload(file) {
     // Allow upload files only in png/jpg/jpeg formats
-    if (/png|jpg|jpeg/i.test(file.extension)) {
-      return true;
-    }
+    if (/png|jpg|jpeg/i.test(file.extension)) return true;
     return 'Please upload images only.';
   }
 });

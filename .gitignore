@@ -113,3 +113,6 @@ dist
 /src-cordova/platforms
 /src-cordova/plugins
 /public/cordova.js
+
+# AppRouter
+private/Avatars/

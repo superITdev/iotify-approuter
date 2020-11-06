@@ -1,11 +1,7 @@
 <template lang="html">
   <div class="btn btn-primary jbtn-file">
-    <v-btn icon dark>
-      <v-icon>add_a_photo</v-icon>
-    </v-btn>
-    <input
-    type="file" @change="fileSelected"
-    ref="fileInput" accept="image/*" :multiple="multiple">
+    <v-btn icon><v-icon>mdi-face-profile</v-icon></v-btn>
+    <input type="file" @change="fileSelected" ref="fileInput" accept="image/*" :multiple="multiple">
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <v-menu
     ref="menu"
     v-model="menu"
@@ -34,40 +34,49 @@
       color="primary darken-1"
       first-day-of-week="1"
       @change="close"
-      locale="es"
+      locale="en"
       :readonly="readonly">
     </v-date-picker>
   </v-menu>
 </template>
 
 <script>
-import Rules from '/imports/_legacy/methods/rules'
 import moment from 'moment'
-import 'moment/locale/es'  // without this line it didn't work
-moment.locale('es')
+// e.g.
+// import 'moment/locale/es'  // without this line it didn't work when using locale="es" in v-date-picker
+// moment.locale('es')
+
 export default {
-  name:"DatePicker",
-  data(){
+  name: "DatePicker",
+  data() {
     return {
       menu:false
     }
   },
+  filters: {
+    toISODate(d) {
+      if (!d) return ""
+      return moment(d).format("YYYY-MM-DD")
+    },
+    toDate(d) {
+      return moment(d).format("DD MMM YYYY")
+    },
+    toDateTime(dt) {
+      return moment(dt).format("DD MMM YYYY hh:mm A")
+    }
+  },
   watch: {
     menu (val) {
-      if (this.birthdate) {
-        val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
-      }
+      if (this.birthdate) val && setTimeout(() => (this.$refs.picker.activePicker = 'YEAR'))
     }
   },
   computed: {
     pickerDate: {
-      get(){
-        if (!this.value) {
-          return null
-        }
+      get() {
+        if (!this.value) return null
         return moment(this.value).format('YYYY-MM-DD');
       },
-      set(d){
+      set(d) {
         this.updateValue(d);
       }
     },
@@ -75,7 +84,6 @@ export default {
       return this.value ? moment(this.value).format('DD MMM YYYY') : null
     }
   },
-  mixins: [Rules],
   props: {
     value: {
       type: String,
@@ -91,7 +99,7 @@ export default {
     },
     rules: {
       type: Array,
-      default: function(){return []}
+      default: function() {return []}
     },
     label: {
       type: String,
@@ -156,5 +164,5 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style scoped>
 </style>

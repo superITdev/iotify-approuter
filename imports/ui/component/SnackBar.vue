@@ -2,9 +2,9 @@
   <v-snackbar
     v-cloak
     v-model="active"
-    :timeout="3000"
-    :color="color"
+    :timeout="1500"
   >
+  <!-- :color="color" -->
     <span>
       <v-icon
         v-if="color=='error'"
@@ -22,6 +22,7 @@
         v-if="color=='warning'"
         color="white"
       >mdi-alert</v-icon>
+
       &nbsp;{{ text }}
     </span>
   </v-snackbar>
@@ -29,18 +30,16 @@
 <script>
 export default {
   name: "SnackBar",
-  computed:{
-    active:{
-      get(){
+  computed: {
+    active: {
+      get() {
         return this.$store.state.snack.active
       },
-      set(a){
-        if (!a) {
-          this.$store.commit("deactivateSnack")
-        }
+      set(a) {
+        if (!a) this.$store.commit("deactivateSnack")
       }
     },
-    color(){
+    color() {
       return this.$store.state.snack.color
     },
     text() {
@@ -49,5 +48,6 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
+
+<style scoped>
 </style>
