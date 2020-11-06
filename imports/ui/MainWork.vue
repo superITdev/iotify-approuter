@@ -89,7 +89,9 @@
       <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-dots-horizontal</v-icon></v-btn>
     </v-sheet>
     <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
-      <v-btn icon class="mr-2"><v-avatar size="30"><v-img src="/img/avatar.png"></v-img></v-avatar></v-btn>
+      <v-btn icon class="mr-2" @click="onLogOut">
+        <v-avatar size="25"><v-img :src="!!meAvatar ? meAvatar : '/img/favicon.ico'" lazy-src="/img/favicon.ico"/></v-avatar>
+      </v-btn>
       <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small>Deploy</v-btn>
     </v-row>
     <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
@@ -179,6 +181,10 @@ export default {
     }
   },
   methods: {
+    onLogOut() {
+      // Meteor.logout();
+      this.$router.push("/");
+    },
     getMajorCategory(majorType) {
       return this.majorCategories.find(mc => mc.majorType===majorType);
     },
@@ -354,10 +360,10 @@ export default {
     document.addEventListener('MSFullscreenChange', this.onFullScreenChange);
   },
   destroyed() {
-    document.removeEventListener('fullscreenchange', onFullScreenChange);
-    document.removeEventListener('webkitfullscreenchange', onFullScreenChange);
-    document.removeEventListener('mozfullscreenchange', onFullScreenChange);
-    document.removeEventListener('MSFullscreenChange', onFullScreenChange);
+    document.removeEventListener('fullscreenchange', this.onFullScreenChange);
+    document.removeEventListener('webkitfullscreenchange', this.onFullScreenChange);
+    document.removeEventListener('mozfullscreenchange', this.onFullScreenChange);
+    document.removeEventListener('MSFullscreenChange', this.onFullScreenChange);
   },
   watch: {
     searchNodeItems(/*newVal, oldVal*/) {
