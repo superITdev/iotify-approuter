@@ -49,6 +49,7 @@
     </v-list>
   </perfect-scrollbar>
   <div class="flex-grow-1 iotar-graph-view pa-1">
+    <!-- alive_graphV01 -->
     <!-- <Controls :surfaceId="surfaceId"/> -->
     <!-- <GraphV01 :surfaceId="surfaceId"/> -->
     <!-- toolbox -->
@@ -109,6 +110,7 @@ import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
 import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
+// alive_graphV01
 // import Controls from '/imports/ui/argraph/v01/Controls.vue'
 // import GraphV01 from '/imports/ui/argraph/v01/Flowchart.vue'
 import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
@@ -131,6 +133,7 @@ function isFullScreenMode() {
 export default {
   components: {
     NodePanels,
+    // alive_graphV01
     // Controls,
     // GraphV01,
     GraphV02,
@@ -239,6 +242,7 @@ export default {
 
       const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypeWithNode(nodeItem, {majorType, subTitle, itemTitle}));
       
+      // alive_graphV01
       // const v01 = {
       //   id: jsPlumbUtil.uuid(),
       //   type: nodeItem.majorType,
@@ -247,6 +251,7 @@ export default {
       //   w: 180,
       //   h: 130,
       // }
+      // return v01;
 
       const major = this.getMajorCategory(majorType);
       const v02 = {
