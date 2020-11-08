@@ -111,7 +111,13 @@ export default {
                     "default": {
                         component:SubNode,
                         events: {
-                            // tap: (params) => params.toolkit.toggleSelection(params.node)
+                            mousedown: (params) => {
+                                // is selected already?
+                                if (params.el.classList.contains('jtk-surface-selected-element')) return;
+                                // select only this.
+                                params.toolkit.clearSelection();
+                                params.toolkit.toggleSelection(params.node)
+                            }
                         }
                     },
                     [NodeMajorTypes.protocol]: {
@@ -160,9 +166,15 @@ export default {
                             absoluteBacked:true
                         },
                         events:{
-                            // tap: (params) => {
-                            //     params.toolkit.toggleSelection(params.group)
-                            // },
+                            mousedown: (params) => {
+                                // is while dragging from ohters?
+                                if (params.e.path.some(item => item != params.el && item.classList && item.classList.contains('jtk-surface-selected-element'))) return;
+                                // is selected already?
+                                if (params.el.classList.contains('jtk-surface-selected-element')) return;
+                                // select only this.
+                                params.toolkit.clearSelection();
+                                params.toolkit.toggleSelection(params.group)
+                            },
                             dblclick(params) {
                                 $self.onNodeSetting(params);
                             },
