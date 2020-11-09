@@ -18,6 +18,17 @@
             />
             <button class="item-delete" v-on:click="maybeDelete()"/>
         </div>
+        <v-avatar
+            :style="{
+                position: 'absolute',
+                top: -8 + 'px',
+                right: -8 + 'px',
+            }"
+            size=16
+            :color="actionSuccess ? 'success' : 'error'"
+        >
+            <v-icon x-small color="white">{{actionSuccess ? 'mdi-check-bold' : 'mdi-exclamation-thick'}}</v-icon>
+        </v-avatar>
         <v-row class="fill-height flex-nowrap" dense no-gutters>
             <div class="pa-1 white--text d-flex flex-column align-center justify-space-between"
                 :style="{
@@ -60,6 +71,7 @@
         mixins:[BaseNode],
         data() {
             return {
+                actionSuccess: Math.random() > 0.5,
                 sparkData: [0, 2, 5, 9, 5, 10, 3, 5, 2, 4, 2, 6, 2, 7, 0],
             }
         }
