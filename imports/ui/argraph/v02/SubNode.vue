@@ -19,7 +19,7 @@
             <button class="item-delete" v-on:click="maybeDelete()"/>
         </div>
         <v-row class="fill-height flex-nowrap" dense no-gutters>
-            <div class="pa-1 white--text d-flex flex-column align-center justify-center"
+            <div class="pa-1 white--text d-flex flex-column align-center justify-space-between"
                 :style="{
                     backgroundColor: obj.mcolor,
                     minWidth: obj.w1 + 'px',
@@ -27,7 +27,7 @@
                 }"
             >
                 <div v-html="obj.itemTitle.replace(/[\n\s\t]+/g, '<br>')"/>
-                <v-avatar size="40">
+                <v-avatar size="40" class="flex-grow-1 align-center" tile>
                     <svgicon :icon="obj.icon" color="white"/>
                 </v-avatar>
             </div>
@@ -37,10 +37,16 @@
                     overflow: 'hidden',
                 }"
             >
-                <div v-html="obj.itemTitle.replace(/[\n\s\t]+/g, '<br>')"/>
-                <v-avatar size="40">
-                    <svgicon :icon="obj.icon"/>
-                </v-avatar>
+                <div v-html="obj.subTitle.replace(/[\n\s\t]+/g, '<br>')"/>
+                <v-sparkline
+                    padding="0"
+                    smooth="10"
+                    fill
+                    auto-draw
+                    :auto-draw-duration="200"
+                    :value="sparkData"
+                    :color="obj.mcolor"
+                />
             </div>
         </v-row>
         <jtk-source port-type="source" filter=".item-connector" v-pre/>
@@ -51,6 +57,11 @@
 <script>
     import BaseNode from '/imports/ui/argraph/v02/BaseNode.vue'
     export default {
-        mixins:[BaseNode]
+        mixins:[BaseNode],
+        data() {
+            return {
+                sparkData: [0, 2, 5, 9, 5, 10, 3, 5, 2, 4, 2, 6, 2, 7, 0],
+            }
+        }
     }
 </script>

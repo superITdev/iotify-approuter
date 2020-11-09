@@ -26,7 +26,7 @@ const majors = [
         color: '#00C853', // green accent-4
         nodeBaseInfo: {
             w1: 90,
-            w: 200,
+            w: 270,
             h: 90,
         },
     },
@@ -37,7 +37,7 @@ const majors = [
         color: '#FF6D00', // orange accent-4
         nodeBaseInfo: {
             w1: 90,
-            w: 200,
+            w: 270,
             h: 90,
         },
     },
@@ -48,7 +48,7 @@ const majors = [
         color: '#00B8D4', // cyan accent-4
         nodeBaseInfo: {
             w1: 90,
-            w: 200,
+            w: 270,
             h: 90,
         },
     },
@@ -59,7 +59,7 @@ const majors = [
         color: '#AA00FF', // purple accent-4
         nodeBaseInfo: {
             w1: 90,
-            w: 200,
+            w: 270,
             h: 90,
         },
     },
@@ -87,19 +87,19 @@ const nodeItems = [
     // protocol/gateway
     {
         majorType: NodeMajorTypes.protocol,
-        subTitle: 'Gateway',
+        subTitle: 'Server',
         itemTitle: "HTTP",
         icon: 'protocol/gateway/http',
     },
     {
         majorType: NodeMajorTypes.protocol,
-        subTitle: 'Gateway',
+        subTitle: 'Server',
         itemTitle: "Websocket",
         icon: 'protocol/gateway/websocket',
     },
     {
         majorType: NodeMajorTypes.protocol,
-        subTitle: 'Gateway',
+        subTitle: 'Server',
         itemTitle: "MQTT",
         icon: 'protocol/gateway/MQTT',
     },
