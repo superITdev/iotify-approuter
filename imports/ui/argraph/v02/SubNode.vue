@@ -48,7 +48,7 @@
                     overflow: 'hidden',
                 }"
             >
-                <div v-html="obj.subTitle.replace(/[\n\s\t]+/g, '<br>')"/>
+                <div v-html="obj.subTitle && obj.subTitle.replace(/[\n\s\t]+/g, '<br>')"/>
                 <v-sparkline
                     padding="0"
                     smooth="10"
