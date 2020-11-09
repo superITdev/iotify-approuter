@@ -23,7 +23,11 @@
         </v-row>
 
         <div class="delete" v-on:click="maybeDelete()"/>
-        <div class="connect"/>
+        <div class="connect"
+            :style="{
+                backgroundColor: obj.mcolor,
+            }"
+        />
 
         <jtk-source port-type="source" filter=".connect" v-pre/>
         <jtk-target port-type="target" v-pre/>
