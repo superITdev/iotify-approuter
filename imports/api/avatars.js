@@ -15,11 +15,11 @@ export default Avatars; // To be imported in other files
 
 if (Meteor.isServer) {
   // Publish methods when autopublish is off
-  // Meteor.publish('avatars.get.mine', function (id) {
-  //   try {
-  //     return Avatars.find({_id:id}).cursor;
-  //   } catch (exception) {
-  //     throw new Meteor.Error('500', exception);
-  //   }
-  // });
+  Meteor.publish('avatars.get.mine', (id) => {
+    try {
+      return Avatars.find({_id: id}).cursor;
+    } catch (exception) {
+      throw new Meteor.Error('500', exception);
+    }
+  });
 }

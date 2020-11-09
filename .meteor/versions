@@ -5,7 +5,6 @@ akryum:vue-component-dev-server@0.1.4
 allow-deny@1.1.0
 ardatan:webpack@0.0.13
 ardatan:webpack-dev-middleware@0.0.13
-autopublish@1.0.7
 autoupdate@1.6.0
 babel-compiler@7.5.3
 babel-runtime@1.5.0

@@ -183,7 +183,7 @@ export default {
   },
   meteor: {
     $subscribe: {
-      "avatars.get"() {
+      "avatars.get.min"() {
         return this.authenticated ? [this.values.avatar] : []
       }
     },
