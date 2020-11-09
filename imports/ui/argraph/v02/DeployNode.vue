@@ -9,7 +9,7 @@
         }"
     >
         <div class="argraph-item-toolbox">
-            <button class="expand" v-on:click="toggleGroup()"/>
+            <!-- <button class="expand" v-on:click="toggleGroup()"/> -->
             <button class="item-delete" v-on:click="maybeDelete(true)"/>
         </div>
 

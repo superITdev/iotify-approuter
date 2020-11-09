@@ -7,25 +7,26 @@
             width: obj.w + 'px',
             minWidth: obj.mw + 'px',
             borderColor: obj.mcolor,
-            backgroundColor: obj.mcolor,
+            overflow: 'visible',
         }"
     >
-        <!-- <div class="argraph-item-toolbox"> -->
-            <div class="delete" v-on:click="maybeDelete()"/>
-            <div class="connect"
+        <div class="argraph-item-toolbox">
+            <button class="item-connector"
                 :style="{
                     backgroundColor: obj.mcolor,
                 }"
             />
-        <!-- </div> -->
+            <button class="item-delete" v-on:click="maybeDelete()"/>
+        </div>
         <v-row class="fill-height flex-nowrap" dense no-gutters>
             <div
                 :style="{
+                    backgroundColor: obj.mcolor,
                     minWidth: obj.w1 + 'px',
                 }"
             >
             </div>
-            <div class="flex-grow-1 d-flex align-center justify-center white"
+            <div class="flex-grow-1 d-flex align-center justify-center white ma-1"
                 :style="{
                     wordBreak: 'break-all',
                 }"
@@ -33,7 +34,7 @@
                 {{ getTitle(obj) }}
             </div>
         </v-row>
-        <jtk-source port-type="source" filter=".connect" v-pre/>
+        <jtk-source port-type="source" filter=".item-connector" v-pre/>
         <jtk-target port-type="target" v-pre/>
     </div>
 </template>

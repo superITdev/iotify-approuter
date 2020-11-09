@@ -162,6 +162,7 @@ svg.jtk-drag-drop-hover path {
 .argraph-item-toolbox {
     position: absolute;
     top: -20px;
+    left: 0;
     display: flex;
 }
 .argraph-item-toolbox button {
@@ -234,24 +235,20 @@ svg.jtk-drag-drop-hover path {
     justify-content: center;
     cursor: pointer;
 }
-
 .jtk-group.jtk-group-collapsed {
-    height:40px;
-    min-height:0;
+    height: 40px;
+    min-height: 0;
 }
-
 .jtk-group.jtk-group-collapsed .group-title button.expand:after {
-    content:"+";
+    content: "+";
 }
-
 .jtk-group [jtk-group-content] {
-    min-height:210px;
-    margin:5px;
-    width: auto ;
+    min-height: 210px;
+    margin: 5px;
+    width: auto;
 }
-
 .jtk-group.jtk-group-collapsed [jtk-group-content] {
-    display:none;
+    display: none;
     min-height: 0;
 }
 
@@ -264,14 +261,4 @@ svg.jtk-drag-drop-hover path {
 }
 .argraph-v02 .jtk-flowchart-handle {
     z-index: 12;
-}
-
-/* button */
-.argraph-v02 .jtk-node .delete {
-    position:absolute;
-    top:5px;
-}
-.argraph-v02 .jtk-node .connect {
-    position:absolute;
-    top:5px;
 }
