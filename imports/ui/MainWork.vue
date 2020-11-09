@@ -268,8 +268,8 @@ export default {
           saveStore: !recentlyUsed
         }
       }
-      if (major.nodeBaseInfo.isGroup) v02.titleBgColor = major.color;
-      else v02.color1 = major.color;
+      v02.mw = v02.w; // min-width : initially
+      v02.mcolor = major.color;
 
       return v02;
     },

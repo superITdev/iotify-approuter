@@ -1,6 +1,18 @@
 <template>
-    <div :style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
-        <div class="group-title" :style="{backgroundColor:obj.titleBgColor}">
+    <div
+        :style="{
+            left:obj.left + 'px',
+            top:obj.top + 'px',
+            width:obj.w + 'px',
+            height:obj.h + 'px',
+            borderColor: obj.mcolor,
+        }"
+    >
+        <div class="group-title"
+            :style="{
+                backgroundColor: obj.mcolor,
+            }"
+        >
             <!-- <img :src="getTitleIcon(obj)"/> -->
             {{getTitle(obj)}}
             <button class="expand" v-on:click="toggleGroup()"></button>

@@ -15,6 +15,7 @@ const majors = [
         color: '#2962FF', // blue accent-4
         nodeBaseInfo: {
             isGroup: true,
+            w: 200,
             h: 450,
         },
     },
@@ -25,7 +26,8 @@ const majors = [
         color: '#00C853', // green accent-4
         nodeBaseInfo: {
             w1: 50,
-            w2: 75,
+            w: 150,
+            h: 30,
         },
     },
     {
@@ -35,7 +37,8 @@ const majors = [
         color: '#FF6D00', // orange accent-4
         nodeBaseInfo: {
             w1: 50,
-            w2: 90,
+            w: 150,
+            h: 30,
         },
     },
     {
@@ -45,7 +48,8 @@ const majors = [
         color: '#00B8D4', // cyan accent-4
         nodeBaseInfo: {
             w1: 50,
-            w2: 75,
+            w: 150,
+            h: 30,
         },
     },
     {
@@ -55,7 +59,8 @@ const majors = [
         color: '#AA00FF', // purple accent-4
         nodeBaseInfo: {
             w1: 50,
-            w2: 100,
+            w: 150,
+            h: 30,
         },
     },
 ];

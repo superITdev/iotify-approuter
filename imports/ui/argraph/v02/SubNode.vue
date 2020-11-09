@@ -1,10 +1,27 @@
 <template>
-    <div :style="{left:obj.left + 'px', top:obj.top + 'px', width:obj.w + 'px', height:obj.h + 'px'}">
-        <div class="parts">
-            <div class="part-left" :style="{width:obj.w1 + 'px', backgroundColor:obj.color1}"></div>
-            <div class="part-divider" :style="{width:'blue'}"></div>
-            <div class="part-right" :style="{width:obj.w2 + 'px'}">{{getTitle(obj)}}</div>
-        </div>
+    <div
+        :style="{
+            left: obj.left + 'px',
+            top: obj.top + 'px',
+            height: obj.h + 'px',
+            width: obj.w + 'px',
+            minWidth: obj.mw + 'px',
+            borderColor: obj.mcolor,
+            backgroundColor: obj.mcolor,
+        }"
+    >
+        <v-row class="fill-height" dense no-gutters>
+            <div
+                :style="{
+                    minWidth: obj.w1 + 'px',
+                }"
+            >
+            </div>
+            <div class="flex-grow-1 d-flex align-center justify-center white">
+                {{ getTitle(obj) }}
+            </div>
+        </v-row>
+
         <div class="delete" v-on:click="maybeDelete()"/>
         <div class="connect"/>
 
@@ -19,27 +36,3 @@
         mixins:[BaseNode]
     }
 </script>
-
-<style scoped>
-.parts {
-    display: flex;
-    align-items: stretch;
-}
-.part-left {
-    background-color: aqua;
-    width: 75px;
-    opacity: 0.15;
-}
-.part-divider {
-    width: 1px;
-    border-width: 0;
-    background-color: black;
-}
-.part-right {
-    background-color: transparent;
-    width: 100px;
-    word-wrap: break-word;
-    padding: 10px;
-}
-
-</style>
