@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {jsPlumb, Dialogs, DrawingTools} from 'jsplumbtoolkit'
+import {jsPlumb, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
 import DeployNode from '/imports/ui/argraph/v02/DeployNode.vue'
@@ -196,13 +196,7 @@ export default {
                                 surface.startEditing(parm.edge, {
                                     deleteButton:true,
                                     onMaybeDelete:(edge, connection, doDelete) => {
-                                        Dialogs.show({
-                                            id: "dlgConfirm",
-                                            data: {
-                                                msg: "Delete Edge"
-                                            },
-                                            onOK: doDelete
-                                        });
+                                        if (confirm('Delete Edge?')) doDelete();
                                     }
                                 });
                             },

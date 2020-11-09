@@ -1,21 +1,12 @@
 <script>
-    import { Dialogs } from 'jsplumbtoolkit'
-    import { BaseNodeComponent } from 'jsplumbtoolkit-vue2'
+import { BaseNodeComponent } from 'jsplumbtoolkit-vue2'
 
-    export default {
-        mixins:[BaseNodeComponent],
-        methods:{
-            maybeDelete:function() {
-                Dialogs.show({
-                    id: "dlgConfirm",
-                    data: {
-                        msg: "Delete '" + this.obj.itemTitle + "'"
-                    },
-                    onOK:() => {
-                        this.removeNode();
-                    }
-                });
-            }
+export default {
+    mixins:[BaseNodeComponent],
+    methods:{
+        maybeDelete() {
+            if (confirm(`Delete ${this.obj.itemTitle}?`)) this.removeNode();
         }
     }
+}
 </script>
