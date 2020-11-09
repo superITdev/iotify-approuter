@@ -15,7 +15,10 @@
           <template v-slot:default="{active}">
             <v-list-item-content>
               <svgicon :icon="major.icon" :color="active ? major.color : 'white'" :width="`${majorVS.itemIconSize}`" :height="`${majorVS.itemIconSize}`"/>
-              <div class="text-center" :style="`font-size:${majorVS.itemFontSize}px`" v-text="major.title"/>
+              <div v-html="major.title.replace(/[\n\s\t]+/g, '<br>')"
+                class="text-center"
+                :style="`font-size:${majorVS.itemFontSize}px`"
+              />
             </v-list-item-content>
           </template>
         </v-list-item>

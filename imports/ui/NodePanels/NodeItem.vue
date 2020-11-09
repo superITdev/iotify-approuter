@@ -10,7 +10,9 @@
             :jtk-is-group="!!nodeItem.isGroup"
             style="cursor: grab;"
         />
-        <div :style="`font-size:${fontSize}px`" v-text="nodeItem.title"/>
+        <div v-html="nodeItem.title.replace(/[\n\s\t]+/g, '<br>')"
+            :style="`font-size:${fontSize}px`"
+        />
     </div>
 </template>
 

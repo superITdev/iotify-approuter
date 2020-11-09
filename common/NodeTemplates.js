@@ -15,8 +15,8 @@ const majors = [
         color: '#2962FF', // blue accent-4
         nodeBaseInfo: {
             isGroup: true,
-            w: 200,
-            h: 450,
+            w: 300,
+            h: 400,
         },
     },
     {
@@ -25,9 +25,9 @@ const majors = [
         icon: 'protocol',
         color: '#00C853', // green accent-4
         nodeBaseInfo: {
-            w1: 50,
-            w: 150,
-            h: 30,
+            w1: 90,
+            w: 200,
+            h: 90,
         },
     },
     {
@@ -36,9 +36,9 @@ const majors = [
         icon: 'memory',
         color: '#FF6D00', // orange accent-4
         nodeBaseInfo: {
-            w1: 50,
-            w: 150,
-            h: 30,
+            w1: 90,
+            w: 200,
+            h: 90,
         },
     },
     {
@@ -47,9 +47,9 @@ const majors = [
         icon: 'control',
         color: '#00B8D4', // cyan accent-4
         nodeBaseInfo: {
-            w1: 50,
-            w: 150,
-            h: 30,
+            w1: 90,
+            w: 200,
+            h: 90,
         },
     },
     {
@@ -58,9 +58,9 @@ const majors = [
         icon: 'illustration',
         color: '#AA00FF', // purple accent-4
         nodeBaseInfo: {
-            w1: 50,
-            w: 150,
-            h: 30,
+            w1: 90,
+            w: 200,
+            h: 90,
         },
     },
 ];
