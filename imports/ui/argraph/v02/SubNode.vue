@@ -10,25 +10,29 @@
             backgroundColor: obj.mcolor,
         }"
     >
-        <v-row class="fill-height" dense no-gutters>
+        <!-- <div class="argraph-item-toolbox"> -->
+            <div class="delete" v-on:click="maybeDelete()"/>
+            <div class="connect"
+                :style="{
+                    backgroundColor: obj.mcolor,
+                }"
+            />
+        <!-- </div> -->
+        <v-row class="fill-height flex-nowrap" dense no-gutters>
             <div
                 :style="{
                     minWidth: obj.w1 + 'px',
                 }"
             >
             </div>
-            <div class="flex-grow-1 d-flex align-center justify-center white">
+            <div class="flex-grow-1 d-flex align-center justify-center white"
+                :style="{
+                    wordBreak: 'break-all',
+                }"
+            >
                 {{ getTitle(obj) }}
             </div>
         </v-row>
-
-        <div class="delete" v-on:click="maybeDelete()"/>
-        <div class="connect"
-            :style="{
-                backgroundColor: obj.mcolor,
-            }"
-        />
-
         <jtk-source port-type="source" filter=".connect" v-pre/>
         <jtk-target port-type="target" v-pre/>
     </div>

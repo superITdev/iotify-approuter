@@ -159,6 +159,37 @@ svg.jtk-drag-drop-hover path {
 }
 
 /* argraph version-02 */
+.argraph-item-toolbox {
+    position: absolute;
+    top: -20px;
+    display: flex;
+}
+.argraph-item-toolbox button {
+    cursor: pointer;
+    background-color: darkgray;
+    color: black;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    padding-bottom: 2px;
+    border-radius: 50%;
+    border: 0;
+    outline: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+.argraph-item-toolbox button:hover {
+    background-color: lightgrey;
+}
+.argraph-item-toolbox .expand:after {
+    content:"-";
+}
+.argraph-item-toolbox .item-delete:after {
+    content:"x";
+}
+
 /* group */
 .jtk-group {
     background-color: #f7f7f7;
@@ -185,45 +216,10 @@ svg.jtk-drag-drop-hover path {
     padding:7px;
     box-sizing: border-box;
 }
-
 .group-title img {
     width: 14px;
     height: auto;
     margin-right: 7px;
-}
-
-.group-title button {
-    cursor:pointer;
-    color: black;
-    background-color: transparent;
-    outline: none;
-    width: 20px;
-    height: 19px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    padding-bottom: 3px;
-    margin-left:5px;
-    border:1px solid transparent;
-}
-
-.group-title button:hover {
-    background-color:#f7f7f7;
-}
-
-.group-title .expand {
-    margin-left:auto;
-}
-.group-title .expand:after {
-    content:"-";
-}
-
-.group-title .group-delete {
-    right:45px;
-}
-.group-title .group-delete:after {
-    content:"x";
 }
 
 .group-connect {

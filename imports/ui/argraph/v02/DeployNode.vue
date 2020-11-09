@@ -8,6 +8,11 @@
             borderColor: obj.mcolor,
         }"
     >
+        <div class="argraph-item-toolbox">
+            <button class="expand" v-on:click="toggleGroup()"/>
+            <button class="item-delete" v-on:click="maybeDelete(true)"/>
+        </div>
+
         <div class="group-title"
             :style="{
                 backgroundColor: obj.mcolor,
@@ -15,9 +20,8 @@
         >
             <!-- <img :src="getTitleIcon(obj)"/> -->
             {{getTitle(obj)}}
-            <button class="expand" v-on:click="toggleGroup()"></button>
-            <button class="group-delete" v-on:click="maybeDelete(true)"></button>
         </div>
+        
         <div jtk-group-content="true"/>
 
         <!-- disable connectivity with this group -->
