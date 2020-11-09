@@ -80,10 +80,10 @@ export default {
             return {width, height};
         },
         isHttpServer() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/HTTP');
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Server/HTTP');
         },
         isWebsocketServer() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Gateway/Websocket');
+            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Server/Websocket');
         },
         isWebsocketPayload() {
             return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Client/Websocket');
