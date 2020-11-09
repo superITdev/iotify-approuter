@@ -5,13 +5,11 @@
     export default {
         mixins:[BaseNodeComponent],
         methods:{
-            getTitle: obj => obj.title,
-            
             maybeDelete:function() {
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + this.getTitle(this.obj) + "'"
+                        msg: "Delete '" + this.obj.itemTitle + "'"
                     },
                     onOK:() => {
                         this.removeNode();

@@ -260,7 +260,7 @@ export default {
         // customize
         majorTitle: major.title,
         type: nodeItem.majorType, // jsplumb's node-type to create
-        title: nodeItem.itemTitle,
+        itemTitle: nodeItem.itemTitle,
 
         id: jsPlumbUtil.uuid(),
         // options

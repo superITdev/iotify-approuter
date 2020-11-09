@@ -99,7 +99,7 @@ export default {
                   },
               },
               dragOptions: {
-                  filter: ".jtk-draw-handle, .delete, .expand, .item-delete, .connect",
+                  filter: ".jtk-draw-handle, .expand, .item-delete, .item-connector",
                   magnetize: true,
               },
               lassoFilter: ".controls, .controls *, .miniview, .miniview *",

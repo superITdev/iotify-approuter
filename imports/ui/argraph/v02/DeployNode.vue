@@ -18,8 +18,7 @@
                 backgroundColor: obj.mcolor,
             }"
         >
-            <!-- <img :src="getTitleIcon(obj)"/> -->
-            {{getTitle(obj)}}
+            {{obj.itemTitle}}
         </div>
         
         <div jtk-group-content="true"/>

@@ -31,7 +31,7 @@
                     wordBreak: 'break-all',
                 }"
             >
-                {{ getTitle(obj) }}
+                {{obj.itemTitle}}
             </div>
         </v-row>
         <jtk-source port-type="source" filter=".item-connector" v-pre/>

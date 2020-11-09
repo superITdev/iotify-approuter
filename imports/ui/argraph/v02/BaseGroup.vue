@@ -5,14 +5,11 @@
     export default {
         mixins:[BaseGroupComponent],
         methods:{
-            getTitle: obj => obj.title,
-            getTitleIcon: obj => obj.titleIcon,
-
             maybeDelete:function(removeChildNodes) {
                 Dialogs.show({
                     id: "dlgConfirm",
                     data: {
-                        msg: "Delete '" + this.getTitle(this.obj) + "'"
+                        msg: "Delete '" + this.obj.itemTitle + "'"
                     },
                     onOK:() => {
                         this.removeGroup(removeChildNodes);
