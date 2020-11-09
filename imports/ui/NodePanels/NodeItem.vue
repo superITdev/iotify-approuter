@@ -22,7 +22,7 @@ import * as NodeUtil from '/common/NodeUtil.js'
 export default {
     props:[
         "nodeItem",
-        "titleMode",
+        "pathMode",
         "recentlyUsed",
     ],
     
@@ -38,7 +38,7 @@ export default {
             return NodeUtil.makeTypePath(this.nodeItem);
         },
         pathTitle() {
-            return NodeUtil.makeTitleCrumb(this.nodeItem, this.titleMode);
+            return NodeUtil.makeTitlePath(this.nodeItem, this.pathMode);
         }
     }
 }

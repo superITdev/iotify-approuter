@@ -117,36 +117,7 @@ export default {
                                 // select only this.
                                 params.toolkit.clearSelection();
                                 params.toolkit.toggleSelection(params.node)
-                            }
-                        }
-                    },
-                    [NodeMajorTypes.protocol]: {
-                        parent: "default",
-                        events: {
-                            dblclick(params) {
-                                $self.onNodeSetting(params);
                             },
-                        }
-                    },
-                    [NodeMajorTypes.database]: {
-                        parent: "default",
-                        events: {
-                            dblclick(params) {
-                                $self.onNodeSetting(params);
-                            },
-                        }
-                    },
-                    [NodeMajorTypes.function]: {
-                        parent: "default",
-                        events: {
-                            dblclick(params) {
-                                $self.onNodeSetting(params);
-                            },
-                        }
-                    },
-                    [NodeMajorTypes.staticAsset]: {
-                        parent: "default",
-                        events: {
                             dblclick(params) {
                                 $self.onNodeSetting(params);
                             },
@@ -259,14 +230,12 @@ export default {
         onNodeSetting(params) {
             let nodeData;
             if (params.node) {
-                params.e.stopPropagation();
                 nodeData = params.node.data;
             } else if (params.group) {
                 nodeData = params.group.data;
             } else {
                 return;
             }
-            
             this.nodeSetting.show = true;
             this.nodeSetting.nodeData = cloneDeep(nodeData);
         },

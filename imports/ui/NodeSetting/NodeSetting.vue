@@ -15,11 +15,11 @@
                 </v-btn>
             </v-toolbar>
             <v-card class="pa-5">
-                <HttpServer :nodeData="nodeData" v-if="isHttpServer"/>
-                <WebsocketServer :nodeData="nodeData" v-else-if="isWebsocketServer"/>
+                <WebsocketServer :nodeData="nodeData" v-if="isWebsocketServer"/>
                 <WebsocketPayload :nodeData="nodeData" v-else-if="isWebsocketPayload"/>
-                <REDISClient :nodeData="nodeData" v-else-if="isRedisClient"/>
-                <CustomFunction :nodeData="nodeData" v-else-if="isCustomFunction"/>
+                <HttpServer :nodeData="nodeData" v-else-if="isHttpCS"/>
+                <REDISClient :nodeData="nodeData" v-else-if="isDatabaseCS"/>
+                <FunctionControl :nodeData="nodeData" v-else-if="isFunctionControl"/>
             </v-card>
         </v-card>
     </v-dialog>
@@ -31,7 +31,7 @@ import HttpServer from '/imports/ui/NodeSetting/HttpServer.vue'
 import WebsocketServer from '/imports/ui/NodeSetting/WebsocketServer.vue'
 import WebsocketPayload from '/imports/ui/NodeSetting/WebsocketPayload.vue'
 import REDISClient from '/imports/ui/NodeSetting/REDISClient.vue'
-import CustomFunction from '/imports/ui/NodeSetting/CustomFunction.vue'
+import FunctionControl from '/imports/ui/NodeSetting/FunctionControl.vue'
 
 export default {
     props: [
@@ -42,7 +42,7 @@ export default {
         WebsocketServer,
         WebsocketPayload,
         REDISClient,
-        CustomFunction,
+        FunctionControl,
     },
     computed: {
         nodeData() {
@@ -57,42 +57,32 @@ export default {
             }
         },
         title() {
-            return "Settings (" + NodeUtil.makeTitleCrumb(this.nodeData) + ")";
+            return "Settings (" + NodeUtil.makeTitlePath(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpServer || this.isWebsocketServer || this.isWebsocketPayload || this.isRedisClient || this.isCustomFunction
+            return this.isHttpCS || this.isWebsocketServer || this.isWebsocketPayload || this.isDatabaseCS || this.isFunctionControl
         },
         formSize() {
             let width = 650, height=undefined;
-            
-            if (this.isWebsocketServer) {
-                // height=500;
-            } else if (this.isWebsocketPayload) {
-                // height=500;
-            } else if (this.isRedisClient) {
-                // height=750;
-            } else if (this.isCustomFunction) {
-                width=1000;
-            } else {
-                // height=700;
+            if (this.isFunctionControl) {
+                width = 1000;
             }
-
             return {width, height};
         },
-        isHttpServer() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Server/HTTP');
+        isHttpCS() {
+            return NodeUtil.checkTypePath(this.nodeData, 'protocol', NodeUtil.PathMode.major);
         },
         isWebsocketServer() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Server/Websocket');
+            return NodeUtil.checkTypePath(this.nodeData, 'protocol/Server/Websocket');
         },
         isWebsocketPayload() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'protocol/Client/Websocket');
+            return NodeUtil.checkTypePath(this.nodeData, 'protocol/Client/Websocket');
         },
-        isRedisClient() {
-            return NodeUtil.checkTypeByPath(this.nodeData, 'database/Client/REDIS');
+        isDatabaseCS() {
+            return NodeUtil.checkTypePath(this.nodeData, 'database', NodeUtil.PathMode.major);
         },
-        isCustomFunction() {
-            return NodeUtil.checkTypeByPath2(this.nodeData, 'function/Custom');
+        isFunctionControl() {
+            return NodeUtil.checkTypePath(this.nodeData, 'function', NodeUtil.PathMode.major);
         },
     }
 }

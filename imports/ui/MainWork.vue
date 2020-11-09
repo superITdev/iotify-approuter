@@ -192,7 +192,7 @@ export default {
       this.$router.push("/");
     },
     getMajorCategory(majorType) {
-      return this.majorCategories.find(mc => mc.majorType===majorType);
+      return this.majorCategories.find(mc => NodeUtil.checkType(mc.majorType, majorType));
     },
     getSubCategories(majorType) {
       const major = this.getMajorCategory(majorType);
@@ -202,7 +202,7 @@ export default {
 
       const subs = []; // [ {majorType, subTitle, nodeItems[ {} ]} ]
       nodeItems.forEach(node => {
-        let sub = subs.find((sub) => NodeUtil.checkPartType(sub.subTitle, node.subTitle));
+        let sub = subs.find((sub) => NodeUtil.checkType(sub.subTitle, node.subTitle));
         if (sub) {
           // Register the node into sub category.
           sub.nodeItems.push(node);
@@ -239,11 +239,9 @@ export default {
     },
     nodeCreator:function(el) {
       const recentlyUsed = el.getAttribute("recentlyUsed");
-      const id = el.getAttribute("nodeItemSelector");
-      let [majorType, subTitle, itemTitle] = id.split('/');
-      if (!subTitle) subTitle = undefined;
+      const typePath = el.getAttribute("nodeItemSelector");
 
-      const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypeWithNode(nodeItem, {majorType, subTitle, itemTitle}));
+      const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypePath(nodeItem, typePath));
       
       // alive_graphV01
       // const v01 = {
@@ -256,7 +254,7 @@ export default {
       // }
       // return v01;
 
-      const major = this.getMajorCategory(majorType);
+      const major = this.getMajorCategory(nodeItem.majorType);
       const v02 = {
         ...major.nodeBaseInfo, // base
         ...nodeItem, // self

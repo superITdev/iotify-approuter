@@ -43,7 +43,7 @@ class CSStorage {
         let recents = $store.state.recentlyUsedNodeItems[category];
 
         if (!recents) recents = [];
-        recents = recents.filter(item => !NodeUtil.checkTypeWithNode(item, nodeItem));
+        recents = recents.filter(item => !NodeUtil.checkTypeCrumb(item, nodeItem));
         recents.unshift(nodeItem);
 
         recents = recents.slice(0, nLimitsRecentNodeItems);

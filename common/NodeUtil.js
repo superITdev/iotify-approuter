@@ -75,66 +75,62 @@ const saveGraph = function() {
     }
 } ();
 
-function checkPartType(a, b) {
-    if (a == b) return true;
-    if (!a || !b) return false;
-    return a.equalsIgnoreCase(b);
-}
-function checkType(node, major, sub, item) {
-    return checkPartType(node.majorType, major)
-        && checkPartType(node.subTitle, sub)
-        && checkPartType(node.itemTitle, item);
-}
-function checkTypeWithNode(nodeA, nodeB) {
-    return checkType(nodeA, nodeB.majorType, nodeB.subTitle, nodeB.itemTitle);
-}
-
-const typePathDelimiter = '/';
-function makeTypePath(node, delimiter) {
-    if (delimiter === undefined) delimiter = typePathDelimiter;
-    const selector = [node.majorType, node.subTitle, node.itemTitle].join(delimiter);
-    return selector;
-}
-function checkTypeByPath(node, path, delimiter) {
-    if (delimiter === undefined) delimiter = typePathDelimiter;
-    let [major, sub, item] = path.split(delimiter);
-    return checkType(node, major, sub, item);
-}
-function checkTypeByPath2(node, path, delimiter) {
-    if (delimiter === undefined) delimiter = typePathDelimiter;
-    let [major, sub, item] = path.split(delimiter);
-    return checkPartType(node.majorType, major)
-        && checkPartType(node.subTitle, sub)
-}
-
-const titleCrumbDelimiter = ' / ';
-const TitleCrumbMode = {
+export const PathMode = {
     major: 'major',
     sub: 'sub',
     major_sub: 'major_sub',
     full: 'full',
 }
-function makeTitleCrumb(node, mode, delimiter) {
-    if (delimiter === undefined) delimiter = titleCrumbDelimiter;
-    switch(mode) {
-        case TitleCrumbMode.major:
-            return node.majorTitle;
-        case TitleCrumbMode.sub:
-            if (node.subTitle) return node.subTitle;
-            break;
-        case TitleCrumbMode.major_sub:
-            return node.subTitle ? [node.majorTitle, node.subTitle].join(delimiter) : node.majorTitle;
-        case TitleCrumbMode.full:
-        default:
-            return [makeTitleCrumb(node, TitleCrumbMode.major_sub, delimiter), node.itemTitle].join(delimiter);
-    }
+const typePathDelimiter = '/';
+const titleCrumbDelimiter = ' / ';
+
+export function checkType(a, b) {
+    if (a == b) return true;
+    if (!a) a = '';
+    if (!b) b = '';
+    return a.equalsIgnoreCase(b);
+}
+export function checkTypeCrumb(nodeA, nodeB) {
+    return checkType(nodeA.majorType, nodeB.majorType)
+        && checkType(nodeA.subTitle, nodeB.subTitle)
+        && checkType(nodeA.itemTitle, nodeB.itemTitle)
 }
 
-export {
-    checkPartType,
-    checkTypeWithNode,
-    checkTypeByPath,
-    makeTypePath,
-    makeTitleCrumb,
-    checkTypeByPath2,
+export function makeTypePath(node, delimiter) {
+    if (!delimiter) delimiter = typePathDelimiter;
+    const selector = [node.majorType, node.subTitle, node.itemTitle].join(delimiter);
+    return selector;
+}
+export function checkTypePath(node, path, mode, delimiter) {
+    if (!delimiter) delimiter = typePathDelimiter;
+
+    if (typeof path != 'string' && !path instanceof String) path = makeTypePath(path, delimiter); // is node object?
+    
+    const [major, sub, item] = path.split(delimiter);
+    switch(mode) {
+        case PathMode.major:
+            return checkType(node.majorType, major)
+        case PathMode.sub:
+            return checkType(node.subTitle, sub)
+        case PathMode.major_sub:
+            return checkType(node.majorType, major) && checkType(node.subTitle, sub)
+        case PathMode.full:
+        default:
+            return checkType(node.majorType, major) && checkType(node.subTitle, sub) && checkType(node.itemTitle, item)
+    }
+}
+export function makeTitlePath(node, mode, delimiter) {
+    if (!delimiter) delimiter = titleCrumbDelimiter;
+    switch(mode) {
+        case PathMode.major:
+            return node.majorTitle;
+        case PathMode.sub:
+            if (node.subTitle) return node.subTitle;
+            break;
+        case PathMode.major_sub:
+            return node.subTitle ? [node.majorTitle, node.subTitle].join(delimiter) : node.majorTitle;
+        case PathMode.full:
+        default:
+            return [makeTitlePath(node, PathMode.major_sub, delimiter), node.itemTitle].join(delimiter);
+    }
 }

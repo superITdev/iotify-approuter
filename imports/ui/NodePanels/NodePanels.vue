@@ -5,7 +5,7 @@
         <v-expansion-panel-content class="iotar-subbar-content">
             <v-row dense>
                 <v-col v-for="(nodeItem, nodeIdx) in subRecents" :key="nodeIdx" :cols="panelCols">
-                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major_sub" recentlyUsed="true"/>
+                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" :pathMode="PathMode.major_sub" recentlyUsed="true"/>
                 </v-col>
             </v-row>
         </v-expansion-panel-content>
@@ -16,7 +16,7 @@
         <v-expansion-panel-content class="iotar-subbar-content">
             <v-row dense>
                 <v-col v-for="(nodeItem, nodeIdx) in sub.nodeItems" :key="nodeIdx" :cols="panelCols">
-                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" titleMode="major_sub"/>
+                    <NodeItem :nodeItem="nodeItemInfo(nodeItem)" :pathMode="PathMode.major_sub"/>
                 </v-col>
             </v-row>
         </v-expansion-panel-content>
@@ -27,6 +27,7 @@
 <script>
 import {SurfaceDrop} from 'jsplumbtoolkit-vue2-drop'
 import NodeItem from '/imports/ui/NodePanels/NodeItem.vue'
+import {PathMode} from 'common/NodeUtil.js'
 
 export default {
     mixins:[SurfaceDrop],
@@ -44,6 +45,7 @@ export default {
 
     data() {
         return {
+            PathMode,
             panelCols: 4,
             openRecents: undefined,
             openSubs: [],
