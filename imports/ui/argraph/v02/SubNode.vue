@@ -10,12 +10,8 @@
             overflow: 'visible',
         }"
     >
-        <div class="argraph-item-toolbox">
-            <button class="item-connector"
-                :style="{
-                    backgroundColor: obj.mcolor,
-                }"
-            />
+        <div class="argraph-item-toolbox" style="justify-content: space-between; bottom: 0px">
+            <button class="item-connector" style="align-self: center; margin-left: 3px;"/>
             <button class="item-delete" v-on:click="maybeDelete()"/>
         </div>
         <v-avatar

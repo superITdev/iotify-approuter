@@ -8,7 +8,7 @@
             borderColor: obj.mcolor,
         }"
     >
-        <div class="argraph-item-toolbox">
+        <div class="argraph-item-toolbox" style="justify-content: flex-end;">
             <!-- <button class="expand" v-on:click="toggleGroup()"/> -->
             <button class="item-delete" v-on:click="maybeDelete(true)"/>
         </div>
@@ -20,7 +20,7 @@
         >
             {{obj.itemTitle}}
         </div>
-        
+
         <div jtk-group-content="true"/>
 
         <!-- disable connectivity with this group -->

@@ -161,17 +161,19 @@ svg.jtk-drag-drop-hover path {
 /* argraph version-02 */
 .argraph-item-toolbox {
     position: absolute;
-    top: -20px;
+    top: 3px;
     left: 0;
+    right: 0;
     display: flex;
 }
 .argraph-item-toolbox button {
     cursor: pointer;
-    background-color: darkgray;
+    background-color: white;
     color: black;
-    width: 16px;
-    height: 16px;
-    font-size: 12px;
+    width: 14px;
+    height: 14px;
+    font-size: 13px;
+    box-shadow: 0 0 2px gray;
     padding-bottom: 2px;
     border-radius: 50%;
     border: 0;
@@ -179,10 +181,12 @@ svg.jtk-drag-drop-hover path {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 5px;
+    margin: 5px;
+    z-index: 1;
 }
 .argraph-item-toolbox button:hover {
-    background-color: lightgrey;
+    background-color: whitesmoke;
+    font-weight: bold;
 }
 .argraph-item-toolbox .expand:after {
     content:"-";
@@ -213,8 +217,8 @@ svg.jtk-drag-drop-hover path {
     color:white;
     font-size: 13px;
     letter-spacing: 1px;
-    text-indent:7px;
-    padding:7px;
+    text-indent:5px;
+    padding:5px;
     box-sizing: border-box;
 }
 .group-title img {
