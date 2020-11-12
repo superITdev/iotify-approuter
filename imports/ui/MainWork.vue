@@ -60,9 +60,9 @@
       <v-btn icon :color="graphCS.setMode==='pan' ? graphCS.toolSelColor : graphCS.toolColor" title="Pan" v-on:click="onGraphSetMode('pan')">
         <v-icon>mdi-pan</v-icon>
       </v-btn>
-      <v-btn icon :color="graphCS.setMode==='select' ? graphCS.toolSelColor : graphCS.toolColor" title="Select" v-on:click="onGraphSetMode('select')">
+      <!-- <v-btn icon :color="graphCS.setMode==='select' ? graphCS.toolSelColor : graphCS.toolColor" title="Select" v-on:click="onGraphSetMode('select')">
         <v-icon>mdi-image-size-select-small</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-btn icon :color="graphCS.toolColor" title="Zoom To Fit" v-on:click="onGraphZoomToFit">
         <v-icon>mdi-fit-to-page-outline</v-icon>
       </v-btn>

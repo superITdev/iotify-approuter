@@ -112,11 +112,11 @@ export default {
                         component:SubNode,
                         events: {
                             mousedown: (params) => {
-                                return; // by default, but it will keep in some node types.
                                 // This was selected already and keeps the dragging.
                                 if (params.el.classList.contains('jtk-surface-selected-element')) return;
                                 // select only this one.
                                 params.toolkit.clearSelection();
+                                return; // by default, but it will keep in some node types.
                                 params.toolkit.setSelection(params.node)
                             },
                             dblclick(params) {
