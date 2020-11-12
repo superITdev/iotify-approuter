@@ -49,15 +49,16 @@
                 }"
             >
                 <div v-html="obj.subTitle && obj.subTitle.replace(/[\n\s\t]+/g, '<br>')"/>
-                <v-sparkline
-                    padding="0"
-                    smooth="10"
-                    fill
-                    auto-draw
-                    :auto-draw-duration="200"
-                    :value="sparkData"
-                    :color="obj.mcolor"
-                />
+                <sparkline ref="sparkline" :indicatorStyles="false">
+                    <sparklineBar
+                        :data="sparkData"
+                        :limit="sparkData.length"
+
+                        :margin="2"
+                        :styles="{fill: obj.mcolor}"
+                        :refLineStyles="{strokeOpacity: 0}"
+                    />
+                </sparkline>
             </div>
         </v-row>
         <jtk-source port-type="source" filter=".item-connector" v-pre/>
@@ -66,14 +67,27 @@
 </template>
 
 <script>
-    import BaseNode from '/imports/ui/argraph/v02/BaseNode.vue'
-    export default {
-        mixins:[BaseNode],
-        data() {
-            return {
-                actionSuccess: Math.random() > 0.5,
-                sparkData: [0, 2, 5, 9, 5, 10, 3, 5, 2, 4, 2, 6, 2, 7, 0],
-            }
+import BaseNode from '/imports/ui/argraph/v02/BaseNode.vue'
+import sparkline from 'vue-sparklines'
+
+export default {
+    mixins:[BaseNode],
+    components: {
+        sparkline,
+    },
+    data() {
+        return {
+            actionSuccess: Math.random() > 0.5,
+            // sparkline
+            sparkData: (() => {
+                const length = 20
+                return Array.from({length}, () => Math.floor(Math.random() * length))
+            })(),
         }
-    }
+    },
+    mounted() {
+        this.$refs.sparkline.$el.children[0].style.width = '100%';
+        this.$refs.sparkline.$el.children[0].style.height = '100%';
+    },
+}
 </script>

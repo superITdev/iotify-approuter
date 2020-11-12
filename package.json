@@ -2,11 +2,11 @@
   "name": "meteor_vuetify",
   "private": true,
   "scripts": {
-    "start": "meteor run",
+    "start": "meteor run --settings ./.setting/dev.json",
     "serve": "NO_HMR=1 meteor",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "visualize": "meteor --production --extra-packages bundle-visualizer --settings ./.setting/prod.json",
     "generate-svgicon": "vsvg -s ./svgicon/svg -t ./svgicon/icon"
   },
   "dependencies": {
@@ -31,6 +31,7 @@
     "vue-meta": "^1.6.0",
     "vue-meteor-tracker": "^2.0.0-beta.5",
     "vue-router": "^3.4.8",
+    "vue-sparklines": "^0.2.1",
     "vue2-perfect-scrollbar": "^1.5.0",
     "vuetify": "^2.3.16",
     "vuex": "^3.5.1"

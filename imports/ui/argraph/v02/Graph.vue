@@ -112,6 +112,7 @@ export default {
                         component:SubNode,
                         events: {
                             mousedown: (params) => {
+                                return; // by default, but it will keep in some node types.
                                 // is selected already?
                                 if (params.el.classList.contains('jtk-surface-selected-element')) return;
                                 // select only this.
@@ -199,7 +200,7 @@ export default {
                     }
                 }
             },
-            
+
             nodeSetting: {
                 show: false, // show/hide setting dialog.
                 nodeData: {}, // cloned node data to be edited on setting form.

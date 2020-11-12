@@ -2,8 +2,6 @@ import { Meteor } from 'meteor/meteor';
 
 // Import Collections
 import '/imports/api/avatars.js'
-// alive_legacy
-// import '/imports/_legacy/api/clicks.js'
 import '/imports/api';
 
 Accounts.registerLoginHandler((loginRequest) => {

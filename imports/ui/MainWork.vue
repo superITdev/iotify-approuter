@@ -93,10 +93,10 @@
       <v-btn icon :color="graphCS.toolColor"><v-icon>mdi-dots-horizontal</v-icon></v-btn>
     </v-sheet>
     <v-row class="iotar-graph-toolbox mr-3 mt-3" align="center" style="right:0; top:0;">
-      <v-btn icon class="mr-2" @click="onLogOut">
+      <v-btn icon class="mr-2" @click="exitPage">
         <v-avatar size="25"><v-img :src="!!meAvatar ? meAvatar : '/img/favicon.ico'" lazy-src="/img/favicon.ico"/></v-avatar>
       </v-btn>
-      <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small>Deploy</v-btn>
+      <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small @click="onDeploy">Deploy</v-btn>
     </v-row>
     <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
   </div>
@@ -119,6 +119,8 @@ import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connec
 import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
 
 import debounce from 'lodash.debounce'
+import {Projects} from '/imports/api/projects.js'
+import {json2string} from '/common/CommonUtil.js'
 
 let toolkit;
 let surface;
@@ -140,6 +142,11 @@ export default {
     // Controls,
     // GraphV01,
     GraphV02,
+  },
+  meteor: {
+    $subscribe: {
+      "projects": [],
+    },
   },
   data () {
     return {
@@ -166,6 +173,7 @@ export default {
       },
 
       fullScreen: false,
+      graphChanged: false,
     }
   },
   computed: {
@@ -187,9 +195,17 @@ export default {
     }
   },
   methods: {
-    onLogOut() {
+    exitPage() {
+      if (this.graphChanged) {
+        if (!confirm('Do you want to exit without deploy?')) {
+          return;
+        }
+      }
       // Meteor.logout();
-      this.$router.push("/");
+      sessionStorage.setItem('AppRouter.jsPlumbToRefresh', true);
+      this.$router.push('/', () => {
+        location.reload() // this.$router.go(0)
+      })
     },
     getMajorCategory(majorType) {
       return this.majorCategories.find(mc => NodeUtil.checkType(mc.majorType, majorType));
@@ -242,7 +258,7 @@ export default {
       const typePath = el.getAttribute("nodeItemSelector");
 
       const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypePath(nodeItem, typePath));
-      
+
       // alive_graphV01
       // const v01 = {
       //   id: jsPlumbUtil.uuid(),
@@ -338,6 +354,22 @@ export default {
       if (!plus) nudge *= -1;
       surface.nudgeZoom(nudge);
     },
+    onDeploy() {
+      const graphJson = toolkit.exportData();
+      const graph = json2string(graphJson);
+      this.$store.commit('projectInfo', {graph});
+
+      Meteor.call('projects.deploy', this.$store.state.projectInfo, (error, response) => {
+        if (error) {
+          this.$store.commit("snack", {text: "Failed to deploy.", color: "error"})
+        } else {
+          const result = Projects.findOne(this.$store.state.projectInfo._id ? this.$store.state.projectInfo._id : response);
+          this.$store.commit('projectInfo', result);
+          this.$store.commit("snack", {text: "Deployed successfully.", color: "success"})
+          this.graphChanged = false;
+        }
+      });
+    }
   },
   mounted() {
     jsPlumbToolkit.ready(() => {
@@ -353,8 +385,16 @@ export default {
             onChange:(mgr, undoSize, redoSize) => {
               this.graphCS.undoable = undoSize > 0;
               this.graphCS.redoable = redoSize > 0;
+              this.graphChanged = true;
             }
         });
+
+        toolkit.clear();
+        if (this.$store.state.projectInfo.graph) {
+          const data = JSON.parse(this.$store.state.projectInfo.graph);
+          toolkit.load({data});
+        }
+        this.graphChanged = false; // reset initially
     });
   },
   created() {
@@ -364,12 +404,22 @@ export default {
     document.addEventListener('webkitfullscreenchange', this.onFullScreenChange);
     document.addEventListener('mozfullscreenchange', this.onFullScreenChange);
     document.addEventListener('MSFullscreenChange', this.onFullScreenChange);
+
+    // window.onbeforeunload = (event) => {
+    //   if (this.graphChanged) {
+    //     const message = 'Do you want to exit without deploy?';
+    //     event.returnValue = message;
+    //     return message;
+    //   }
+    // }
   },
   destroyed() {
     document.removeEventListener('fullscreenchange', this.onFullScreenChange);
     document.removeEventListener('webkitfullscreenchange', this.onFullScreenChange);
     document.removeEventListener('mozfullscreenchange', this.onFullScreenChange);
     document.removeEventListener('MSFullscreenChange', this.onFullScreenChange);
+
+    // window.onbeforeunload = undefined;
   },
   watch: {
     searchNodeItems(/*newVal, oldVal*/) {

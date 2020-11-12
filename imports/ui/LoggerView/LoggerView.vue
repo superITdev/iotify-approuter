@@ -48,7 +48,7 @@
                     </v-col>
                     <v-col align-self="start" cols="auto">
                         <v-btn icon large color="indigo accent-4" dark @click="onGetLog"><v-icon>mdi-chart-box-outline</v-icon></v-btn>
-                    </v-col>                    
+                    </v-col>
                 </v-row>
                 <v-row justify="space-between" dense no-gutters align="center">
                     <v-col cols="auto" class="txt-2">
@@ -145,9 +145,6 @@ export default {
             });
         },
     },
-    meteor: {
-        // Meteor.call : find/fetch data
-    }
 }
 </script>
 

@@ -7,6 +7,14 @@ export const authenticated = (state, auth) => {
 export const recentlyUsedNodeItems = (state, {majorType, nodeItems}) => {
   Vue.set(state.recentlyUsedNodeItems, majorType, nodeItems);
 }
+export const projectInfo = (state, info) => {
+  state.projectInfo = {...state.projectInfo, ...info}
+  if (!state.projectInfo.ownerId) state.projectInfo.ownerId = Meteor.userId();
+}
+export const newProjectInfo = (state, info) => {
+  state.projectInfo = {...info}
+  if (!state.projectInfo.ownerId) state.projectInfo.ownerId = Meteor.userId();
+}
 
 // BreadCrumbs
 export const updateCrumbs = (state, crumbs) => {

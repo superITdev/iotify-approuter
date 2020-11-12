@@ -1,0 +1,10 @@
+
+{
+    "public": {
+        "AUTH0": {
+            "CLIENT_ID": "WP1TVYwlG3Z1kT3J6U7vOVB3a3vmBAu2",
+            "DOMAIN": "iotify.us.auth0.com",
+            "CALLBACK": "http://localhost:3000"
+        }
+    }
+}

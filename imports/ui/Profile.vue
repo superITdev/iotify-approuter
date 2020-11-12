@@ -133,8 +133,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn small to="/">Back</v-btn>
-        <v-btn small @click="save">Save</v-btn>
+        <v-btn small class="text-none" to="/">Close</v-btn>
+        <v-btn small class="text-none" @click="save">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -220,7 +220,7 @@ export default {
     },
     save() {
       if (!this.$refs.form.validate()) {
-        this.$store.commit("snack", {text: "Please, confirm fields in red.", color: "error"});
+        this.$store.commit("snack", {text: "Please, confirm required fields.", color: "error"});
         return false;
       }
       this.values.name = this.values.given_name+" "+this.values.family_name;

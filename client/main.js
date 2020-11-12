@@ -42,9 +42,6 @@ require('/imports/jsplumb/css/jspapp.css');
 
 Vue.use(JsPlumbToolkitVue2Plugin);
 
-// alive_legacy
-// import App from '/imports/_legacy/ui/App.vue';
-// import routes from "/imports/_legacy/routes.js";
 import App from '/imports/ui/App.vue';
 import routes from "/imports/routes.js";
 
@@ -62,7 +59,7 @@ router.beforeResolve((to, from, next) => {
   // app icon
   const link = document.querySelector("[rel='icon']")
   link.setAttribute('href', '/img/favicon.ico');
-  
+
   if (to.matched.some(record => !record.meta.public)) {
     if (!router.app.authenticated) {
       const checkAuth = !!localStorage.getItem("Meteor.loginToken") && !!localStorage.getItem("Meteor.userId");

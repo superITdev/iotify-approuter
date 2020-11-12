@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100%" class="pa-5 grey darken-4" tile dark>
+  <v-card height="100%" class="pa-5 grey darken-4" tile dark v-show="showPage">
     <v-row style="height:30%;" dense no-gutters align="start">
       <v-list-item class="pa-0">
         <div class="indigo accent-4 pa-1 d-flex" style="border-radius:5px;">
@@ -24,22 +24,14 @@
         <div class="headline pa-3">Welcome back{{!!meTitle ? `, ${meTitle}!` : ''}}</div>
         <template v-if="!!authenticated">
           <div class="body-2 grey--text text--lighten-1">Select the project you want to work on or create a new one.</div>
-          <v-row class="mt-15" no-gutters dense justify="space-around">
-            <v-col>
-              <v-btn color="blue darken-3 headline" fab depressed @click="onGoWorkPage">T</v-btn>
-              <div class="body-2 grey--text text--darken-1">Test2</div>
-            </v-col>
-            <v-col>
-              <v-btn color="blue darken-3 headline" fab depressed @click="onGoWorkPage">T</v-btn>
-              <div class="body-2 grey--text text--darken-1">Test</div>
-            </v-col>
-            <v-col>
-              <v-btn color="blue darken-3 headline" fab depressed @click="onGoWorkPage"><v-icon>mdi-fire</v-icon></v-btn>
-              <div class="body-2 grey--text text--darken-1">Templates</div>
-            </v-col>
-            <v-col>
-              <v-btn color="blue darken-3 headline" fab depressed @click="onGoWorkPage">+</v-btn>
-              <div class="body-2 grey--text text--darken-1">Add Project</div>
+          <v-row class="mt-5" dense justify="space-around">
+            <v-col cols="auto"><AddNewProject/></v-col>
+            <v-col cols="auto"><AddFromTemplate/></v-col>
+          </v-row>
+          <v-row dense justify="start">
+            <v-col cols="3" v-for="(project, i) in projects" :key="i">
+              <v-btn color="blue darken-3 headline" small fab depressed @click="onGoWorkPage(project)">T</v-btn>
+              <div class="body-2 grey--text text--darken-1">{{project.name}}</div>
             </v-col>
           </v-row>
         </template>
@@ -69,7 +61,20 @@ const auth0Lock = new Auth0Lock(
   }
 );
 
+import {Projects} from '/imports/api/projects.js'
+import AddNewProject from '/imports/ui/project/AddNewProject.vue'
+import AddFromTemplate from '/imports/ui/project/AddFromTemplate.vue'
+
 export default {
+  components: {
+    AddNewProject,
+    AddFromTemplate,
+  },
+  data() {
+    return {
+      showPage: true,
+    }
+  },
   watch: {
     user(n, o) {
       if (!!n != !!o) {
@@ -77,18 +82,32 @@ export default {
       }
     },
   },
+  meteor: {
+    $subscribe: {
+      "projects": [],
+    },
+    projects() {
+      const filteredProjects = Projects.find({}, {sort: {updatedAt: -1}}).fetch();
+      return filteredProjects;
+    },
+  },
   methods: {
     onAuthenticate() {
       if (this.authenticated) {
         Meteor.logout();
-        // this.$router.push("/");
       } else {
         this.$nextTick(() => auth0Lock.show());
       }
     },
-    onGoWorkPage() {
+    onGoWorkPage(project) {
+      this.$store.commit('projectInfo', project);
       this.$router.push('/work');
     },
+  },
+  beforeMount() {
+    const refresh = sessionStorage.getItem('AppRouter.jsPlumbToRefresh');
+    sessionStorage.removeItem('AppRouter.jsPlumbToRefresh');
+    this.showPage = refresh==='true' ? false : true;
   },
   mounted() {
     this.$nextTick(() => {

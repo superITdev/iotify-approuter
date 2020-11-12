@@ -1,4 +1,4 @@
-import '/common/CommonUtil.js'
+import {json2string} from '/common/CommonUtil.js'
 
 import {Loader} from '/common/loader/Loader.js'
 
@@ -12,7 +12,7 @@ const loadGraph = function() {
     }
     const loader = new Loader(loadData);
 
-    // load-api with ui
+    // load graph with ui
     const form = document.createElement('form');
     form.style.display = 'none';
     document.body.appendChild(form);
@@ -23,9 +23,6 @@ const loadGraph = function() {
     fileInput.addEventListener('change', function() {
         // load file
         loader.loadFiles(fileInput.files);
-        // load data
-        const data = {};
-        loadData(data);
         // form
         form.reset();
     });
@@ -37,43 +34,21 @@ const loadGraph = function() {
     }
 } ();
 const saveGraph = function() {
-    // save-api with ui
-    function parseNumber(key, value) {
-        var precision = 1;
-        return typeof value === 'number' ? parseFloat(value.toFixed(precision)) : value;
-    }
-
+    // save graph with ui
     var link = document.createElement('a');
+
     function save(blob, filename) {
         link.href = URL.createObjectURL(blob);
         link.download = filename || 'appRouter.json';
         link.dispatchEvent(new MouseEvent('click'));
         // URL.revokeObjectURL( url ); breaks Firefox...
     }
-    function saveString(text, filename) {
-        save(new Blob([text], { type: 'text/plain' }), filename);
-    }
-    function data2string(data) {
-        let text = "";
-        try {
-            text = JSON.stringify(data, parseNumber, '\t');
-            text = text.replace(/[\n\t]+([\d\.e\-\[\]]+)/g, '$1');
-        } catch (e) {
-            text = JSON.stringify(data);
-        }
-        return text;
-    }
-    function saveJSONFile(data, filename) {
-        data = data2string(data);
-        saveString(data, filename);
-    }
-
     return function(jsptoolkit) {
-        // save data
-        const graph = jsptoolkit.exportData();
-        saveJSONFile(graph);
+        const graphJson = jsptoolkit.exportData();
+        const txt = json2string(graphJson);
+        save(new Blob([txt], { type: 'text/plain' }), null);
     }
-} ();
+}();
 
 export const PathMode = {
     major: 'major',
@@ -105,7 +80,7 @@ export function checkTypePath(node, path, mode, delimiter) {
     if (!delimiter) delimiter = typePathDelimiter;
 
     if (typeof path != 'string' && !path instanceof String) path = makeTypePath(path, delimiter); // is node object?
-    
+
     const [major, sub, item] = path.split(delimiter);
     switch(mode) {
         case PathMode.major:
