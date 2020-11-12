@@ -113,11 +113,11 @@ export default {
                         events: {
                             mousedown: (params) => {
                                 return; // by default, but it will keep in some node types.
-                                // is selected already?
+                                // This was selected already and keeps the dragging.
                                 if (params.el.classList.contains('jtk-surface-selected-element')) return;
-                                // select only this.
+                                // select only this one.
                                 params.toolkit.clearSelection();
-                                params.toolkit.toggleSelection(params.node)
+                                params.toolkit.setSelection(params.node)
                             },
                             dblclick(params) {
                                 $self.onNodeSetting(params);
@@ -139,13 +139,13 @@ export default {
                         },
                         events:{
                             mousedown: (params) => {
-                                // is while dragging from ohters?
+                                // Any child was selected and keeps the dragging.
                                 if (params.e.path.some(item => item != params.el && item.classList && item.classList.contains('jtk-surface-selected-element'))) return;
-                                // is selected already?
+                                // This was selected already and keeps the dragging.
                                 if (params.el.classList.contains('jtk-surface-selected-element')) return;
-                                // select only this.
+                                // select only this one.
                                 params.toolkit.clearSelection();
-                                params.toolkit.toggleSelection(params.group)
+                                params.toolkit.setSelection(params.group)
                             },
                             dblclick(params) {
                                 $self.onNodeSetting(params);
