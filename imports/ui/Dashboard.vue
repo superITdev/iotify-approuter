@@ -19,7 +19,7 @@
       </v-list-item>
     </v-row>
     <v-row style="height:70%;" dense no-gutters justify="center" align="center">
-      <v-container style="max-width:50%" class="text-center">
+      <div style="max-width: 300px" class="text-center">
         <div class="body-2 grey--text text--darken-1">Your projects</div>
         <div class="headline pa-3">Welcome back{{!!meTitle ? `, ${meTitle}!` : ''}}</div>
         <template v-if="!!authenticated">
@@ -29,7 +29,7 @@
             <v-col cols="auto"><AddFromTemplate/></v-col>
           </v-row>
           <v-row dense justify="start">
-            <v-col cols="3" v-for="(project, i) in projects" :key="i">
+            <v-col cols="2" v-for="(project, i) in projects" :key="i">
               <v-btn color="blue darken-3 headline" small fab depressed @click="onGoWorkPage(project)">T</v-btn>
               <div class="body-2 grey--text text--darken-1">{{project.name}}</div>
             </v-col>
@@ -38,7 +38,7 @@
         <template v-else>
           <div class="body-2 grey--text text--lighten-1">Please log in at first.</div>
         </template>
-      </v-container>
+      </div>
     </v-row>
   </v-card>
 </template>
