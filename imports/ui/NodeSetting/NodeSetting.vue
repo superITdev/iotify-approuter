@@ -20,6 +20,7 @@
                 <HttpServer :nodeData="nodeData" v-else-if="isHttpCS"/>
                 <REDISClient :nodeData="nodeData" v-else-if="isDatabaseCS"/>
                 <FunctionControl :nodeData="nodeData" v-else-if="isFunctionControl"/>
+                <HttpServer :nodeData="nodeData" v-else/>
             </v-card>
         </v-card>
     </v-dialog>
@@ -60,7 +61,7 @@ export default {
             return "Settings (" + NodeUtil.makeTitlePath(this.nodeData) + ")";
         },
         validSetting() {
-            return this.isHttpCS || this.isWebsocketServer || this.isWebsocketPayload || this.isDatabaseCS || this.isFunctionControl
+            return this.isHttpCS || this.isWebsocketServer || this.isWebsocketPayload || this.isDatabaseCS || this.isFunctionControl || this. isStaticAsset
         },
         formSize() {
             let width = 650, height=undefined;
@@ -83,6 +84,9 @@ export default {
         },
         isFunctionControl() {
             return NodeUtil.checkTypePath(this.nodeData, 'function', NodeUtil.PathMode.major);
+        },
+        isStaticAsset() {
+            return NodeUtil.checkTypePath(this.nodeData, 'staticAsset', NodeUtil.PathMode.major);
         },
     }
 }

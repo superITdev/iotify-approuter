@@ -120,6 +120,7 @@ export default {
                                 params.toolkit.setSelection(params.node)
                             },
                             dblclick(params) {
+                                params.e.stopPropagation(); // avoid the event to propagate into container group.
                                 $self.onNodeSetting(params);
                             },
                         }
