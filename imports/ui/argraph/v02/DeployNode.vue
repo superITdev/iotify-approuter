@@ -19,6 +19,9 @@
                 backgroundColor: obj.mcolor,
             }"
         >
+            <v-avatar size="16" tile class="mr-2">
+                <svgicon :icon="obj.icon" color="white"/>
+            </v-avatar>
             {{obj.itemTitle}}
         </div>
 
