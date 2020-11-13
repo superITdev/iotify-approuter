@@ -36,7 +36,12 @@ let router;
 
 function onNodeItemFactory(type, data, callback) {
     if (data.extra.saveStore) csStorage.registerRecentNodeItem(data, true);
-    callback(data);
+    try {
+        callback(data);
+    } catch (error) {
+        // continue further processing.
+    }
+
 }
 function checkConnectivity(edges, source, target) {
     return edges.some(edge => {
@@ -100,7 +105,7 @@ export default {
               },
               dragOptions: {
                   filter: ".jtk-draw-handle, .expand, .item-delete, .item-connector",
-                  magnetize: true,
+                  magnetize: false,
               },
               lassoFilter: ".controls, .controls *, .miniview, .miniview *",
               consumeRightClick: false,
