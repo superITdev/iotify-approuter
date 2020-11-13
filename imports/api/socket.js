@@ -1,4 +1,6 @@
 // Websocket apis
+//TBD: Check whether the streams are required or not. 
+
 const logStream = new Meteor.Stream('logStream');
 const LogStreamEvents = {
     getLog: 'get-log',

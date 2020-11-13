@@ -2,18 +2,18 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 
-export const Projects = new Mongo.Collection('projects');
+export const Deployments = new Mongo.Collection('Deployments');
 
 if (Meteor.isServer) {
-  Meteor.publish('projects', function() {
-    return Projects.find({
+  Meteor.publish('Deployments', function() {
+    return Deployments.find({
       ownerId: this.userId,
     });
   });
 }
 
 Meteor.methods({
-  'projects.save'(info) {
+  'deployments.create'(info) {
     check(info, {
       _id: Match.Maybe(String),
       ownerId: String,
@@ -28,11 +28,11 @@ Meteor.methods({
     if (!this.userId || (info.ownerId && info.ownerId !== this.userId)) {
       throw new Meteor.Error('not-authorized');
     }
-    console.log("Saving", info);
+    console.log("Deploying", info);
   
     const at = new Date();
     if (!info._id) { // new project
-      return Projects.insert({
+      return Deployments.insert({
         ownerId: this.userId,
         createdAt: at,
         updatedAt: at,
@@ -42,7 +42,7 @@ Meteor.methods({
         graph: info.graph,
       });
     } else { // update project
-      return Projects.update(info._id, {$set: {
+      return Deployments.update(info._id, {$set: {
         updatedAt: at,
 
         name: info.name,
@@ -50,15 +50,15 @@ Meteor.methods({
         graph: info.graph,
       }});
     }
-  },
-  'projects.remove'(_id) {
+  },  
+  'deployments.remove'(_id) {
     check(_id, String);
 
-    const project = Projects.findOne(_id);
-    if (project.ownerId !== this.userId) {
+    const deploy = Deployments.findOne(_id);
+    if (deploy.ownerId !== this.userId) {
       throw new Meteor.Error('not-authorized');
     }
 
-    Projects.remove(_id);
+    Deployments.remove(_id);
   },
 });

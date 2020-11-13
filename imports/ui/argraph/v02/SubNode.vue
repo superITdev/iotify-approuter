@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import BaseNode from '/imports/ui/argraph/v02/BaseNode.vue'
+import BaseNode from './BaseNode.vue'
 import sparkline from 'vue-sparklines'
 
 export default {

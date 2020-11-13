@@ -49,17 +49,18 @@ import store from '/imports/store'
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: process.env.ROOT_URL,
   routes, // short for `routes: routes`
   scrollBehavior (to, from, savedPosition) {
     return { x: 0, y: 0 }
   }
 });
+
 router.beforeResolve((to, from, next) => {
   // app icon
   const link = document.querySelector("[rel='icon']")
   link.setAttribute('href', '/img/favicon.ico');
-
+  //TBD: Review this code for security
   if (to.matched.some(record => !record.meta.public)) {
     if (!router.app.authenticated) {
       const checkAuth = !!localStorage.getItem("Meteor.loginToken") && !!localStorage.getItem("Meteor.userId");
