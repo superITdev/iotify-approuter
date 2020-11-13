@@ -122,6 +122,8 @@ import debounce from 'lodash.debounce'
 import {Projects} from '/imports/api/projects.js'
 import {json2string} from '/common/CommonUtil.js'
 
+import { EventBus } from '/imports/methods/EventBus.js'
+
 let toolkit;
 let surface;
 let undoManager;
@@ -386,6 +388,7 @@ export default {
               this.graphCS.undoable = undoSize > 0;
               this.graphCS.redoable = redoSize > 0;
               this.graphChanged = true;
+              EventBus.$emit('adjust-group-area');
             }
         });
 

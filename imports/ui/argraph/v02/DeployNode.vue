@@ -1,5 +1,5 @@
 <template>
-    <div
+    <div ref="container"
         :style="{
             left:obj.left + 'px',
             top:obj.top + 'px',
@@ -13,7 +13,8 @@
             <button class="item-delete" v-on:click="maybeDelete(true)"/>
         </div>
 
-        <div class="group-title"
+        <div ref="titlebar"
+            class="group-title"
             :style="{
                 backgroundColor: obj.mcolor,
             }"
@@ -21,7 +22,7 @@
             {{obj.itemTitle}}
         </div>
 
-        <div jtk-group-content="true"/>
+        <div ref="groupArea" jtk-group-content="true"/>
 
         <!-- disable connectivity with this group -->
         <!-- <div class="group-connect connect"/> -->
@@ -32,7 +33,29 @@
 
 <script>
     import BaseGroup from '/imports/ui/argraph/v02/BaseGroup.vue'
+    import { EventBus } from '/imports/methods/EventBus.js'
+
     export default {
-        mixins:[BaseGroup]
+        mixins:[BaseGroup],
+        methods: {
+            adjustArea() {
+                const style = getComputedStyle(this.$refs.groupArea);
+                const marginLeft = parseInt(style.marginLeft);
+                const marginRight = parseInt(style.marginRight);
+                const marginTop = parseInt(style.marginTop);
+                const marginBottom = parseInt(style.marginBottom);
+
+                const width = this.$refs.titlebar.offsetWidth - marginLeft - marginRight;
+                const height = this.$refs.container.clientHeight - this.$refs.titlebar.offsetHeight - marginTop - marginBottom;
+                this.$refs.groupArea.style.width = `${width}px`;
+                this.$refs.groupArea.style.height = `${height}px`;
+            }
+        },
+        created() {
+            EventBus.$on('adjust-group-area', this.adjustArea)
+        },
+        beforeDestroy() {
+            EventBus.$off('adjust-group-area', this.adjustArea)
+        },
     }
 </script>
