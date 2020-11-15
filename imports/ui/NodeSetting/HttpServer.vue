@@ -35,7 +35,8 @@
             <v-responsive :height="vs.rowGap"/>
             <v-text-field
                 label="Endpoint URL"
-                value="https://endpoint122.app.route.network"
+                v-model="url"
+                readonly
                 hint="Send data on the public URL above. Show sample curl command."
                 persistent-hint
                 outlined
@@ -47,7 +48,7 @@
             <v-responsive :height="vs.rowGap"/>
             <v-text-field
                 label="Channel"
-                value="rambo"
+                v-model="cid"
                 hint="All received payload shall be published on channel rambo"
                 persistent-hint
                 outlined
@@ -116,7 +117,8 @@ export default {
             manualAutomatic: 'automatic',
             loadBalancingTicks: [1, 2, 3, 4, 5, 6],
             loadBalancing: [2, 4],
-
+            cid:'rambo',
+            url: 'https://abc.app.iotify.io',
             curRoute: null,
             routes: ['default', 'route2'],
             routeProtocols: ['GET', 'POST'],
@@ -127,7 +129,18 @@ export default {
                 rowGap: 10,
             }
         }
-    )
+    ),
+     watch: {
+        // a computed getter
+        cid: function (val) {
+          // `this` points to the vm instance
+          this.url = `https://${val}.app.iotify.io`;    
+          console.log(this.url);
+        }
+      },
+    mounted(){
+       this.url = `https://${this.cid}.app.iotify.io`;     
+    },
 }
 </script>
 
