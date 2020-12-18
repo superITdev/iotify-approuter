@@ -26,6 +26,7 @@
     "lodash.debounce": "^4.0.8",
     "meteor-node-stubs": "^0.4.1",
     "moment": "^2.29.1",
+    "simpl-schema": "^1.10.2",
     "vue": "^2.6.12",
     "vue-chartjs": "^3.5.1",
     "vue-meta": "^1.6.0",

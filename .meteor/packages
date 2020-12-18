@@ -27,3 +27,4 @@ jquery
 ardatan:webpack
 ardatan:webpack-dev-middleware
 highland:meteor-streams
+aldeed:collection2
