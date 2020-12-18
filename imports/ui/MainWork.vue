@@ -97,7 +97,7 @@
       <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small @click="onDeploy">Deploy</v-btn>
  
     </v-row>
-    <GraphV02 :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
+    <Graph :surfaceId="surfaceId" @onGraphSetModeChanged="onGraphSetModeChanged"/>
   </div>
 </v-card>
 </template>
@@ -112,7 +112,7 @@ import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
 import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-import GraphV02 from '/imports/ui/argraph/Graph.vue'
+import Graph from '/imports/ui/argraph/Graph.vue'
 
 import debounce from 'lodash.debounce'
 import {Projects} from '/imports/api/projects.js'
@@ -138,7 +138,7 @@ function isFullScreenMode() {
 export default {
   components: {
     NodePanels,
-    GraphV02,
+    Graph,
   },
   meteor: {
     $subscribe: {
@@ -258,7 +258,7 @@ export default {
       const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypePath(nodeItem, typePath));
 
       const major = this.getMajorCategory(nodeItem.majorType);
-      const v02 = {
+      const nodeData = {
         ...major.nodeBaseInfo, // base
         ...nodeItem, // self
         // customize
@@ -272,10 +272,10 @@ export default {
           saveStore: !recentlyUsed
         }
       }
-      v02.mw = v02.w; // min-width : initially
-      v02.mcolor = major.color;
+      nodeData.mw = nodeData.w; // min-width : initially
+      nodeData.mcolor = major.color;
 
-      return v02;
+      return nodeData;
     },
     doSearchNodeItems() {
       this.filterNodeItems = this.searchNodeItems==null ? "" : this.searchNodeItems;
