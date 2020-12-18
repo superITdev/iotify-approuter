@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import BaseGroup from '/imports/ui/argraph/v02/BaseGroup.vue'
+    import BaseGroup from '/imports/ui/argraph/BaseGroup.vue'
     import { EventBus } from '/imports/methods/EventBus.js'
 
     export default {

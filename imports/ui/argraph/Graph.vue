@@ -1,5 +1,5 @@
 <template>
-    <div style="width:100%; height:100%; position:relative;" class="argraph-v02">
+    <div style="width:100%; height:100%; position:relative;" class="argraph">
         <jsplumb-toolkit
             ref="toolkitComponent"
             :renderParams="renderParams"
@@ -16,8 +16,8 @@
 import {jsPlumb, DrawingTools} from 'jsplumbtoolkit'
 import {jsPlumbToolkitVue2} from 'jsplumbtoolkit-vue2'
 
-import DeployNode from '/imports/ui/argraph/v02/DeployNode.vue'
-import SubNode from '/imports/ui/argraph/v02/SubNode.vue'
+import DeployNode from '/imports/ui/argraph/DeployNode.vue'
+import SubNode from '/imports/ui/argraph/SubNode.vue'
 
 import NodeMajorTypes from '/common/NodeMajorTypes.js'
 import * as NodeUtil from '/common/NodeUtil.js'

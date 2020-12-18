@@ -52,9 +52,6 @@
     </v-list>
   </perfect-scrollbar>
   <div class="flex-grow-1 iotar-graph-view pa-1">
-    <!-- alive_graphV01 -->
-    <!-- <Controls :surfaceId="surfaceId"/> -->
-    <!-- <GraphV01 :surfaceId="surfaceId"/> -->
     <!-- toolbox -->
     <v-sheet class="iotar-graph-toolbox rounded-pill grey lighten-3 ma-3 d-flex">
       <v-btn icon :color="graphCS.setMode==='pan' ? graphCS.toolSelColor : graphCS.toolColor" title="Pan" v-on:click="onGraphSetMode('pan')">
@@ -115,10 +112,7 @@ import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
 import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
 
-// alive_graphV01
-// import Controls from '/imports/ui/argraph/v01/Controls.vue'
-// import GraphV01 from '/imports/ui/argraph/v01/Flowchart.vue'
-import GraphV02 from '/imports/ui/argraph/v02/Graph.vue'
+import GraphV02 from '/imports/ui/argraph/Graph.vue'
 
 import debounce from 'lodash.debounce'
 import {Projects} from '/imports/api/projects.js'
@@ -144,9 +138,6 @@ function isFullScreenMode() {
 export default {
   components: {
     NodePanels,
-    // alive_graphV01
-    // Controls,
-    // GraphV01,
     GraphV02,
   },
   meteor: {
@@ -265,17 +256,6 @@ export default {
       const typePath = el.getAttribute("nodeItemSelector");
 
       const nodeItem = this.allNodeItems.find(nodeItem => NodeUtil.checkTypePath(nodeItem, typePath));
-
-      // alive_graphV01
-      // const v01 = {
-      //   id: jsPlumbUtil.uuid(),
-      //   type: nodeItem.majorType,
-      //   text: nodeItem.itemTitle,
-      //   info: nodeItem,
-      //   w: 180,
-      //   h: 130,
-      // }
-      // return v01;
 
       const major = this.getMajorCategory(nodeItem.majorType);
       const v02 = {

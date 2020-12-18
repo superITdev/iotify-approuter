@@ -53,112 +53,7 @@ svg.jtk-drag-drop-hover path {
     box-shadow: 0 0 2px;
 }
 
-/* argraph version-01 */
-.argraph-v01 .flowchart-object {
-    z-index: 10;
-    border: none;
-    overflow: visible;
-    align-items: flex-start;
-    justify-content: flex-start;
-    background-color:transparent;
-}
-
-.argraph-v01 .jtk-node svg {
-    position: absolute;
-    stroke: #CCC;
-    stroke-width: 2px;
-    fill: white;
-    left: 0;
-    top: 0;
-}
-
-.argraph-v01 .flowchart-object text {
-    stroke: none;
-    fill: black;
-    font-family: "Open Sans",sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.argraph-v01 .flowchart-object .node-action {
-    display: none;
-    position: absolute;
-    top: -14px;
-    cursor: pointer;
-    z-index: 10;
-    left: auto;
-    color:white;
-    transition:transform 0.1s;
-}
-
-.argraph-v01 .flowchart-object .node-action:hover {
-    transform: scale(1.3, 1.3);
-}
-
-.argraph-v01 .flowchart-object .node-edit {
-    right: 20px;
-    background-color: #4ea758;
-}
-
-.argraph-v01 .flowchart-object .node-delete {
-    right: 4px;
-    background-color: #d83f3f;
-}
-
-.argraph-v01 .flowchart-object.jtk-surface-selected-element .node-action {
-    display: flex;
-}
-
-.argraph-v01 .flowchart-object .connect {
-    position:absolute;
-    left:50%;
-    margin-left:-7.5px;
-    background-color:rgb(132, 172, 179);
-    transition:transform 0.1s;
-}
-
-.argraph-v01 .flowchart-object .connect:hover {
-    transform: scale(1.3, 1.3);
-}
-
-.argraph-v01 .flowchart-action .connect {
-    bottom:18px;
-}
-
-.argraph-v01 .flowchart-question .connect {
-    bottom:28px;
-}
-
-.argraph-v01 .flowchart-start .connect {
-    right: 17px;
-    left: auto;
-    top: 50%;
-    margin-top: -7.5px;
-}
-
-.argraph-v01 .connect {
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    border-radius: 50%;
-}
-
-.argraph-v01 .connect:after {
-    content:"→";
-}
-
-.argraph-v01 .connection-drop svg {
-    fill:#CCC;
-}
-
-.argraph-v01 .connection-drop text {
-    fill:black;
-}
-
-/* argraph version-02 */
+/* argraph */
 .argraph-item-toolbox {
     position: absolute;
     top: 3px;
@@ -256,12 +151,12 @@ svg.jtk-drag-drop-hover path {
 }
 
 /* edge(connector) */
-.argraph-v02 .jtk-connector {
+.argraph .jtk-connector {
     z-index: 11;
 }
-.argraph-v02 .jtk-edge-delete {
+.argraph .jtk-edge-delete {
     z-index: 13;
 }
-.argraph-v02 .jtk-flowchart-handle {
+.argraph .jtk-flowchart-handle {
     z-index: 12;
 }
