@@ -107,7 +107,7 @@ import * as NodeTemplates from '/common/NodeTemplates.js';
 import NodePanels from '/imports/ui/NodePanels/NodePanels.vue';
 import * as NodeUtil from '/common/NodeUtil.js';
 
-import  { Dialogs, jsPlumbToolkit, jsPlumbUtil, Surface } from "jsplumbtoolkit"
+import  { jsPlumbToolkit, jsPlumbUtil, Surface } from "jsplumbtoolkit"
 import { jsPlumbToolkitVue2 } from 'jsplumbtoolkit-vue2'
 import { jsPlumbToolkitUndoRedo } from "jsplumbtoolkit-undo-redo";
 import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connectors";
@@ -376,9 +376,6 @@ export default {
     }
   },
   mounted() {
-    jsPlumbToolkit.ready(() => {
-        Dialogs.initialize({selector: ".dlg"});
-    });
     jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {
         surface = s;
         toolkit = s.getToolkit();
