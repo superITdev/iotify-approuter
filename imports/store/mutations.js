@@ -7,13 +7,13 @@ export const authenticated = (state, auth) => {
 export const recentlyUsedNodeItems = (state, {majorType, nodeItems}) => {
   Vue.set(state.recentlyUsedNodeItems, majorType, nodeItems);
 }
-export const projectInfo = (state, info) => {
-  state.projectInfo = {...state.projectInfo, ...info}
-  if (!state.projectInfo.ownerId) state.projectInfo.ownerId = Meteor.userId();
+export const deploymentInfo = (state, info) => {
+  state.deploymentInfo = {...state.deploymentInfo, ...info}
+  if (!state.deploymentInfo.ownerId) state.deploymentInfo.ownerId = Meteor.userId();
 }
-export const newProjectInfo = (state, info) => {
-  state.projectInfo = {...info}
-  if (!state.projectInfo.ownerId) state.projectInfo.ownerId = Meteor.userId();
+export const newDeploymentInfo = (state, info) => {
+  state.deploymentInfo = {...info}
+  if (!state.deploymentInfo.ownerId) state.deploymentInfo.ownerId = Meteor.userId();
 }
 
 // BreadCrumbs

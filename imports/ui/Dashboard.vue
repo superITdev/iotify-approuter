@@ -29,9 +29,9 @@
             <v-col cols="auto"><AddFromTemplate/></v-col>
           </v-row>
           <v-row dense justify="start">
-            <v-col cols="2" v-for="(project, i) in projects" :key="i">
-              <v-btn color="blue darken-3 headline" small fab depressed @click="onGoWorkPage(project)">T</v-btn>
-              <div class="body-2 grey--text text--darken-1">{{project.name}}</div>
+            <v-col cols="2" v-for="(deployment, i) in deployments" :key="i">
+              <v-btn color="blue darken-3 headline" small fab depressed @click="onGoWorkPage(deployment)">T</v-btn>
+              <div class="body-2 grey--text text--darken-1">{{deployment.name}}</div>
             </v-col>
           </v-row>
         </template>
@@ -61,7 +61,7 @@ const auth0Lock = new Auth0Lock(
   }
 );
 
-import {Projects} from '/imports/api/projects.js'
+import {Deployments} from '/imports/api/deployments.js'
 import AddNewProject from '/imports/ui/project/AddNewProject.vue'
 import AddFromTemplate from '/imports/ui/project/AddFromTemplate.vue'
 
@@ -84,11 +84,11 @@ export default {
   },
   meteor: {
     $subscribe: {
-      "projects": [],
+      "deployments": [],
     },
-    projects() {
-      const filteredProjects = Projects.find({}, {sort: {updatedAt: -1}}).fetch();
-      return filteredProjects;
+    deployments() {
+      const filtered = Deployments.find({}, {sort: {updatedAt: -1}}).fetch();
+      return filtered;
     },
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
       }
     },
     onGoWorkPage(project) {
-      this.$store.commit('projectInfo', project);
+      this.$store.commit('deploymentInfo', project);
       this.$router.push('/work');
     },
   },

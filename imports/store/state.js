@@ -4,17 +4,17 @@ const state = {
   recentlyUsedNodeItems: {
     // majorType : nodeItems([])
   },
-  projectInfo: {
-    // current project info
+  deploymentInfo: {
+    // current deployment info
     // hidden fields : settled automatically from document returned
     // _id: // projectId
     // createdAt:
     // updatedAt:
 
-    ownerId: '', // userId who was created this project
-    name: '', // name of project
-    description: '', // description for project
-    graph: '', // graph-json string of project
+    ownerId: '', // userId who was created this deployment
+    name: '', // name of deployment
+    description: '', // description for deployment
+    graph: '', // graph-json string of deployment
   },
   // for ui
   snack: {

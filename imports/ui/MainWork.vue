@@ -93,7 +93,6 @@
       <v-btn icon class="mr-2" @click="exitPage">
         <v-avatar size="25"><v-img :src="!!meAvatar ? meAvatar : '/img/favicon.ico'" lazy-src="/img/favicon.ico"/></v-avatar>
       </v-btn>
-      <v-btn class="iotar-graph-tool-btn mr-2" color="green accent-4" dark rounded small @click="onSave">Save</v-btn>
       <v-btn class="iotar-graph-tool-btn" color="indigo accent-4" dark rounded small @click="onDeploy">Deploy</v-btn>
  
     </v-row>
@@ -115,7 +114,6 @@ import { jsPlumbToolkitEditableConnectors } from "jsplumbtoolkit-editable-connec
 import Graph from '/imports/ui/argraph/Graph.vue'
 
 import debounce from 'lodash.debounce'
-import {Projects} from '/imports/api/projects.js'
 import {Deployments} from '/imports/api/deployments.js'
 
 import {json2string} from '/common/CommonUtil.js'
@@ -142,8 +140,7 @@ export default {
   },
   meteor: {
     $subscribe: {
-      "projects": [],
-      "deployments":[],
+      "deployments": [],
     },
   },
   data () {
@@ -341,39 +338,22 @@ export default {
       if (!plus) nudge *= -1;
       surface.nudgeZoom(nudge);
     },
-    onSave() {
+    onDeploy() {
       const graphJson = toolkit.exportData();
       const graph = json2string(graphJson);
-      this.$store.commit('projectInfo', {graph});
+      this.$store.commit('deploymentInfo', {graph});
 
-      Meteor.call('projects.save', this.$store.state.projectInfo, (error, response) => {
+      Meteor.call('deployments.deploy', this.$store.state.deploymentInfo, (error, response) => {
         if (error) {
           this.$store.commit("snack", {text: "Failed to save.", color: "error"})
         } else {
-          const result = Projects.findOne(this.$store.state.projectInfo._id ? this.$store.state.projectInfo._id : response);
-          this.$store.commit('projectInfo', result);
+          const result = Deployments.findOne(this.$store.state.deploymentInfo._id ? this.$store.state.deploymentInfo._id : response);
+          this.$store.commit('deploymentInfo', result);
           this.$store.commit("snack", {text: "Saved successfully.", color: "success"})
           this.graphChanged = false;
         }
       });
-    },    
-    onDeploy() {
-      const graphJson = toolkit.exportData();
-      const graph = json2string(graphJson);
-      this.$store.commit('projectInfo', {graph});
-
-      Meteor.call('deployments.create', this.$store.state.projectInfo, (error, response) => {
-        debugger;
-        if (error) {
-          this.$store.commit("snack", {text: "Failed to deploy.", color: "error"})
-        } else {
-          const result = Deployments.findOne(this.$store.state.projectInfo._id ? this.$store.state.projectInfo._id : response);
-          this.$store.commit('projectInfo', result);
-          this.$store.commit("snack", {text: "Deployed successfully.", color: "success"})
-          this.graphChanged = false;
-        }
-      });
-    }
+    },
   },
   mounted() {
     jsPlumbToolkitVue2.getSurface(this.surfaceId, (s) => {
@@ -392,8 +372,8 @@ export default {
         });
 
         toolkit.clear();
-        if (this.$store.state.projectInfo.graph) {
-          const data = JSON.parse(this.$store.state.projectInfo.graph);
+        if (this.$store.state.deploymentInfo.graph) {
+          const data = JSON.parse(this.$store.state.deploymentInfo.graph);
           toolkit.load({data});
         }
         this.graphChanged = false; // reset initially

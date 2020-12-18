@@ -15,8 +15,8 @@
       <v-card-text>
         There will be added useful templates to start new project.
         <v-form ref="form" lazy-validation @keyup.native.enter="save" @keyup.native.esc="close">
-          <v-text-field label="Name" required :rules="nameRules" v-model="projectInfo.name"/>
-          <v-textarea label="Description" v-model="projectInfo.description"/>
+          <v-text-field label="Name" required :rules="nameRules" v-model="deploymentInfo.name"/>
+          <v-textarea label="Description" v-model="deploymentInfo.description"/>
         </v-form>
       </v-card-text>
       <v-card-actions>
@@ -36,7 +36,7 @@ export default {
       nameRules: [
         v => !!v || 'Name is required.',
       ],
-      projectInfo: {
+      deploymentInfo: {
         name: '',
         description: '',
       }
@@ -49,7 +49,7 @@ export default {
         return;
       }
 
-      this.$store.commit('newProjectInfo', this.projectInfo);
+      this.$store.commit('newDeploymentInfo', this.deploymentInfo);
 
       this.dialog = false;
       this.$refs.form.reset();
